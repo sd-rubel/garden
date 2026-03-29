@@ -59,7 +59,7 @@
     }
     .tab-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
 
-    /* --- Grid & Card with Top-Left Circle Numbering --- */
+    /* --- Grid & Card --- */
     main { flex: 1 0 auto; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 25px; padding: 0 6% 50px; }
     
@@ -84,7 +84,7 @@
     .fav-btn { position: absolute; top: 15px; right: 15px; color: #eee; font-size: 1.3rem; transition: 0.3s; z-index: 5; }
     .fav-btn.active { color: var(--gold); }
 
-    /* --- Modal Scroll Reset Logic --- */
+    /* --- Modal --- */
     .modal {
       position: fixed; inset: 0; background: #fff; z-index: 2000; display: none; 
       overflow-y: auto; scroll-behavior: auto !important;
@@ -103,16 +103,15 @@
     .step-card { display: flex; gap: 15px; background: #fafafa; padding: 1.2rem; border-radius: 18px; margin-bottom: 12px; border: 1px solid #eee; }
     .step-icon { width: 35px; height: 35px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 0.9rem; }
 
-    /* Q&A Icons */
     .qna-card { background: #fffdf5; border: 1px solid #f6eed0; padding: 1.5rem; border-radius: 20px; margin-bottom: 12px; }
     .q-text { font-weight: 800; color: #7d651a; margin-bottom: 8px; display: flex; gap: 10px; }
     .q-text i { color: #e67e22; }
     .a-text { display: flex; gap: 10px; color: #444; padding-left: 5px; line-height: 1.6; }
     .a-text i { color: #27ae60; margin-top: 4px; }
 
-    /* --- Updated Footer Design --- */
+    /* --- Footer --- */
     footer { 
-      background: #eff5f2; /* হালকা এবং সুন্দর ব্যাকগ্রাউন্ড কালার */
+      background: #eff5f2;
       color: #3b4d45; 
       padding: 40px 6% 25px; 
       text-align: center; 
@@ -174,16 +173,32 @@
   let favorites = JSON.parse(localStorage.getItem('sd_favs')) || [];
   let currentTab = 'all';
 
+  // --- Optimized JSON Loader ---
   async function init() {
     let i = 1;
-    while(true) {
+    let keepFetching = true;
+
+    while(keepFetching) {
+      // ফাইল নেম ফরম্যাট করা: 01, 02, 03...
+      let fileName = String(i).padStart(2, '0'); 
       try {
-        let res = await fetch(`task/${String(i).padStart(2, '0')}.json`);
-        if(!res.ok) break;
+        let res = await fetch(`task/${fileName}.json`);
+        
+        // যদি ফাইলটি পাওয়া না যায় (404), তবে লুপ বন্ধ হবে
+        if(!res.ok) {
+          keepFetching = false;
+          break;
+        }
+
         let data = await res.json();
-        allData = [...allData, ...data.gardening_solutions];
-        i++;
-      } catch (e) { break; }
+        if(data.gardening_solutions) {
+          allData = [...allData, ...data.gardening_solutions];
+        }
+        i++; // পরের ফাইলের জন্য ইনক্রিমেন্ট
+      } catch (e) { 
+        // কোনো এরর হলে লুপ বন্ধ হবে (যেমন নেটওয়ার্ক ইস্যু বা ফাইল শেষ হওয়া)
+        keepFetching = false; 
+      }
     }
     renderGrid(allData);
   }
@@ -191,6 +206,12 @@
   function renderGrid(data) {
     const grid = document.getElementById('mainGrid');
     let displayData = currentTab === 'all' ? data : data.filter(d => favorites.includes(d.id));
+    
+    if (displayData.length === 0) {
+      grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 50px; opacity: 0.6;">কোনো তথ্য পাওয়া যায়নি।</div>`;
+      return;
+    }
+
     grid.innerHTML = displayData.map((s, idx) => `
       <div class="card" onclick="openModal(${s.id})">
         <div class="card-badge">${idx + 1}</div>
@@ -205,11 +226,16 @@
   function openModal(id) {
     const s = allData.find(x => x.id === id);
     const idx = allData.findIndex(x => x.id === id);
+    if(!s) return;
+
     const modal = document.getElementById('dataModal');
-    
     modal.style.display = 'block';
     modal.scrollTop = 0; 
     document.body.style.overflow = 'hidden';
+
+    // নেভিগেশন বাটনের জন্য লজিক
+    const prevItem = allData[idx - 1];
+    const nextItem = allData[idx + 1];
 
     let html = `
       <div class="modal-hero">
@@ -244,8 +270,12 @@
         `).join('')}
 
         <div class="modal-nav">
-          <button class="nav-btn" onclick="openModal(${allData[idx-1]?.id || id})"><i class="fa-solid fa-chevron-left"></i> আগের পোস্ট</button>
-          <button class="nav-btn" onclick="openModal(${allData[idx+1]?.id || id})">পরের পোস্ট <i class="fa-solid fa-chevron-right"></i></button>
+          <button class="nav-btn" ${!prevItem ? 'disabled style="opacity:0.5; cursor:default;"' : `onclick="openModal(${prevItem.id})"`}>
+            <i class="fa-solid fa-chevron-left"></i> আগের পোস্ট
+          </button>
+          <button class="nav-btn" ${!nextItem ? 'disabled style="opacity:0.5; cursor:default;"' : `onclick="openModal(${nextItem.id})"`}>
+            পরের পোস্ট <i class="fa-solid fa-chevron-right"></i>
+          </button>
         </div>
       </div>
     `;
@@ -255,7 +285,6 @@
   function closeModal() {
     const modal = document.getElementById('dataModal');
     modal.style.display = 'none';
-    modal.scrollTop = 0; 
     document.body.style.overflow = 'auto';
   }
 
@@ -280,6 +309,7 @@
     renderGrid(filtered);
   });
 
+  // পেজ লোড হলে কল হবে
   init();
 </script>
 </body>
