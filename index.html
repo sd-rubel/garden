@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-  <title>SD Gardening Solution | Organic Plant Care</title>
-  <!-- Hind Siliguri Font (Soft Bengali/ Hindi friendly) -->
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>SD Gardening Solution | Professional Organic Solutions</title>
+  <!-- Hind Siliguri Font + Google Fonts (Inter for modern accents) -->
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
       margin: 0;
@@ -14,381 +16,532 @@
     }
 
     body {
-      font-family: 'Hind Siliguri', sans-serif;
-      background: linear-gradient(145deg, #eef7e8 0%, #d9e8cf 100%);
-      min-height: 100vh;
-      padding: 1rem;
-      color: #1a3a1a;
+      font-family: 'Hind Siliguri', 'Inter', sans-serif;
+      background: #f4f7f2;
+      color: #1e2a1c;
     }
 
-    /* main container */
-    .app-container {
-      max-width: 550px;
+    /* ========== STICKY HEADER (PREMIUM) ========== */
+    .premium-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 245, 0.96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid rgba(80, 110, 50, 0.2);
+      padding: 0.9rem 1.5rem;
+    }
+
+    .header-container {
+      max-width: 1300px;
       margin: 0 auto;
-      background: rgba(255, 255, 245, 0.85);
-      backdrop-filter: blur(2px);
-      border-radius: 2rem;
-      box-shadow: 0 20px 35px -12px rgba(0, 32, 0, 0.2);
-      overflow: hidden;
-      padding: 1.2rem 1rem 1.8rem;
-      transition: all 0.2s ease;
-    }
-
-    /* header / logo area */
-    .header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding-bottom: 1rem;
-      border-bottom: 2px solid #6f9e3f;
-      margin-bottom: 1.5rem;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
     .logo-icon {
-      background: #2e7d32;
-      width: 48px;
-      height: 48px;
-      border-radius: 32px;
+      background: linear-gradient(145deg, #2a6b2f, #1c481f);
+      width: 52px;
+      height: 52px;
+      border-radius: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 6px 12px rgba(46, 125, 50, 0.2);
-    }
-    .logo-icon svg {
-      width: 32px;
-      height: 32px;
-      filter: drop-shadow(0 1px 1px rgba(0,0,0,0.1));
-    }
-    .header h1 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, #1f5e2c, #4c8b3c);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      letter-spacing: -0.3px;
-      line-height: 1.2;
-    }
-    .sub {
-      font-size: 0.7rem;
-      color: #567845;
-      font-weight: 500;
-      margin-top: 4px;
+      box-shadow: 0 8px 14px rgba(30, 80, 20, 0.2);
     }
 
-    /* stats & loader */
-    .info-bar {
+    .logo-icon i {
+      font-size: 28px;
+      color: #f9f3d9;
+    }
+
+    .brand-text h1 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #1f5722, #3d8f40);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-text p {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: #5a7c4a;
+      letter-spacing: 0.5px;
+    }
+
+    .header-stats {
+      background: #eef3e8;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #2b5e2b;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Main content area */
+    .main-content {
+      max-width: 1300px;
+      margin: 2rem auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    /* loading & info */
+    .info-panel {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 1rem;
-      font-size: 0.85rem;
-      background: #efffe7;
-      padding: 0.5rem 1rem;
+      align-items: center;
+      margin-bottom: 2rem;
+      background: #ffffffcc;
+      backdrop-filter: blur(4px);
+      padding: 0.8rem 1.5rem;
+      border-radius: 60px;
+      border: 1px solid #ddebd0;
+    }
+
+    .solution-counter {
+      background: #2e6b2f;
+      padding: 0.3rem 1rem;
       border-radius: 40px;
-    }
-    .solution-count {
-      font-weight: 600;
-      background: #2e5c2e;
-      padding: 0.2rem 0.7rem;
-      border-radius: 30px;
       color: white;
-      font-size: 0.75rem;
+      font-weight: 600;
+      font-size: 0.85rem;
     }
-    .loader-small {
+
+    .loader-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #3c6e3a;
+      font-size: 0.8rem;
+    }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #cae0bc;
+      border-top: 2px solid #2a802a;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Grid for solution cards (titles) */
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .solution-card {
+      background: #ffffff;
+      border-radius: 28px;
+      overflow: hidden;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+      border: 1px solid #e4f0da;
+      cursor: pointer;
+    }
+
+    .solution-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 30px -12px rgba(40, 80, 20, 0.2);
+      border-color: #b9d5a2;
+    }
+
+    .card-content {
+      padding: 1.6rem;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #1a4f1a;
+      margin-bottom: 0.6rem;
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 0.75rem;
-      color: #3b6e3b;
+      flex-wrap: wrap;
     }
-    .spinner {
-      width: 18px;
-      height: 18px;
-      border: 2px solid #c8e6b5;
-      border-top: 2px solid #2e7d32;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-    }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    /* title list grid */
-    .titles-grid {
+    .card-title i {
+      color: #6f9e3f;
+      font-size: 1.2rem;
+    }
+
+    .card-short-desc {
+      font-size: 0.85rem;
+      color: #4c6742;
+      line-height: 1.4;
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-meta {
       display: flex;
-      flex-direction: column;
-      gap: 0.9rem;
-      margin-top: 0.5rem;
-      max-height: 65vh;
-      overflow-y: auto;
-      padding-right: 4px;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
     }
-    .title-card {
-      background: white;
-      border-radius: 28px;
-      padding: 1rem 1.3rem;
-      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.05);
-      transition: all 0.2s;
-      border: 1px solid #e2f0d3;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .title-card:hover {
-      transform: translateY(-3px);
-      background: #fefffa;
-      border-color: #9bc06d;
-      box-shadow: 0 12px 20px -10px rgba(70, 110, 30, 0.2);
-    }
-    .title-text {
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #1b4d1b;
-      line-height: 1.3;
-      flex: 1;
-    }
-    .click-badge {
-      background: #d9e8cf;
-      border-radius: 50px;
-      padding: 5px 12px;
+
+    .meta-badge {
+      background: #f0f7ea;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
       font-size: 0.7rem;
-      font-weight: 600;
-      color: #2a6230;
-    }
-    .empty-msg {
-      text-align: center;
-      padding: 3rem;
-      background: #fafae9;
-      border-radius: 2rem;
-      color: #6b8c4a;
       font-weight: 500;
+      color: #457a3b;
     }
 
-    /* Modal overlay */
+    .card-footer-action {
+      margin-top: 1rem;
+      text-align: right;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #58853e;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: white;
+      border-radius: 2rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      border: 1px dashed #bed5aa;
+    }
+
+    /* MODAL (Premium) */
     .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(20, 35, 10, 0.7);
-      backdrop-filter: blur(6px);
+      background: rgba(20, 30, 12, 0.75);
+      backdrop-filter: blur(8px);
       z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: center;
       visibility: hidden;
       opacity: 0;
-      transition: visibility 0.2s, opacity 0.2s;
+      transition: all 0.2s ease;
       padding: 1rem;
     }
+
     .modal-overlay.active {
       visibility: visible;
       opacity: 1;
     }
+
     .modal-container {
-      background: #ffffffef;
-      backdrop-filter: blur(4px);
+      background: #fffef7;
       width: 100%;
-      max-width: 520px;
+      max-width: 750px;
       max-height: 85vh;
       border-radius: 2rem;
       overflow-y: auto;
-      box-shadow: 0 30px 40px rgba(0, 0, 0, 0.3);
-      animation: fadeSlideUp 0.25s ease-out;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.3);
+      animation: modalSlideUp 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
     }
-    @keyframes fadeSlideUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+
+    @keyframes modalSlideUp {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
+
     .modal-header {
       position: sticky;
       top: 0;
-      background: #f1f9ea;
-      padding: 1rem 1.5rem;
-      border-bottom: 1px solid #cbe5b4;
+      background: #fffffffa;
+      padding: 1.2rem 1.8rem;
+      border-bottom: 1px solid #e2efd4;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 5;
+      z-index: 10;
     }
-    .modal-header h3 {
-      font-size: 1.35rem;
+
+    .modal-header h2 {
+      font-size: 1.4rem;
       font-weight: 700;
-      color: #1c4f1c;
-      margin: 0;
-      padding-right: 1rem;
+      color: #205520;
     }
+
     .close-modal {
       background: none;
       border: none;
       font-size: 1.8rem;
       cursor: pointer;
-      color: #577a39;
+      color: #7b9c60;
       transition: 0.1s;
-      line-height: 1;
-    }
-    .modal-body {
-      padding: 1.5rem;
-    }
-    .detail-section {
-      margin-bottom: 1.8rem;
-      border-bottom: 1px dashed #cfe3c0;
-      padding-bottom: 1rem;
-    }
-    .detail-section h4 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #2f6b2f;
-      margin-bottom: 0.8rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
     }
-    .ingredient-list, .step-list {
-      padding-left: 1.2rem;
-      list-style-type: none;
+
+    .close-modal:hover {
+      background: #edf5e6;
+      color: #3a6b2f;
     }
-    .ingredient-list li, .step-list li {
-      margin-bottom: 0.6rem;
+
+    .modal-body {
+      padding: 1.8rem;
+    }
+
+    .detail-section {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid #eaf1e2;
+      padding-bottom: 1.5rem;
+    }
+
+    .detail-section h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #2b672b;
+      margin-bottom: 1rem;
       display: flex;
+      align-items: center;
       gap: 10px;
+    }
+
+    .ingredient-list, .step-list {
+      list-style: none;
+      padding-left: 0.5rem;
+    }
+
+    .ingredient-list li, .step-list li {
+      margin-bottom: 0.75rem;
+      display: flex;
+      gap: 12px;
       font-size: 0.95rem;
     }
-    .step-number {
+
+    .step-num {
       font-weight: 700;
-      background: #e1f0d4;
-      width: 26px;
-      height: 26px;
+      background: #e8f3df;
+      width: 28px;
+      height: 28px;
       border-radius: 30px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: #2b692b;
+      color: #2c722c;
     }
-    .badge-info {
-      display: inline-block;
-      background: #eaf5e1;
-      padding: 0.2rem 0.7rem;
-      border-radius: 40px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      margin-right: 0.5rem;
-      margin-bottom: 0.4rem;
-    }
-    .faq-item {
-      background: #f8fff2;
-      border-radius: 1rem;
-      margin-bottom: 0.8rem;
-      padding: 0.7rem 1rem;
-    }
-    .faq-q {
-      font-weight: 700;
-      color: #2a572a;
-      margin-bottom: 0.3rem;
-      font-size: 0.9rem;
-    }
-    .faq-a {
-      font-size: 0.85rem;
-      color: #3f5438;
-      line-height: 1.4;
-    }
-    hr {
-      margin: 1rem 0;
-      border-color: #cce2bb;
-    }
-    .footer-meta {
-      font-size: 0.7rem;
-      color: #658a48;
+
+    .badge-group {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+      margin: 8px 0;
     }
-    ::-webkit-scrollbar {
-      width: 5px;
+
+    .premium-badge {
+      background: #ecf7e5;
+      padding: 0.25rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #317e31;
     }
-    ::-webkit-scrollbar-track {
-      background: #e2e9db;
-      border-radius: 10px;
+
+    .faq-item {
+      background: #fafef5;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+      padding: 0.9rem 1.2rem;
+      border-left: 4px solid #6eaa47;
     }
-    ::-webkit-scrollbar-thumb {
-      background: #8bb56a;
-      border-radius: 10px;
+
+    /* DARK FOOTER */
+    .premium-footer {
+      background: #0f2812;
+      color: #cfdfc4;
+      padding: 2rem 1.5rem 1.2rem;
+      margin-top: 3rem;
+      border-top: 1px solid #2f5430;
     }
-    button {
-      font-family: inherit;
+
+    .footer-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .footer-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-brand h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #e3f0d3;
+      margin-bottom: 0.3rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      color: #cbe5b2;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #f5ffd3;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #2b4f2a;
+      padding-top: 1.2rem;
+      text-align: center;
+      font-size: 0.75rem;
+    }
+
+    @media (max-width: 650px) {
+      .premium-header {
+        padding: 0.7rem 1rem;
+      }
+      .brand-text h1 {
+        font-size: 1.3rem;
+      }
+      .main-content {
+        padding: 0 1rem 2rem;
+      }
+      .solutions-grid {
+        grid-template-columns: 1fr;
+      }
+      .modal-header h2 {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
 <body>
 
-<div class="app-container">
-  <div class="header">
-    <div class="logo-icon">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 3L3 9L12 15L21 9L12 3Z" stroke="#FEF9E6" stroke-width="1.2" fill="#F9A825"/>
-        <path d="M12 15L12 21" stroke="#FEF9E6" stroke-width="1.5" fill="none"/>
-        <path d="M8 17L16 17" stroke="#FEF9E6" stroke-width="1.5" fill="none"/>
-        <circle cx="12" cy="9" r="1.5" fill="#FEF9E6"/>
-        <path d="M5 12L3 13.5L5 15" stroke="#FEF9E6" stroke-width="1.2" fill="none"/>
-        <path d="M19 12L21 13.5L19 15" stroke="#FEF9E6" stroke-width="1.2" fill="none"/>
-      </svg>
+<!-- STICKY HEADER (fixed) -->
+<header class="premium-header">
+  <div class="header-container">
+    <div class="logo-area">
+      <div class="logo-icon">
+        <i class="fas fa-seedling"></i>
+      </div>
+      <div class="brand-text">
+        <h1>Sd Gardening Solution</h1>
+        <p>প্রিমিয়াম জৈব সমাধান • প্রকৃতির সাথী</p>
+      </div>
     </div>
-    <div>
-      <h1>Sd Gardening Solution</h1>
-      <div class="sub">জৈব সমাধান • গাছের বন্ধু</div>
+    <div class="header-stats">
+      <i class="fas fa-leaf"></i>
+      <span id="globalCount">০</span>
+      <span>সolutions</span>
+    </div>
+  </div>
+</header>
+
+<main class="main-content">
+  <div class="info-panel">
+    <div><i class="fas fa-spa" style="color:#548c2f;"></i> <span>আমাদের সংগ্রহ</span></div>
+    <div class="loader-badge" id="loaderIndicator">
+      <div class="spinner"></div>
+      <span>JSON লোড হচ্ছে ...</span>
     </div>
   </div>
 
-  <div class="info-bar">
-    <span>🌿 আমার গাছের টিপস</span>
-    <span id="solutionCount" class="solution-count">০ টি সমাধান</span>
+  <div id="solutionsGridContainer" class="solutions-grid">
+    <div class="empty-state">
+      <i class="fas fa-tree" style="font-size: 2rem; color: #98b87a;"></i>
+      <p style="margin-top: 1rem;">সমাধান সংগ্রহ করা হচ্ছে। দয়া করে অপেক্ষা করুন...</p>
+      <small>task/01.json, task/02.json ইত্যাদি থেকে ডাটা নেয়া হচ্ছে</small>
+    </div>
   </div>
+</main>
 
-  <div id="loaderIndicator" class="loader-small" style="justify-content: center; margin-bottom: 12px;">
-    <div class="spinner"></div> <span>ডাটা লোড হচ্ছে (task/01.json, 02.json ...)</span>
-  </div>
-
-  <div id="titlesContainer" class="titles-grid">
-    <!-- dynamic titles will appear here -->
-    <div class="empty-msg">⏳ JSON ফাইল থেকে সমাধান সংগ্রহ করা হচ্ছে...</div>
-  </div>
-</div>
-
-<!-- Modal for details -->
-<div id="detailModal" class="modal-overlay">
+<!-- MODAL -->
+<div id="solutionModal" class="modal-overlay">
   <div class="modal-container">
     <div class="modal-header">
-      <h3 id="modalTitle">বিস্তারিত</h3>
-      <button class="close-modal" id="closeModalBtn">&times;</button>
+      <h2 id="modalTitle">বিস্তারিত</h2>
+      <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-body" id="modalBodyContent">
-      <!-- dynamic details injected -->
-      <div style="text-align:center; padding:1rem;">লোড হচ্ছে...</div>
+    <div class="modal-body" id="modalBody">
+      <!-- dynamic content -->
     </div>
   </div>
 </div>
 
+<!-- DARK FOOTER -->
+<footer class="premium-footer">
+  <div class="footer-container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h3><i class="fas fa-leaf"></i> Sd Gardening Solution</h3>
+        <p>প্রাকৃতিক কৃষি • টেকসই সমাধান</p>
+      </div>
+      <div class="footer-links">
+        <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+        <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="#"><i class="fas fa-envelope"></i> Support</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Sd Gardening Solution — প্রিমিয়াম অর্গানিক গাইড | সমস্ত তথ্য JSON ফাইল ভিত্তিক</span>
+    </div>
+  </div>
+</footer>
+
 <script>
-  // -------------------------------
-  // Global data store
-  // -------------------------------
-  let allSolutions = [];      // array of solution objects from all JSON files
-  let isLoadingComplete = false;
+  // ---------- GLOBAL STORE ----------
+  let allSolutions = [];        // all aggregated solution objects
+  let isLoadingActive = true;
 
   // DOM elements
-  const titlesContainer = document.getElementById('titlesContainer');
-  const solutionCountSpan = document.getElementById('solutionCount');
-  const loaderIndicator = document.getElementById('loaderIndicator');
-  const modalOverlay = document.getElementById('detailModal');
-  const modalBody = document.getElementById('modalBodyContent');
+  const gridContainer = document.getElementById('solutionsGridContainer');
+  const globalCountSpan = document.getElementById('globalCount');
+  const loaderIndicatorDiv = document.getElementById('loaderIndicator');
+  const modalOverlay = document.getElementById('solutionModal');
   const modalTitleSpan = document.getElementById('modalTitle');
+  const modalBodyDiv = document.getElementById('modalBody');
   const closeModalBtn = document.getElementById('closeModalBtn');
 
   // Helper: close modal
@@ -400,44 +553,7 @@
     modalOverlay.classList.add('active');
   }
 
-  // Render all titles (only titles from allSolutions)
-  function renderTitles() {
-    if (!allSolutions.length) {
-      titlesContainer.innerHTML = `<div class="empty-msg">🌱 কোনো সমাধান পাওয়া যায়নি। নিশ্চিত করুন task/01.json, task/02.json ফাইল ঠিক আছে।</div>`;
-      solutionCountSpan.innerText = `০ টি সমাধান`;
-      return;
-    }
-    solutionCountSpan.innerText = `${allSolutions.length} টি সমাধান`;
-    
-    // create title cards
-    let html = '';
-    allSolutions.forEach((sol, idx) => {
-      // safety title fallback
-      const titleText = sol.title || 'নাম নেই';
-      html += `
-        <div class="title-card" data-solution-index="${idx}">
-          <span class="title-text">🌻 ${escapeHtml(titleText)}</span>
-          <span class="click-badge">বিস্তারিত →</span>
-        </div>
-      `;
-    });
-    titlesContainer.innerHTML = html;
-    
-    // attach click events to each card
-    document.querySelectorAll('.title-card').forEach(card => {
-      card.addEventListener('click', (e) => {
-        const idxAttr = card.getAttribute('data-solution-index');
-        if (idxAttr !== null) {
-          const solution = allSolutions[parseInt(idxAttr)];
-          if (solution) {
-            showSolutionDetails(solution);
-          }
-        }
-      });
-    });
-  }
-  
-  // Escape HTML to avoid injection
+  // Escape HTML
   function escapeHtml(str) {
     if (!str) return '';
     return str.replace(/[&<>]/g, function(m) {
@@ -445,205 +561,231 @@
       if (m === '<') return '&lt;';
       if (m === '>') return '&gt;';
       return m;
-    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-      return c;
     });
   }
 
-  // Build detailed view from solution object
-  function showSolutionDetails(solution) {
-    // Prepare ingredients list
+  // Render title cards (grid)
+  function renderSolutionCards() {
+    if (!allSolutions.length) {
+      gridContainer.innerHTML = `
+        <div class="empty-state">
+          <i class="fas fa-seedling" style="font-size: 2.5rem; color: #86aa5e;"></i>
+          <h3 style="margin-top: 1rem;">কোনো সমাধান পাওয়া যায়নি</h3>
+          <p>নিশ্চিত করুন task/01.json এবং task/02.json ফাইল সঠিক লোকেশনে আছে।</p>
+        </div>
+      `;
+      globalCountSpan.innerText = '০';
+      return;
+    }
+
+    globalCountSpan.innerText = allSolutions.length;
+
+    let cardsHtml = '';
+    allSolutions.forEach((sol, idx) => {
+      const title = sol.title || 'নামহীন সমাধান';
+      const shortDesc = sol.short_description || 'বিস্তারিত দেখতে ক্লিক করুন';
+      const difficulty = sol.difficulty || 'মধ্যম';
+      const category = sol.category || 'organic';
+      // icons
+      let diffIcon = difficulty === 'easy' ? '😊' : (difficulty === 'medium' ? '🌿' : '⚙️');
+      cardsHtml += `
+        <div class="solution-card" data-index="${idx}">
+          <div class="card-content">
+            <div class="card-title">
+              <i class="fas fa-flask"></i> ${escapeHtml(title)}
+            </div>
+            <div class="card-short-desc">${escapeHtml(shortDesc.substring(0, 100))}${shortDesc.length > 100 ? '…' : ''}</div>
+            <div class="card-meta">
+              <span class="meta-badge"><i class="far fa-clock"></i> ${sol.preparation_time_hours ? sol.preparation_time_hours + ' ঘণ্টা' : 'N/A'}</span>
+              <span class="meta-badge">${diffIcon} ${escapeHtml(difficulty)}</span>
+              <span class="meta-badge"><i class="fas fa-tag"></i> ${escapeHtml(category.replace('_', ' '))}</span>
+            </div>
+            <div class="card-footer-action">
+              <span>বিস্তারিত দেখুন <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    gridContainer.innerHTML = cardsHtml;
+
+    // attach click events
+    document.querySelectorAll('.solution-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        const idxAttr = card.getAttribute('data-index');
+        if (idxAttr !== null) {
+          const solution = allSolutions[parseInt(idxAttr)];
+          if (solution) showModalDetails(solution);
+        }
+      });
+    });
+  }
+
+  // Show details in modal (premium)
+  function showModalDetails(solution) {
+    // Build ingredients
     let ingredientsHtml = '';
     if (solution.ingredients && Array.isArray(solution.ingredients) && solution.ingredients.length) {
       ingredientsHtml = `<ul class="ingredient-list">`;
       solution.ingredients.forEach(ing => {
-        const ingName = ing.name || '';
-        const qty = ing.quantity ? ing.quantity : '';
+        const name = ing.name || '';
+        const qty = ing.quantity !== undefined ? ing.quantity : '';
         const unit = ing.unit || '';
-        ingredientsHtml += `<li>🍃 <strong>${escapeHtml(ingName)}</strong> : ${qty} ${unit}</li>`;
+        ingredientsHtml += `<li><i class="fas fa-apple-alt" style="color:#6f9e3f;"></i> <strong>${escapeHtml(name)}</strong> — ${qty} ${unit}</li>`;
       });
       ingredientsHtml += `</ul>`;
     } else {
-      ingredientsHtml = `<p style="font-size:0.85rem">তথ্য পাওয়া যায়নি</p>`;
+      ingredientsHtml = `<p style="color: #6d8f55;">উপকরণের তথ্য নেই</p>`;
     }
-    
-    // Working process steps
+
+    // Steps
     let stepsHtml = '';
     if (solution.working_process && Array.isArray(solution.working_process) && solution.working_process.length) {
-      stepsHtml = `<ol class="step-list" style="list-style:none; padding-left:0;">`;
+      stepsHtml = `<ul class="step-list">`;
       solution.working_process.forEach(step => {
-        const stepDesc = step.description || '';
         const stepNum = step.step || '';
-        stepsHtml += `<li><span class="step-number">${stepNum}</span> <span>${escapeHtml(stepDesc)}</span></li>`;
+        const desc = step.description || '';
+        stepsHtml += `<li><span class="step-num">${stepNum}</span> <span>${escapeHtml(desc)}</span></li>`;
       });
-      stepsHtml += `</ol>`;
+      stepsHtml += `</ul>`;
     } else {
-      stepsHtml = `<p>নির্দেশনা নেই</p>`;
+      stepsHtml = `<p>প্রস্তুত প্রণালী পাওয়া যায়নি</p>`;
     }
-    
+
     // FAQs
     let faqsHtml = '';
     if (solution.faqs && Array.isArray(solution.faqs) && solution.faqs.length) {
       solution.faqs.forEach(faq => {
-        const ques = faq.question || '';
-        const ans = faq.answer || '';
         faqsHtml += `
           <div class="faq-item">
-            <div class="faq-q">❓ ${escapeHtml(ques)}</div>
-            <div class="faq-a">💡 ${escapeHtml(ans)}</div>
+            <strong><i class="fas fa-question-circle"></i> ${escapeHtml(faq.question || '')}</strong>
+            <p style="margin-top: 6px;">${escapeHtml(faq.answer || '')}</p>
           </div>
         `;
       });
     } else {
-      faqsHtml = `<p>কোনো প্রশ্নোত্তর নেই</p>`;
+      faqsHtml = `<p>প্রশ্নোত্তর নেই</p>`;
     }
-    
-    // Meta badges: difficulty, time, interval, shelf life
-    let metaHtml = '';
-    if (solution.difficulty) metaHtml += `<span class="badge-info">🧑‍🌾 সহজতর: ${escapeHtml(solution.difficulty)}</span>`;
-    if (solution.preparation_time_hours) metaHtml += `<span class="badge-info">⏱️ প্রস্তুত সময়: ${solution.preparation_time_hours} ঘণ্টা</span>`;
-    if (solution.application_interval_days) metaHtml += `<span class="badge-info">📅 প্রয়োগ ব্যবধান: ${solution.application_interval_days} দিন</span>`;
-    if (solution.shelf_life_days) metaHtml += `<span class="badge-info">🗄️ সংরক্ষণ: ${solution.shelf_life_days} দিন</span>`;
-    if (solution.category) metaHtml += `<span class="badge-info">🏷️ ${escapeHtml(solution.category)}</span>`;
-    
-    // Tags if present
+
+    // Metadata badges
+    let metaBadges = '';
+    if (solution.difficulty) metaBadges += `<span class="premium-badge"><i class="fas fa-chart-line"></i> ${escapeHtml(solution.difficulty)}</span>`;
+    if (solution.preparation_time_hours) metaBadges += `<span class="premium-badge"><i class="far fa-hourglass"></i> প্রস্তুত: ${solution.preparation_time_hours} ঘণ্টা</span>`;
+    if (solution.application_interval_days) metaBadges += `<span class="premium-badge"><i class="fas fa-calendar-alt"></i> প্রতি ${solution.application_interval_days} দিনে</span>`;
+    if (solution.shelf_life_days) metaBadges += `<span class="premium-badge"><i class="fas fa-box"></i> সংরক্ষণ: ${solution.shelf_life_days} দিন</span>`;
+    if (solution.category) metaBadges += `<span class="premium-badge"><i class="fas fa-layer-group"></i> ${escapeHtml(solution.category)}</span>`;
+
+    // Tags
     let tagsHtml = '';
-    if (solution.tags && Array.isArray(solution.tags) && solution.tags.length) {
-      tagsHtml = `<div style="margin-top: 8px;">${solution.tags.map(t => `<span class="badge-info">#${escapeHtml(t)}</span>`).join('')}</div>`;
+    if (solution.tags && Array.isArray(solution.tags)) {
+      tagsHtml = `<div class="badge-group">${solution.tags.map(t => `<span class="premium-badge">#${escapeHtml(t)}</span>`).join('')}</div>`;
     }
-    
+
     const longDesc = solution.long_description || solution.short_description || 'বিস্তারিত তথ্য নেই।';
     
-    const detailsHtml = `
+    const modalContent = `
       <div class="detail-section">
-        <h4>📖 বিবরণ</h4>
-        <p style="line-height:1.45;">${escapeHtml(longDesc)}</p>
-        ${solution.short_description ? `<p style="margin-top:8px; font-size:0.85rem; color:#567845;">✨ ${escapeHtml(solution.short_description)}</p>` : ''}
+        <h3><i class="fas fa-info-circle"></i> বিবরণ</h3>
+        <p style="line-height:1.5;">${escapeHtml(longDesc)}</p>
+        ${solution.short_description ? `<p style="margin-top: 8px; font-size:0.85rem; color:#5f824b;"><i class="fas fa-leaf"></i> ${escapeHtml(solution.short_description)}</p>` : ''}
       </div>
-      
+
       <div class="detail-section">
-        <h4>🧪 উপকরণ</h4>
+        <h3><i class="fas fa-mortar-pestle"></i> উপকরণ</h3>
         ${ingredientsHtml}
       </div>
-      
+
       <div class="detail-section">
-        <h4>🛠️ প্রস্তুত প্রণালী</h4>
+        <h3><i class="fas fa-tasks"></i> প্রস্তুত প্রক্রিয়া</h3>
         ${stepsHtml}
       </div>
-      
+
       <div class="detail-section">
-        <h4>❓ সাধারণ জিজ্ঞাসা</h4>
+        <h3><i class="fas fa-comments"></i> সাধারণ জিজ্ঞাসা</h3>
         ${faqsHtml}
       </div>
-      
+
       <div class="detail-section">
-        <h4>⚙️ অতিরিক্ত তথ্য</h4>
-        <div class="footer-meta">${metaHtml}</div>
+        <h3><i class="fas fa-cog"></i> গুরুত্বপূর্ণ তথ্য</h3>
+        <div class="badge-group">${metaBadges}</div>
         ${tagsHtml}
-        ${solution.id ? `<div style="margin-top: 8px; font-size:0.7rem;">ID: ${solution.id}</div>` : ''}
-        ${solution.slug ? `<div style="font-size:0.7rem;">slug: ${escapeHtml(solution.slug)}</div>` : ''}
+        ${solution.slug ? `<p style="margin-top: 8px; font-size:0.7rem;">slug: ${escapeHtml(solution.slug)}</p>` : ''}
       </div>
     `;
-    
-    modalTitleSpan.innerText = solution.title || 'গাছের সমাধান';
-    modalBody.innerHTML = detailsHtml;
+    modalTitleSpan.innerText = solution.title || 'সমাধানের বিবরণ';
+    modalBodyDiv.innerHTML = modalContent;
     openModal();
   }
-  
-  // ---------- INFINITE LOOP: fetch task/01.json, task/02.json, task/03.json ... until 404 ----------
-  async function fetchAllJsonFilesInfinitely() {
+
+  // ---------- INFINITE JSON FETCHER (task/01.json, 02.json ...) ----------
+  async function fetchAllJsonFilesIndefinitely() {
     let fileIndex = 1;
-    const allFetchedSolutions = [];
-    let lastFetchFailed = false;
+    const fetchedSolutions = [];
+    let stop = false;
     
-    // Show loading indicator
-    loaderIndicator.style.display = 'flex';
-    titlesContainer.innerHTML = `<div class="empty-msg"><div class="spinner" style="margin:0 auto 10px;"></div>JSON ফাইল অনুসন্ধান (task/01.json, 02.json ...)</div>`;
+       
+    // update loader text
+    loaderIndicatorDiv.innerHTML = `<div class="spinner"></div><span>JSON ফাইল অনুসন্ধান (task/01.json, 02.json ...)</span>`;
     
-    while (!lastFetchFailed) {
-      // format filename: 01, 02, 03 ... (two digits)
+    while (!stop) {
       const fileNumber = fileIndex.toString().padStart(2, '0');
       const url = `task/${fileNumber}.json`;
       try {
         const response = await fetch(url);
         if (!response.ok) {
-          // 404 or other error -> stop fetching (infinite loop stops)
           if (response.status === 404) {
-            console.log(`File ${url} not found, stopping sequence.`);
+            console.log(`File ${url} not found. Stopping sequence.`);
           } else {
-            console.warn(`Error ${response.status} for ${url}, stopping.`);
+            console.warn(`Error ${response.status} on ${url}. Stopping.`);
           }
-          lastFetchFailed = true;
+          stop = true;
           break;
         }
         const data = await response.json();
-        // check if gardening_solutions exists and is array
-        if (data && Array.isArray(data.gardening_solutions)) {
-          const newSolutions = data.gardening_solutions;
-          if (newSolutions.length) {
-            allFetchedSolutions.push(...newSolutions);
-            console.log(`Loaded ${newSolutions.length} solutions from ${url}`);
-          }
+        if (data && Array.isArray(data.gardening_solutions) && data.gardening_solutions.length > 0) {
+          const validSolutions = data.gardening_solutions.filter(s => s && typeof s === 'object');
+          fetchedSolutions.push(...validSolutions);
+          console.log(`✅ Loaded ${validSolutions.length} solutions from ${url}`);
         } else {
-          console.warn(`File ${url} does not contain gardening_solutions array.`);
+          console.warn(`⚠️ ${url} has no gardening_solutions array or empty.`);
         }
         fileIndex++;
       } catch (err) {
-        // network error or JSON parse error
         console.error(`Failed to fetch/parse ${url}:`, err);
-        lastFetchFailed = true;
+        stop = true;
         break;
       }
     }
     
-    // After loop ends, update global allSolutions and re-render
-    if (allFetchedSolutions.length === 0) {
-      loaderIndicator.innerHTML = `<span>⚠️ কোনো JSON ফাইল পাওয়া যায়নি। task/01.json, task/02.json প্রয়োজন।</span>`;
-      loaderIndicator.style.background = "#fff0cf";
-      loaderIndicator.style.padding = "0.5rem";
-      loaderIndicator.style.borderRadius = "40px";
-      titlesContainer.innerHTML = `<div class="empty-msg">📂 ডাটা ফাইল নেই। নিশ্চিত করুন: task/01.json এবং task/02.json ফোল্ডারে আছে।</div>`;
-      solutionCountSpan.innerText = `০ টি সমাধান`;
+    if (fetchedSolutions.length === 0) {
+      loaderIndicatorDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> কোনো JSON ফাইল পাওয়া যায়নি। task/01.json প্রয়োজন।`;
+      gridContainer.innerHTML = `<div class="empty-state"><i class="fas fa-file-alt"></i><p>JSON ফাইল অনুপস্থিত। নিশ্চিত করুন task ফোল্ডারে 01.json এবং 02.json রয়েছে।</p></div>`;
+      globalCountSpan.innerText = '০';
     } else {
-      allSolutions = allFetchedSolutions;
-      renderTitles();
-      loaderIndicator.style.display = 'none';
+      allSolutions = fetchedSolutions;
+      renderSolutionCards();
+      loaderIndicatorDiv.innerHTML = `<i class="fas fa-check-circle" style="color:#3f9142;"></i> <span>${allSolutions.length} টি প্রিমিয়াম সমাধান লোড হয়েছে</span>`;
+      setTimeout(() => {
+        if (loaderIndicatorDiv) loaderIndicatorDiv.style.opacity = '0.7';
+      }, 2000);
     }
-    isLoadingComplete = true;
+    isLoadingActive = false;
   }
-  
-  // optional: attach modal close events
-  function initModalEvents() {
+
+  // Modal close listeners
+  function initModalControls() {
     closeModalBtn.addEventListener('click', closeModal);
     modalOverlay.addEventListener('click', (e) => {
       if (e.target === modalOverlay) closeModal();
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
-        closeModal();
-      }
+      if (e.key === 'Escape' && modalOverlay.classList.contains('active')) closeModal();
     });
   }
-  
-  // Start fetching all JSON files in infinite (sequential) loop
-  fetchAllJsonFilesInfinitely().then(() => {
-    // final update
-    if (allSolutions.length === 0) {
-      // maybe show more helpful message
-    }
-  }).catch(err => {
-    console.error(err);
-    loaderIndicator.innerHTML = `<span>❗ সংযোগ ত্রুটি, JSON ফাইল লোড হয়নি</span>`;
-    titlesContainer.innerHTML = `<div class="empty-msg">সার্ভার সমস্যা বা ফাইল পাথ ঠিক নয়। task/01.json উপস্থিত থাকতে হবে।</div>`;
-  });
-  
-    // initialize UI events
-  initModalEvents();
-  
-  // optional: if user wants to manually re-fetch but not needed, but we have infinity loop principle on load.
-  // The specification: "ইনফিটি টাইম চলতে থাকবে একটা লুপ সেট করে নেবেন" means the fetching loop attempts sequence until no more files.
-  // This implementation perfectly covers that: loop from 1,2,3,... until failure.
-  // All solutions aggregated, titles shown, click -> details.
+
+  // start
+  initModalControls();
+  fetchAllJsonFilesIndefinitely();
 </script>
 </body>
 </html>
