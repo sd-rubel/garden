@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SD Gardening | প্রিমিয়াম কৃষি সলিউশন</title>
+  <title>SD Gardening | প্রিমিয়াম ড্যাশবোর্ড</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
@@ -11,19 +11,15 @@
     @font-face {
       font-family: 'Kalpurush';
       src: url('kalpurush.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
     }
 
     :root {
-      --primary: #143628;
+      --primary: #0f291e;
       --secondary: #2d6a4f;
-      --accent: #52b788;
-      --bg: #f4f7f4;
-      --card-bg: #ffffff;
-      --text-main: #1b4332;
-      --text-muted: #5e716a;
+      --accent: #40916c;
+      --bg: #f3f6f3;
       --white: #ffffff;
+      --text-main: #1b4332;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,300 +28,226 @@
       font-family: 'Kalpurush', sans-serif;
       background-color: var(--bg);
       color: var(--text-main);
-      overflow-x: hidden;
     }
 
-    /* --- Navigation --- */
+    /* --- Navigation & Search --- */
     nav {
       position: sticky;
       top: 0;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
+      background: var(--white);
       z-index: 1000;
       padding: 1rem 6%;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.04);
+    }
+
+    .nav-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      flex-wrap: wrap;
-      gap: 15px;
+      margin-bottom: 15px;
     }
 
-    .brand { display: flex; align-items: center; gap: 10px; }
-    .brand i { font-size: 1.6rem; color: var(--secondary); }
-    .brand h1 { font-size: 1.3rem; font-weight: 800; color: var(--primary); }
+    .brand h1 { font-size: 1.4rem; color: var(--primary); display: flex; align-items: center; gap: 10px; }
 
-    .search-container {
+    .search-box {
       position: relative;
-      flex-grow: 1;
-      max-width: 400px;
-    }
-    .search-container input {
       width: 100%;
-      padding: 10px 15px 10px 40px;
-      border-radius: 12px;
-      border: 1px solid #dce4dc;
-      background: #f8faf8;
-      font-family: inherit;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 20px 12px 45px;
+      border-radius: 15px;
+      border: 2px solid #e0e7e0;
       outline: none;
+      font-family: inherit;
       transition: 0.3s;
     }
-    .search-container input:focus { background: #fff; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.1); }
-    .search-container i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
-    /* --- Filter Area --- */
-    .filter-section {
-      padding: 1rem 6%;
+    .search-box input:focus { border-color: var(--accent); background: #fff; }
+    .search-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--secondary); }
+
+    /* --- Tabs --- */
+    .tab-container {
       display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      scrollbar-width: none;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
     }
-    .filter-section::-webkit-scrollbar { display: none; }
 
-    .tag-chip {
-      padding: 8px 18px;
-      background: #fff;
+    .tab-btn {
+      padding: 10px 25px;
       border-radius: 50px;
+      border: none;
+      background: #e1ede4;
+      color: var(--secondary);
+      font-weight: bold;
       cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-family: inherit;
       transition: 0.3s;
-      white-space: nowrap;
-      border: 1px solid #e0e6e0;
-      display: flex; align-items: center; gap: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .tag-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    /* --- Main Grid --- */
+    .tab-btn.active { background: var(--primary); color: white; }
+
+    /* --- Grid --- */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 20px;
-      padding: 1rem 6% 4rem;
-      min-height: 60vh;
+      padding: 0 6% 50px;
     }
 
-    .solution-card {
-      background: var(--card-bg);
-      border-radius: 24px;
-      padding: 1.8rem;
-      border: 1px solid rgba(0,0,0,0.03);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-      transition: 0.3s;
+    .card {
+      background: var(--white);
+      border-radius: 25px;
+      padding: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.02);
       cursor: pointer;
+      position: relative;
+      transition: 0.3s;
+      border: 1px solid transparent;
     }
-    .solution-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
-    .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
-    .card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+
+    .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .bookmark-icon { position: absolute; top: 20px; right: 20px; color: #ccc; font-size: 1.2rem; }
+    .bookmark-icon.active { color: #f1c40f; }
 
     /* --- Full Screen Modal --- */
-    .modal {
+    #fullModal {
       position: fixed; inset: 0; background: var(--white);
       z-index: 2000; display: none; overflow-y: auto;
-      animation: pageUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    @keyframes pageUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-    .close-modal {
+    .close-sticky {
       position: fixed; top: 20px; right: 20px;
       width: 45px; height: 45px; border-radius: 50%;
-      background: var(--primary); color: #fff; border: none;
-      cursor: pointer; font-size: 1.2rem; z-index: 2100;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      background: #e74c3c; color: white; border: none;
+      cursor: pointer; z-index: 2100; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
-    .modal-hero {
-      background: linear-gradient(135deg, #143628 0%, #2d6a4f 100%);
-      padding: 4rem 10% 2.5rem; color: #fff;
-    }
-    .modal-hero h2 { font-size: 1.6rem; margin-bottom: 15px; line-height: 1.3; }
+    .modal-hero { background: var(--primary); padding: 5rem 10% 2rem; color: white; }
+    .meta-row { display: flex; gap: 15px; margin-top: 15px; flex-wrap: wrap; }
+    .meta-pill { background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 10px; font-size: 0.85rem; }
 
-    /* Compact Meta Information */
-    .meta-inline {
-      display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 2rem;
-    }
-    .meta-box {
-      background: rgba(255,255,255,0.1); padding: 8px 15px;
-      border-radius: 12px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;
-    }
+    .modal-body { padding: 2rem 10%; max-width: 900px; margin: 0 auto; }
+    .qna-box { background: #fdfdfd; border: 1px solid #eee; padding: 20px; border-radius: 20px; margin-bottom: 15px; }
+    .q-text { font-weight: bold; color: var(--primary); display: flex; gap: 10px; margin-bottom: 10px; }
+    .a-text { color: #555; display: flex; gap: 10px; padding-left: 5px; }
 
-    .modal-body { padding: 2.5rem 10%; max-width: 1000px; margin: 0 auto; }
-    
-    .section-title {
-      font-size: 1.1rem; font-weight: 800; color: var(--primary);
-      margin: 2rem 0 1rem; display: flex; align-items: center; gap: 10px;
-    }
-    .section-title i { color: var(--accent); }
-
-    .ingredient-item {
-      display: inline-block; background: #f0f7f4; padding: 6px 15px;
-      border-radius: 8px; margin: 4px; font-size: 0.9rem; font-weight: 600;
-    }
-
-    .step-card {
-      display: flex; gap: 15px; background: #fff; padding: 1.2rem;
-      border-radius: 18px; margin-bottom: 12px; border: 1px solid #f0f0f0;
-    }
-    .step-idx { color: var(--accent); font-weight: 800; font-size: 1.1rem; }
-
-    .faq-card {
-      background: #fffdf2; border: 1px solid #f6eed0;
-      padding: 1.2rem; border-radius: 18px; margin-bottom: 10px;
-    }
-    .faq-q { font-weight: 800; color: #7d651a; margin-bottom: 5px; }
-
-    /* --- Footer --- */
-    footer {
-      background: var(--primary); color: #c8d5cf;
-      padding: 3rem 6% 2rem; margin-top: 4rem;
-    }
-    .footer-content {
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px;
-      max-width: 1200px; margin: 0 auto;
-    }
-    .footer-info h3 { color: #fff; margin-bottom: 15px; font-size: 1.2rem; }
-    .contact-link { color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-    .footer-bottom {
-      text-align: center; border-top: 1px solid rgba(255,255,255,0.1);
-      margin-top: 2.5rem; padding-top: 1.5rem; font-size: 0.8rem;
-    }
-
-    @media (max-width: 600px) {
-      .modal-hero { padding: 4rem 6% 2rem; }
-      .modal-body { padding: 1.5rem 6%; }
-      .search-container { order: 3; max-width: 100%; }
-    }
+    footer { background: var(--primary); color: #8fa199; padding: 3rem 6%; text-align: center; margin-top: 30px; }
+    .footer-links a { color: var(--accent); text-decoration: none; margin: 0 10px; font-size: 1.1rem; }
   </style>
 </head>
 <body>
 
 <nav>
-  <div class="brand">
-    <i class="fa-solid fa-leaf"></i>
-    <h1>SD Gardening</h1>
+  <div class="nav-top">
+    <div class="brand"><h1><i class="fa-solid fa-house-chimney-medical"></i> SD Gardening</h1></div>
   </div>
-  <div class="search-container">
+  <div class="search-box">
     <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" id="searchInput" placeholder="সার্চ করুন...">
+    <input type="text" id="searchInput" placeholder="আপনার প্রয়োজনীয় সমাধানটি সার্চ করুন...">
   </div>
 </nav>
 
-<div class="filter-section" id="filterArea">
-  <div class="tag-chip active" onclick="filterByCat('all')">সব সমাধান</div>
+<div class="tab-container">
+  <button class="tab-btn active" onclick="switchTab('all', this)"><i class="fa-solid fa-list-ul"></i> সব পোস্টগুলি</button>
+  <button class="tab-btn" onclick="switchTab('fav', this)"><i class="fa-solid fa-bookmark"></i> বুকমার্ক</button>
 </div>
 
-<main class="grid" id="mainGrid">
-  </main>
+<main class="grid" id="mainGrid"></main>
 
-<div class="modal" id="fullModal">
-  <button class="close-modal" onclick="closeM()"><i class="fa-solid fa-xmark"></i></button>
+<div id="fullModal">
+  <button class="close-sticky" onclick="closeM()"><i class="fa-solid fa-xmark"></i></button>
   <div class="modal-hero">
-    <h2 id="mTitle">শিরোনাম</h2>
-    <div class="meta-inline">
-      <div class="meta-box"><i class="fa-solid fa-clock"></i> সময়: <span id="mTime">-</span></div>
-      <div class="meta-box"><i class="fa-solid fa-layer-group"></i> লেভেল: <span id="mDiff">-</span></div>
-      <div class="meta-box"><i class="fa-solid fa-calendar-check"></i> স্থায়িত্ব: <span id="mLife">-</span></div>
+    <h2 id="mTitle" style="font-size: 1.8rem;">শিরোনাম</h2>
+    <div class="meta-row">
+      <span class="meta-pill"><i class="fa-solid fa-clock"></i> <span id="mTime"></span></span>
+      <span class="meta-pill"><i class="fa-solid fa-gauge"></i> <span id="mDiff"></span></span>
+      <span class="meta-pill"><i class="fa-solid fa-calendar-day"></i> <span id="mLife"></span></span>
     </div>
   </div>
-  
   <div class="modal-body">
-    <div class="section-title"><i class="fa-solid fa-align-left"></i> বিস্তারিত</div>
-    <p id="mDesc" style="line-height: 1.8; color: var(--text-muted);"></p>
-
-    <div class="section-title"><i class="fa-solid fa-flask"></i> উপকরণ</div>
-    <div id="mIngs"></div>
-
-    <div class="section-title"><i class="fa-solid fa-list-check"></i> কার্যপদ্ধতি</div>
-    <div id="mSteps"></div>
-
-    <div class="section-title"><i class="fa-solid fa-comments-question"></i> প্রশ্নোত্তর</div>
-    <div id="mFaqs"></div>
+    <div id="mContent"></div>
   </div>
 </div>
 
 <footer>
-  <div class="footer-content">
-    <div class="footer-info">
-      <h3>SD Gardening Solution</h3>
-      <p style="max-width: 300px; margin-bottom: 15px;">আপনার ছাদবাগান বা কৃষি জমির জন্য প্রিমিয়াম অর্গানিক সলিউশন। প্রকৃতির সাথে থাকুন নিরাপদ উপায়ে।</p>
-    </div>
-    <div class="footer-contact">
-      <h3>যোগাযোগ করুন</h3>
-      <a href="https://www.facebook.com/sdxrubel" target="_blank" class="contact-link"><i class="fa-brands fa-facebook"></i> ফেসবুক পেইজ</a>
-      <a href="tel:+8801516050402" class="contact-link"><i class="fa-solid fa-phone"></i> +৮৮০১৭১৬০৫০৪০২</a>
-    </div>
+  <div class="footer-links">
+    <a href="https://www.facebook.com/sdxrubel" target="_blank"><i class="fa-brands fa-facebook"></i> Facebook</a>
+    <a href="tel:+8801516050402"><i class="fa-solid fa-phone-volume"></i> +8801516050402</a>
   </div>
-  <div class="footer-bottom">
-    &copy; ২০২৬ | SD Gardening Solution | ডাটা স্বয়ংক্রিয়ভাবে লোড হচ্ছে
-  </div>
+  <p style="margin-top: 15px;">© 2026 | SD Gardening Solution | প্রিমিয়াম কৃষি সেবা</p>
 </footer>
 
 <script>
   let solutions = [];
+  let bookmarks = JSON.parse(localStorage.getItem('sd_bookmarks')) || [];
+  let currentView = 'all';
 
-  // ১. ডাটা লোডার (সিরিয়াল লোডিং)
-  async function loadData() {
+  async function loadAllData() {
     let i = 1;
-    let keepLoading = true;
-    while(keepLoading) {
-      let file = `task/${String(i).padStart(2, '0')}.json`;
+    while(true) {
       try {
-        const res = await fetch(file);
-        if(!res.ok) throw new Error();
-        const data = await res.json();
+        let res = await fetch(`task/${String(i).padStart(2, '0')}.json`);
+        if(!res.ok) break;
+        let data = await res.json();
         solutions = [...solutions, ...data.gardening_solutions];
         i++;
-      } catch (e) { keepLoading = false; }
+      } catch (e) { break; }
     }
-    render(solutions);
-    makeChips();
+    render();
   }
 
-  // ২. কার্ড রেন্ডারিং
-  function render(data) {
+  function render() {
     const grid = document.getElementById('mainGrid');
+    let data = currentView === 'all' ? solutions : solutions.filter(s => bookmarks.includes(s.id));
+    
     grid.innerHTML = data.map(s => `
-      <div class="solution-card" onclick="openM(${s.id})">
-        <h2 class="card-title">${s.title}</h2>
-        <p class="card-desc">${s.short_description}</p>
-        <div style="margin-top: 15px; color: var(--accent); font-weight: bold; font-size: 0.85rem;">
-          বিস্তারিত পড়ুন <i class="fa-solid fa-circle-arrow-right"></i>
-        </div>
+      <div class="card" onclick="openM(${s.id})">
+        <i class="fa-solid fa-bookmark bookmark-icon ${bookmarks.includes(s.id) ? 'active' : ''}" 
+           onclick="toggleBookmark(event, ${s.id})"></i>
+        <h3 style="margin-bottom:10px; color:var(--primary);"><i class="fa-solid fa-leaf"></i> ${s.title}</h3>
+        <p style="font-size:0.9rem; color:#666;">${s.short_description}</p>
       </div>
     `).join('');
   }
 
-  // ৩. মোডাল ফাংশন
   function openM(id) {
     const s = solutions.find(x => x.id === id);
-    if(!s) return;
+    const modal = document.getElementById('fullModal');
+    
+    // স্ক্রল পজিশন ঠিক করা (Problem Fixed)
+    modal.scrollTop = 0; 
 
     document.getElementById('mTitle').innerText = s.title;
     document.getElementById('mTime').innerText = s.preparation_time_hours + " ঘণ্টা";
     document.getElementById('mDiff').innerText = s.difficulty === 'easy' ? "সহজ" : "মাঝারি";
     document.getElementById('mLife').innerText = s.shelf_life_days + " দিন";
-    document.getElementById('mDesc').innerText = s.long_description;
 
-    document.getElementById('mIngs').innerHTML = s.ingredients.map(i => `
-      <div class="ingredient-item">${i.name} (${i.quantity} ${i.unit})</div>
-    `).join('');
+    let html = `<div style="margin-bottom:30px;"><h4 style="margin-bottom:10px;"><i class="fa-solid fa-file-invoice"></i> বিস্তারিত</h4><p>${s.long_description}</p></div>`;
+    
+    html += `<h4 style="margin-bottom:15px;"><i class="fa-solid fa-vial"></i> উপকরণ ও প্রশ্নোত্তর</h4>`;
+    
+    s.faqs.forEach(f => {
+      html += `
+        <div class="qna-box">
+          <div class="q-text"><i class="fa-solid fa-circle-question" style="color:var(--accent);"></i> ${f.question}</div>
+          <div class="a-text"><i class="fa-solid fa-circle-check" style="color:#27ae60;"></i> ${f.answer}</div>
+          <div style="margin-top:10px; font-size:0.8rem; color:#aaa;">
+            <i class="fa-solid fa-tags"></i> ${f.tags.join(', ')} | 
+            <i class="fa-solid fa-shield-heart"></i> নিরাপদ পদ্ধতি
+          </div>
+        </div>`;
+    });
 
-    document.getElementById('mSteps').innerHTML = s.working_process.map(st => `
-      <div class="step-card">
-        <div class="step-idx">${st.step}.</div>
-        <div>${st.description}</div>
-      </div>
-    `).join('');
-
-    document.getElementById('mFaqs').innerHTML = s.faqs.map(f => `
-      <div class="faq-card">
-        <div class="faq-q">${f.question}</div>
-        <div style="font-size: 0.9rem; color: #555;">${f.answer}</div>
-      </div>
-    `).join('');
-
-    document.getElementById('fullModal').style.display = 'block';
+    document.getElementById('mContent').innerHTML = html;
+    modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
   }
 
@@ -334,32 +256,39 @@
     document.body.style.overflow = 'auto';
   }
 
-  // ৪. ফিল্টার ও সার্চ
-  function makeChips() {
-    const cats = ['all', ...new Set(solutions.map(s => s.category))];
-    const area = document.getElementById('filterArea');
-    area.innerHTML = cats.map(c => `
-      <div class="tag-chip ${c === 'all' ? 'active' : ''}" onclick="filterByCat('${c}', this)">
-        ${c === 'all' ? 'সব সমাধান' : c.replace('_', ' ')}
-      </div>
-    `).join('');
+  function toggleBookmark(e, id) {
+    e.stopPropagation();
+    if(bookmarks.includes(id)) {
+      bookmarks = bookmarks.filter(b => b !== id);
+    } else {
+      bookmarks.push(id);
+    }
+    localStorage.setItem('sd_bookmarks', JSON.stringify(bookmarks));
+    render();
   }
 
-  function filterByCat(cat, el) {
-    document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
+  function switchTab(type, el) {
+    currentView = type;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     el.classList.add('active');
-    const filtered = cat === 'all' ? solutions : solutions.filter(s => s.category === cat);
-    render(filtered);
+    render();
   }
 
   document.getElementById('searchInput').addEventListener('input', (e) => {
-    const val = e.target.value.toLowerCase();
-    const filtered = solutions.filter(s => s.title.toLowerCase().includes(val) || s.short_description.toLowerCase().includes(val));
-    render(filtered);
+    let term = e.target.value.toLowerCase();
+    let filtered = solutions.filter(s => s.title.toLowerCase().includes(term) || s.short_description.toLowerCase().includes(term));
+    const grid = document.getElementById('mainGrid');
+    grid.innerHTML = filtered.map(s => `
+      <div class="card" onclick="openM(${s.id})">
+        <i class="fa-solid fa-bookmark bookmark-icon ${bookmarks.includes(s.id) ? 'active' : ''}" 
+           onclick="toggleBookmark(event, ${s.id})"></i>
+        <h3><i class="fa-solid fa-leaf"></i> ${s.title}</h3>
+        <p>${s.short_description}</p>
+      </div>
+    `).join('');
   });
 
-  loadData();
+  loadAllData();
 </script>
-
 </body>
 </html>
