@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SD Gardening | প্রিমিয়াম কৃষি সলিউশন</title>
   
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
   <style>
-    /* লোকাল কালপুরুষ ফন্ট লোড */
     @font-face {
       font-family: 'Kalpurush';
       src: url('kalpurush.ttf') format('truetype');
@@ -15,13 +16,14 @@
     }
 
     :root {
-      --primary: #1a4332;
-      --accent: #4ade80;
-      --bg: #f8fafc;
+      --primary: #143628;
+      --secondary: #2d6a4f;
+      --accent: #52b788;
+      --bg: #f0f4f0;
       --card-bg: #ffffff;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --glass: rgba(255, 255, 255, 0.8);
+      --text-main: #1b4332;
+      --text-muted: #5e716a;
+      --shadow: 0 10px 30px rgba(0,0,0,0.05);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -30,359 +32,350 @@
       font-family: 'Kalpurush', sans-serif;
       background-color: var(--bg);
       color: var(--text-main);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
-    /* Header Design */
-    header {
+    /* --- Navigation --- */
+    nav {
       position: sticky;
       top: 0;
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      z-index: 100;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      padding: 1rem 5%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(15px);
+      z-index: 1000;
+      padding: 1rem 6%;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.03);
     }
 
-    .logo h1 {
-      font-size: 1.5rem;
-      color: var(--primary);
-      letter-spacing: -0.5px;
-    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand i { font-size: 1.8rem; color: var(--secondary); }
+    .brand h1 { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
 
-    .search-wrapper {
-      position: relative;
-      width: 300px;
-    }
-
-    .search-wrapper input {
-      width: 100%;
-      padding: 0.6rem 1rem;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      outline: none;
-      transition: 0.3s;
-      font-family: inherit;
-    }
-
-    .search-wrapper input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.1); }
-
-    /* Filter Chips */
-    .filter-container {
-      padding: 1.5rem 5%;
+    .search-bar {
+      background: #e9f0e9;
+      padding: 8px 15px;
+      border-radius: 50px;
       display: flex;
-      gap: 0.8rem;
-      overflow-x: auto;
-      white-space: nowrap;
+      align-items: center;
+      width: 350px;
+      transition: 0.3s;
     }
+    .search-bar:focus-within { background: #fff; box-shadow: 0 0 0 2px var(--accent); }
+    .search-bar input {
+      border: none; background: none; outline: none; width: 100%;
+      padding-left: 10px; font-family: inherit;
+    }
+    .search-bar i { color: var(--secondary); }
 
-    .chip {
-      padding: 0.5rem 1.2rem;
+    /* --- Filter Area --- */
+    .filter-section {
+      padding: 1.5rem 6%;
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filter-section::-webkit-scrollbar { display: none; }
+
+    .tag-chip {
+      padding: 8px 20px;
       background: #fff;
-      border: 1px solid #e2e8f0;
-      border-radius: 100px;
+      border-radius: 50px;
       cursor: pointer;
+      font-weight: 600;
       font-size: 0.9rem;
       transition: 0.3s;
+      display: flex; align-items: center; gap: 8px;
+      border: 1px solid #d8e2dc;
+      white-space: nowrap;
     }
+    .tag-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    .chip.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    /* Grid Layout */
-    .solutions-grid {
+    /* --- Main Grid --- */
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 2rem;
-      padding: 0 5% 4rem;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 25px;
+      padding: 10px 6% 50px;
     }
 
-    .card {
+    .solution-card {
       background: var(--card-bg);
-      border-radius: 24px;
-      padding: 1.5rem;
-      border: 1px solid rgba(0,0,0,0.03);
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
-    }
-
-    .card-id {
-      font-size: 0.8rem;
-      color: var(--accent);
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-
-    .card h2 { font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--primary); }
-    .card p { font-size: 0.95rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-
-    /* Modal Styling - Premium Single View */
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(8px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      padding: 20px;
-    }
-
-    .modal-content {
-      background: #fff;
-      width: 100%;
-      max-width: 800px;
-      max-height: 90vh;
-      border-radius: 32px;
-      overflow-y: auto;
-      position: relative;
-      animation: modalFade 0.4s ease;
-    }
-
-    @keyframes modalFade { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
-    .modal-header-img {
-      height: 120px;
-      background: linear-gradient(135deg, #1a4332 0%, #2d6a4f 100%);
+      border-radius: 30px;
       padding: 2rem;
-      color: white;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.2);
-      border: none;
-      color: white;
-      font-size: 1.5rem;
+      position: relative;
+      border: 1px solid rgba(0,0,0,0.02);
+      box-shadow: var(--shadow);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
       cursor: pointer;
     }
-
-    .modal-inner { padding: 2rem; }
+    .solution-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
     
-    .section-title {
-      font-size: 1.2rem;
-      color: var(--primary);
-      margin: 1.5rem 0 1rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-left: 4px solid var(--accent);
-      padding-left: 12px;
+    .card-icon {
+      width: 50px; height: 50px; background: #f0f7f4;
+      border-radius: 15px; display: flex; align-items: center;
+      justify-content: center; margin-bottom: 1.5rem;
+      color: var(--secondary); font-size: 1.4rem;
     }
 
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-bottom: 2rem;
+    .card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
+    .card-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.5rem; }
+
+    .card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid #f1f1f1; padding-top: 1rem;
+    }
+    .badge { font-size: 0.8rem; font-weight: 700; color: var(--secondary); text-transform: uppercase; }
+
+    /* --- Modal: Single View Premium --- */
+    .modal {
+      position: fixed; inset: 0; background: rgba(10, 26, 18, 0.6);
+      backdrop-filter: blur(12px); z-index: 2000;
+      display: none; justify-content: center; align-items: center; padding: 20px;
+    }
+    .modal-content {
+      background: #fff; width: 100%; max-width: 900px; max-height: 92vh;
+      border-radius: 40px; overflow-y: auto; position: relative;
+      animation: slideUp 0.5s ease-out;
+    }
+    @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .modal-header {
+      background: linear-gradient(135deg, #143628 0%, #2d6a4f 100%);
+      padding: 3rem 2.5rem; color: #fff; position: relative;
+    }
+    .close-modal {
+      position: absolute; top: 25px; right: 25px;
+      width: 45px; height: 45px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: none; color: #fff;
+      cursor: pointer; font-size: 1.2rem; transition: 0.3s;
+    }
+    .close-modal:hover { background: #fff; color: var(--primary); }
+
+    .modal-body { padding: 2.5rem; }
+    
+    .meta-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px; margin-top: -5rem; margin-bottom: 2rem;
+    }
+    .meta-card {
+      background: #fff; padding: 1.2rem; border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center;
+    }
+    .meta-card i { color: var(--accent); margin-bottom: 8px; display: block; font-size: 1.2rem; }
+    .meta-card b { font-size: 1rem; color: var(--primary); }
+
+    .section { margin-bottom: 2.5rem; }
+    .section-head {
+      font-size: 1.2rem; font-weight: 800; color: var(--primary);
+      margin-bottom: 1.2rem; display: flex; align-items: center; gap: 12px;
+    }
+    .section-head i { color: var(--accent); }
+
+    .ingredient-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #f0f7f4; padding: 8px 18px; border-radius: 12px;
+      margin: 5px; font-weight: 600; border: 1px solid #e0eee7;
     }
 
-    .info-item {
-      background: var(--bg);
-      padding: 1rem;
-      border-radius: 16px;
-      text-align: center;
+    .step-item {
+      display: flex; gap: 20px; background: #fafafa;
+      padding: 1.5rem; border-radius: 20px; margin-bottom: 15px;
+      border: 1px solid #f0f0f0;
+    }
+    .step-count {
+      width: 35px; height: 35px; background: var(--primary); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-weight: bold;
     }
 
-    .info-item label { display: block; font-size: 0.75rem; color: var(--text-muted); }
-    .info-item span { font-weight: bold; color: var(--primary); }
-
-    .step-box {
-      background: #fdfdfd;
-      border: 1px solid #f1f5f9;
-      padding: 1rem;
-      border-radius: 16px;
-      margin-bottom: 0.8rem;
+    .faq-item {
+      background: #fffdf5; border: 1px solid #f9f2d5;
+      padding: 1.5rem; border-radius: 20px; margin-bottom: 12px;
     }
+    .faq-q { font-weight: 800; color: #856404; margin-bottom: 8px; display: flex; gap: 10px; }
 
-    .step-num { color: var(--accent); font-weight: bold; margin-right: 8px; }
-
-    .faq-box {
-      background: #f0fdf4;
-      padding: 1rem;
-      border-radius: 16px;
-      margin-bottom: 1rem;
-    }
-
-    .faq-q { font-weight: bold; color: var(--primary); margin-bottom: 5px; }
-
-    /* Scrollbar */
-    .modal-content::-webkit-scrollbar { width: 6px; }
-    .modal-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-
-    @media (max-width: 600px) {
-      .info-grid { grid-template-columns: 1fr; }
-      .search-wrapper { width: 150px; }
+    @media (max-width: 768px) {
+      .search-bar { display: none; }
+      .grid { grid-template-columns: 1fr; }
+      .modal-content { border-radius: 0; max-height: 100vh; }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">
+<nav>
+  <div class="brand">
+    <i class="fa-solid fa-seedling"></i>
     <h1>SD Gardening</h1>
   </div>
-  <div class="search-wrapper">
-    <input type="text" id="searchInput" placeholder="খুঁজুন...">
+  <div class="search-bar">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" id="searchInput" placeholder="আপনার সমস্যা বা সমাধান খুঁজুন...">
   </div>
-</header>
+</nav>
 
-<div class="filter-container" id="filterChips">
-  <div class="chip active" onclick="filterData('all')">সব সমাধান</div>
+<div class="filter-section" id="filterArea">
+  <div class="tag-chip active" onclick="filterByCat('all')">
+    <i class="fa-solid fa-border-all"></i> সব সমাধান
+  </div>
 </div>
 
-<main class="solutions-grid" id="mainGrid">
+<main class="grid" id="mainGrid">
   </main>
 
 <div class="modal" id="modalOverlay">
   <div class="modal-content">
-    <button class="close-btn" onclick="closeModal()">&times;</button>
-    <div class="modal-header-img">
-      <h2 id="mTitle">শিরোনাম</h2>
+    <button class="close-modal" onclick="closeM()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="modal-header">
+      <h2 id="mTitle" style="font-size: 2rem; max-width: 80%;">শিরোনাম</h2>
+      <p id="mCategory" style="opacity: 0.8; margin-top: 10px;"></p>
     </div>
-    <div class="modal-inner">
-      <div class="info-grid">
-        <div class="info-item"><label>সময়</label><span id="mTime">-</span></div>
-        <div class="info-item"><label>কঠিনতা</label><span id="mDiff">-</span></div>
-        <div class="info-item"><label>স্থায়িত্ব</label><span id="mLife">-</span></div>
+    <div class="modal-body">
+      <div class="meta-row">
+        <div class="meta-card"><i class="fa-solid fa-clock"></i><label>সময়</label><br><b id="mTime">-</b></div>
+        <div class="meta-card"><i class="fa-solid fa-gauge-high"></i><label>লেভেল</label><br><b id="mDiff">-</b></div>
+        <div class="meta-card"><i class="fa-solid fa-box-archive"></i><label>স্থায়িত্ব</label><br><b id="mLife">-</b></div>
       </div>
 
-      <div class="section-title">বিস্তারিত বিবরণ</div>
-      <p id="mDesc" style="color: var(--text-muted);"></p>
+      <div class="section">
+        <div class="section-head"><i class="fa-solid fa-circle-info"></i> বিস্তারিত বিবরণ</div>
+        <p id="mLongDesc" style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;"></p>
+      </div>
 
-      <div class="section-title">উপকরণসমূহ</div>
-      <div id="mIngredients" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+      <div class="section">
+        <div class="section-head"><i class="fa-solid fa-basket-shopping"></i> প্রয়োজনীয় উপকরণ</div>
+        <div id="mIngs"></div>
+      </div>
 
-      <div class="section-title">প্রস্তুত প্রণালী</div>
-      <div id="mSteps"></div>
+      <div class="section">
+        <div class="section-head"><i class="fa-solid fa-wand-magic-sparkles"></i> প্রস্তুত ও প্রয়োগ পদ্ধতি</div>
+        <div id="mSteps"></div>
+      </div>
 
-      <div class="section-title">সাধারণ জিজ্ঞাসা</div>
-      <div id="mFaqs"></div>
+      <div class="section">
+        <div class="section-head"><i class="fa-solid fa-circle-question"></i> সচরাচর জিজ্ঞাসা</div>
+        <div id="mFaqs"></div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  let solutions = [];
+  let allSolutions = [];
 
-  // ১. ডেটা লোড করা
-  async function loadData() {
-    try {
-      const response = await fetch('task/01.json');
-      const data = await response.json();
-      solutions = data.gardening_solutions;
-      renderCards(solutions);
-      setupFilters();
-    } catch (error) {
-      console.error("ডেটা লোড করতে সমস্যা হয়েছে।", error);
+  // ১. ইনডিফিনিট লুপে JSON লোড করা (Infinity Loader)
+  async function init() {
+    let fileNum = 1;
+    let loading = true;
+
+    while(loading) {
+      let fileName = `task/${String(fileNum).padStart(2, '0')}.json`;
+      try {
+        const response = await fetch(fileName);
+        if(!response.ok) throw new Error();
+        
+        const data = await response.json();
+        allSolutions = [...allSolutions, ...data.gardening_solutions];
+        fileNum++;
+      } catch (e) {
+        loading = false; // ফাইল না পাওয়া গেলে লুপ বন্ধ হবে
+      }
     }
+    
+    render(allSolutions);
+    generateChips();
   }
 
   // ২. কার্ড রেন্ডার করা
-  function renderCards(data) {
+  function render(data) {
     const grid = document.getElementById('mainGrid');
     grid.innerHTML = data.map(sol => `
-      <div class="card" onclick="openModal(${sol.id})">
-        <span class="card-id">#${sol.id}</span>
-        <h2>${sol.title}</h2>
-        <p>${sol.short_description}</p>
-        <div style="margin-top: 15px; font-weight: bold; color: var(--accent); font-size: 0.85rem;">
-          বিস্তারিত পড়ুন →
+      <div class="solution-card" onclick="openM(${sol.id})">
+        <div class="card-icon">
+          <i class="${sol.category === 'organic_fertilizer' ? 'fa-solid fa-vial-circle-check' : 'fa-solid fa-shield-virus'}"></i>
+        </div>
+        <h2 class="card-title">${sol.title}</h2>
+        <p class="card-desc">${sol.short_description}</p>
+        <div class="card-footer">
+          <span class="badge"><i class="fa-solid fa-bolt"></i> ${sol.difficulty}</span>
+          <span style="color: var(--accent); font-weight: 800;">দেখুন <i class="fa-solid fa-arrow-right-long"></i></span>
         </div>
       </div>
     `).join('');
   }
 
-  // ৩. মোডাল ওপেন করা (একক স্ক্রিন লেআউট)
-  function openModal(id) {
-    const sol = solutions.find(s => s.id === id);
-    if(!sol) return;
+  // ৩. মোডাল ডেটা সেট করা
+  function openM(id) {
+    const s = allSolutions.find(item => item.id === id);
+    if(!s) return;
 
-    document.getElementById('mTitle').innerText = sol.title;
-    document.getElementById('mTime').innerText = sol.preparation_time_hours + " ঘণ্টা";
-    document.getElementById('mDiff').innerText = sol.difficulty === 'easy' ? "সহজ" : "মাঝারি";
-    document.getElementById('mLife').innerText = sol.shelf_life_days + " দিন";
-    document.getElementById('mDesc').innerText = sol.long_description;
+    document.getElementById('mTitle').innerText = s.title;
+    document.getElementById('mCategory').innerText = "# " + s.category.replace('_', ' ');
+    document.getElementById('mTime').innerText = s.preparation_time_hours + " ঘণ্টা";
+    document.getElementById('mDiff').innerText = s.difficulty === 'easy' ? "সহজ" : "মাঝারি";
+    document.getElementById('mLife').innerText = s.shelf_life_days + " দিন";
+    document.getElementById('mLongDesc').innerText = s.long_description;
 
-    // উপকরণ
-    document.getElementById('mIngredients').innerHTML = sol.ingredients.map(ing => 
-      `<span style="background: #e2e8f0; padding: 4px 12px; border-radius: 8px; font-size: 0.85rem;">${ing.name} (${ing.quantity} ${ing.unit})</span>`
-    ).join('');
+    document.getElementById('mIngs').innerHTML = s.ingredients.map(i => `
+      <div class="ingredient-tag"><i class="fa-solid fa-check-circle"></i> ${i.name} - ${i.quantity} ${i.unit}</div>
+    `).join('');
 
-    // স্টেপস
-    document.getElementById('mSteps').innerHTML = sol.working_process.map(step => `
-      <div class="step-box">
-        <span class="step-num">${step.step}.</span> ${step.description}
+    document.getElementById('mSteps').innerHTML = s.working_process.map(st => `
+      <div class="step-item">
+        <div class="step-count">${st.step}</div>
+        <div class="step-text">${st.description}</div>
       </div>
     `).join('');
 
-    // FAQ
-    document.getElementById('mFaqs').innerHTML = sol.faqs.map(f => `
-      <div class="faq-box">
-        <div class="faq-q">প্রশ্ন: ${f.question}</div>
-        <div style="font-size: 0.9rem; color: #4b5563;">উত্তর: ${f.answer}</div>
+    document.getElementById('mFaqs').innerHTML = s.faqs.map(f => `
+      <div class="faq-item">
+        <div class="faq-q"><i class="fa-solid fa-comment-dots"></i> ${f.question}</div>
+        <div class="faq-a" style="color: #555; padding-left: 32px;">${f.answer}</div>
       </div>
     `).join('');
 
     document.getElementById('modalOverlay').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
   }
 
-  function closeModal() {
+  function closeM() {
     document.getElementById('modalOverlay').style.display = 'none';
+    document.body.style.overflow = 'auto';
   }
 
-  // ৪. ফিল্টার ও সার্চ লজিক
-  function setupFilters() {
-    const categories = ['all', ...new Set(solutions.map(s => s.category))];
-    const filterBox = document.getElementById('filterChips');
-    
-    filterBox.innerHTML = categories.map(cat => `
-      <div class="chip ${cat === 'all' ? 'active' : ''}" onclick="filterByCategory(this, '${cat}')">
-        ${cat === 'all' ? 'সব সমাধান' : cat.replace('_', ' ')}
+  // ৪. ফিল্টার ও সার্চ
+  function generateChips() {
+    const cats = ['all', ...new Set(allSolutions.map(s => s.category))];
+    const area = document.getElementById('filterArea');
+    area.innerHTML = cats.map(c => `
+      <div class="tag-chip ${c === 'all' ? 'active' : ''}" onclick="filterByCat('${c}', this)">
+        <i class="fa-solid ${c === 'all' ? 'fa-leaf' : 'fa-tags'}"></i> ${c === 'all' ? 'সব সমাধান' : c.replace('_', ' ')}
       </div>
     `).join('');
   }
 
-  function filterByCategory(el, cat) {
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    el.classList.add('active');
-    
-    const filtered = cat === 'all' ? solutions : solutions.filter(s => s.category === cat);
-    renderCards(filtered);
+  function filterByCat(cat, el) {
+    if(el) {
+      document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+    }
+    const filtered = cat === 'all' ? allSolutions : allSolutions.filter(s => s.category === cat);
+    render(filtered);
   }
 
   document.getElementById('searchInput').addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
-    const filtered = solutions.filter(s => 
-      s.title.toLowerCase().includes(term) || 
-      s.short_description.toLowerCase().includes(term)
+    const val = e.target.value.toLowerCase();
+    const filtered = allSolutions.filter(s => 
+      s.title.toLowerCase().includes(val) || 
+      s.short_description.toLowerCase().includes(val)
     );
-    renderCards(filtered);
+    render(filtered);
   });
 
-  // ইনিশিয়ালাইজ
-  loadData();
+  init();
 </script>
 
 </body>
