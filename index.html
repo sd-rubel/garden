@@ -2,480 +2,161 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SD Gardening | প্রিমিয়াম ড্যাশবোর্ড</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     @font-face { font-family: 'Kalpurush'; src: url('kalpurush.ttf') format('truetype'); }
-    :root { 
-      --primary-dark: #071a13; 
-      --secondary: #2d6a4f; 
-      --accent: #40916c; 
-      --gold: #f1c40f; 
-      --bg: #f8faf8; 
-      --card-bg: #ffffff; 
-      --text-main: #1b4332; 
-      --soft-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
-    }
+    :root { --primary-dark: #071a13; --secondary: #2d6a4f; --accent: #40916c; --gold: #f1c40f; --bg: #f8faf8; --card-bg: #ffffff; --text-main: #1b4332; }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: 'Kalpurush', system-ui, -apple-system, 'Segoe UI', sans-serif; 
-      background-color: var(--bg); 
-      color: var(--text-main); 
-      display: flex; 
-      flex-direction: column; 
-      min-height: 100vh;
-    }
+    body { font-family: 'Kalpurush', sans-serif; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
     
     header { width: 100%; background: var(--primary-dark); display: flex; justify-content: center; align-items: center; line-height: 0; }
-    .header-img { width: 100%; max-width: 100%; height: auto; display: block; object-fit: contain; background: #0a241c; }
+    .header-img { width: 100%; max-width: 100%; height: auto; display: block; object-fit: contain; }
     
-    nav { 
-      position: sticky; top: 0; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(12px); 
-      z-index: 1000; padding: 12px 6%; box-shadow: 0 4px 15px rgba(0,0,0,0.03); 
-      display: flex; justify-content: center; align-items: center; gap: 12px; 
-      border-bottom: 1px solid #e2f0e8;
-    }
-    .search-box { position: relative; width: 100%; max-width: 500px; }
-    .search-box input { 
-      width: 100%; padding: 12px 20px 12px 45px; border-radius: 44px; 
-      border: 1px solid #d4e2dc; background: #ffffff; font-family: inherit; 
-      font-size: 1rem; outline: none; transition: 0.2s; box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-    }
-    .search-box input:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(45,106,79,0.1); }
-    .search-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--secondary); font-size: 1.1rem; }
+    nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); z-index: 1000; padding: 12px 6%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center; gap: 10px; }
+    .search-box { position: relative; width: 100%; max-width: 450px; }
+    .search-box input { width: 100%; padding: 12px 20px 12px 45px; border-radius: 12px; border: 1px solid #dce4dc; background: #fdfdfd; font-family: inherit; outline: none; }
+    .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary); }
     
-    .refresh-btn { 
-      background: var(--secondary); color: white; border: none; width: 46px; height: 46px; 
-      border-radius: 46px; cursor: pointer; transition: 0.25s; display: flex; align-items: center; 
-      justify-content: center; font-size: 1.2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    }
-    .refresh-btn:hover { background: var(--accent); transform: rotate(8deg); }
+    .refresh-btn { background: var(--secondary); color: white; border: none; width: 45px; height: 45px; border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .refresh-btn:hover { background: var(--accent); }
 
-    .tabs { display: flex; justify-content: center; gap: 14px; margin: 20px 6% 24px; flex-wrap: wrap; }
-    .tab-btn { 
-      padding: 10px 26px; border-radius: 60px; border: 1px solid #cfe3db; background: #fff; 
-      color: var(--secondary); font-weight: 600; cursor: pointer; transition: 0.2s; 
-      display: inline-flex; align-items: center; gap: 8px; font-size: 0.95rem; font-family: inherit;
-    }
-    .tab-btn i { font-size: 0.9rem; }
-    .tab-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); box-shadow: 0 4px 10px rgba(45,106,79,0.2); }
+    .tabs { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
+    .tab-btn { padding: 10px 22px; border-radius: 50px; border: 1px solid #dce4dc; background: #fff; color: var(--secondary); font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-family: inherit; }
+    .tab-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
 
     main { flex: 1; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 28px; padding: 0 6% 50px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 25px; padding: 0 6% 50px; }
     
-    .card { 
-      background: var(--card-bg); border-radius: 28px; padding: 1.8rem; 
-      box-shadow: var(--soft-shadow); transition: all 0.25s ease; cursor: pointer; 
-      position: relative; border: 1px solid rgba(0,0,0,0.02); backdrop-filter: blur(2px);
-    }
-    .card:hover { transform: translateY(-5px); box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1); border-color: #d4e2dc; }
-    .card-badge { 
-      position: absolute; top: -12px; left: -8px; width: 38px; height: 38px; 
-      background: var(--secondary); color: #fff; border-radius: 40px; display: flex; 
-      align-items: center; justify-content: center; font-weight: bold; font-size: 1rem; 
-      border: 3px solid #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); z-index: 5;
-    }
-    .fav-btn { 
-      position: absolute; top: 18px; right: 20px; color: #cddfd7; font-size: 1.4rem; 
-      transition: 0.2s; z-index: 6; cursor: pointer; background: rgba(255,255,255,0.5); 
-      border-radius: 50%; width: 34px; text-align: center;
-    }
-    .fav-btn.active { color: var(--gold); text-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-    .fav-btn:hover { transform: scale(1.1); color: #f7b731; }
-    .card h3 { font-size: 1.45rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; color: #1f3d32; }
-    .card p { color: #456b5c; line-height: 1.45; margin-bottom: 18px; font-size: 0.95rem; }
-    .card div[style*="font-weight:bold"] { margin-top: 8px; color: var(--accent); font-weight: 500; letter-spacing: -0.2px; }
+    .card { background: var(--card-bg); border-radius: 22px; padding: 1.8rem; box-shadow: 0 4px 18px rgba(0,0,0,0.03); transition: 0.3s; cursor: pointer; position: relative; border: 1px solid rgba(0,0,0,0.03); }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.07); }
+    .card-badge { position: absolute; top: -12px; left: -12px; width: 34px; height: 34px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 5; }
+    .fav-btn { position: absolute; top: 15px; right: 15px; color: #eee; font-size: 1.3rem; transition: 0.3s; z-index: 5; }
+    .fav-btn.active { color: var(--gold); }
 
-    .modal { 
-      position: fixed; inset: 0; background: #ffffff; z-index: 2000; display: none; 
-      overflow-y: auto; animation: fadeSlide 0.25s ease-out;
-    }
-    @keyframes fadeSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-    .close-btn { 
-      position: fixed; top: 20px; right: 20px; width: 48px; height: 48px; border-radius: 50%; 
-      background: #c4452c; color: #fff; border: none; cursor: pointer; z-index: 2100; 
-      font-size: 1.4rem; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .close-btn:hover { background: #a0341f; transform: scale(0.96); }
+    .modal { position: fixed; inset: 0; background: #fff; z-index: 2000; display: none; overflow-y: auto; }
+    .close-btn { position: fixed; top: 15px; right: 15px; width: 45px; height: 45px; border-radius: 50%; background: #c0392b; color: #fff; border: none; cursor: pointer; z-index: 2100; font-size: 1.3rem; }
     
-    .modal-hero { background: linear-gradient(115deg, #0a2a1f 0%, #1f543e 100%); padding: 4rem 10% 2.5rem; color: #fff; }
-    .modal-hero h2 { font-size: 2rem; font-weight: 600; letter-spacing: -0.3px; text-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-    .modal-body { padding: 2rem 10% 3rem; max-width: 1000px; margin: 0 auto; }
-    .section-head { 
-      font-size: 1.3rem; font-weight: 700; color: var(--primary-dark); margin: 2rem 0 1rem 0; 
-      display: flex; align-items: center; gap: 12px; border-left: 5px solid var(--secondary); 
-      padding-left: 16px;
-    }
-    .ing-tag { 
-      display: inline-flex; align-items: center; gap: 8px; background: #edf6f2; 
-      padding: 8px 18px; border-radius: 60px; margin: 5px 6px; font-weight: 600; 
-      font-size: 0.9rem; border: 1px solid #d0e3db; color: #1f4d3c;
-    }
-    .step-card { display: flex; gap: 18px; background: #fefef9; padding: 1.2rem 1.5rem; border-radius: 28px; margin-bottom: 14px; border: 1px solid #e9f0ec; }
-    .step-icon { width: 38px; height: 38px; background: var(--secondary); color: #fff; border-radius: 30px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 1.2rem; }
-    .qna-card { background: #fffcf0; border: 1px solid #f9efcf; padding: 1.4rem 1.8rem; border-radius: 24px; margin-bottom: 14px; transition: 0.1s; }
-    .qna-card b { color: #2c5a48; display: block; margin-bottom: 8px; font-size: 1rem; }
+    .modal-hero { background: linear-gradient(135deg, #071a13 0%, #1b4332 100%); padding: 5rem 10% 2.5rem; color: #fff; }
+    .modal-body { padding: 2.5rem 10%; max-width: 950px; margin: 0 auto; }
+    .section-head { font-size: 1.2rem; font-weight: bold; color: var(--primary-dark); margin: 2rem 0 1rem; display: flex; align-items: center; gap: 10px; }
+    .ing-tag { display: inline-flex; align-items: center; gap: 6px; background: #f0f7f4; padding: 8px 15px; border-radius: 10px; margin: 4px; font-weight: 600; font-size: 0.9rem; border: 1px solid #e0eee7; }
+    .step-card { display: flex; gap: 15px; background: #fafafa; padding: 1.2rem; border-radius: 18px; margin-bottom: 12px; border: 1px solid #eee; }
+    .step-icon { width: 35px; height: 35px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; }
+    .qna-card { background: #fffdf5; border: 1px solid #f6eed0; padding: 1.5rem; border-radius: 20px; margin-bottom: 12px; }
 
-    footer { background: #eaf3ef; color: #3b5c4e; padding: 40px 6% 28px; text-align: center; border-top: 2px solid #d2e3db; margin-top: 40px; }
-    @media (max-width: 620px) {
-      .grid { gap: 18px; padding: 0 4% 40px; }
-      .card { padding: 1.4rem; }
-      .modal-body { padding: 1.5rem 5% 2rem; }
-      .modal-hero { padding: 3rem 5% 2rem; }
-    }
+    footer { background: #eff5f2; color: #3b4d45; padding: 40px 6% 25px; text-align: center; border-top: 2px solid #e0eee7; margin-top: 40px; }
   </style>
 </head>
 <body>
 
-<header>
-  <img src="./IMG_20260329_113755.png" alt="SD Gardening" class="header-img" onerror="this.style.display='none'">
-</header>
+<header><img src="./IMG_20260329_113755.png" alt="SD Gardening" class="header-img"></header>
 
 <nav>
   <div class="search-box">
     <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" id="searchInput" placeholder="টাইটেল বা বিষয় অনুসন্ধান...">
+    <input type="text" id="searchInput" placeholder="সার্চ করুন...">
   </div>
-  <button class="refresh-btn" id="refreshButton"><i class="fa-solid fa-rotate"></i></button>
+  <button class="refresh-btn" onclick="refreshData()"><i class="fa-solid fa-rotate"></i></button>
 </nav>
 
 <div class="tabs">
-  <button class="tab-btn active" data-tab="all"><i class="fa-regular fa-rectangle-list"></i> সব পোস্ট</button>
-  <button class="tab-btn" data-tab="fav"><i class="fa-regular fa-star"></i> প্রিয় তালিকা</button>
+  <button class="tab-btn active" onclick="changeTab('all', this)">সব পোস্ট</button>
+  <button class="tab-btn" onclick="changeTab('fav', this)">প্রিয় তালিকা</button>
 </div>
 
-<main>
-  <div class="grid" id="mainGrid"></div>
-</main>
+<main><div class="grid" id="mainGrid"></div></main>
 
 <div class="modal" id="dataModal">
-  <button class="close-btn" id="modalCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+  <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
   <div id="modalContent"></div>
 </div>
 
 <footer>
-  <div style="font-style: italic; margin-bottom: 20px; color: var(--secondary); font-size: 1rem;">"গাছ লাগান, পরিবেশ বাঁচান।"</div>
-  <div style="font-size: 0.75rem; color: #7f8c8d;">&copy; ২০২৬ SD Gardening Solution — প্রকৃতি ও কৃষি নির্ভর তথ্যভাণ্ডার</div>
+  <div style="font-style: italic; margin-bottom: 20px; color: var(--secondary);">"গাছ লাগান, পরিবেশ বাঁচান।"</div>
+  <div style="font-size: 0.75rem; color: #7f8c8d;">&copy; ২০২৬ SD Gardening Solution</div>
 </footer>
 
 <script>
-  // ---------- GLOBAL STATE ----------
-  let allData = [];                // মূল ডেটা collection
-  let favorites = [];             // সংরক্ষিত আইডি array
-  let currentTab = 'all';         // 'all' অথবা 'fav'
-  let currentSearchTerm = '';     // অনুসন্ধান শব্দ
+  let allData = [];
+  let favorites = JSON.parse(localStorage.getItem('sd_favs')) || [];
+  let currentTab = 'all';
 
-  // DOM elements
-  const gridContainer = document.getElementById('mainGrid');
-  const searchInput = document.getElementById('searchInput');
-  const refreshBtn = document.getElementById('refreshButton');
-  const modal = document.getElementById('dataModal');
-  const modalContentDiv = document.getElementById('modalContent');
-  const closeModalBtn = document.getElementById('modalCloseBtn');
-
-  // ---------- HELPER: ফিল্টার করা ডেটা (ট্যাব + সার্চ) ----------
-  function getFilteredData() {
-    let filtered = [...allData];
-    
-    // 1. ট্যাব ফিল্টার (প্রিয় তালিকা)
-    if (currentTab === 'fav') {
-      filtered = filtered.filter(item => favorites.includes(item.id));
+  async function init() {
+    allData = [];
+    // ১০টি ফাইল চেক করা হচ্ছে (প্রয়োজনে সংখ্যা বাড়াতে পারেন)
+    for (let i = 1; i <= 10; i++) {
+      try {
+        let fileName = String(i).padStart(2, '0') + '.json';
+        let res = await fetch(`task/${fileName}?v=${new Date().getTime()}`);
+        if(res.ok) {
+          let data = await res.json();
+          if (data && data.gardening_solutions) {
+            allData = [...allData, ...data.gardening_solutions];
+          }
+        }
+      } catch (e) { console.error("Error loading " + i, e); }
     }
-    
-    // 2. সার্চ ফিল্টার (টাইটেল + সংক্ষিপ্ত বিবরণ)
-    if (currentSearchTerm.trim() !== '') {
-      const term = currentSearchTerm.trim().toLowerCase();
-      filtered = filtered.filter(item => 
-        (item.title && item.title.toLowerCase().includes(term)) ||
-        (item.short_description && item.short_description.toLowerCase().includes(term))
-      );
-    }
-    
-    return filtered;
+    renderGrid(allData);
   }
 
-  // ---------- রেন্ডার গ্রিড (পূর্ণ রিফ্রেশ) ----------
-  function renderGrid() {
-    if (!gridContainer) return;
+  function renderGrid(data) {
+    const grid = document.getElementById('mainGrid');
+    let displayData = currentTab === 'all' ? data : data.filter(d => favorites.includes(d.id));
     
-    const displayList = getFilteredData();
-    
-    if (!displayList.length) {
-      gridContainer.innerHTML = `<div style="text-align:center; padding:60px 20px; background:#ffffff; border-radius:48px; margin:20px;"><i class="fa-regular fa-face-frown" style="font-size:2.2rem; color:var(--secondary); opacity:0.6"></i><p style="margin-top:16px; font-size:1.1rem;">কোনো তথ্য পাওয়া যায়নি। অন্য কিওয়ার্ড দিয়ে চেষ্টা করুন।</p></div>`;
-      return;
+    if (displayData.length === 0) {
+        grid.innerHTML = "<p style='text-align:center; padding:50px;'>কোনো তথ্য পাওয়া যায়নি।</p>";
+        return;
     }
-    
-    gridContainer.innerHTML = displayList.map((item, idx) => {
-      // নিরাপদে শর্ট ডেস্ক
-      const shortDesc = item.short_description ? item.short_description.substring(0, 110) : 'বিস্তারিত জানতে ক্লিক করুন';
-      const isFav = favorites.includes(item.id);
-      return `
-        <div class="card" data-id="${item.id}">
-          <div class="card-badge">${idx + 1}</div>
-          <i class="fa-solid fa-star fav-btn ${isFav ? 'active' : ''}" data-id="${item.id}" data-fav-toggle></i>
-          <h3><i class="fa-solid fa-seedling" style="color:#2ecc71"></i> ${escapeHtml(item.title) || 'শিরোনাম নেই'}</h3>
-          <p>${escapeHtml(shortDesc)}</p>
-          <div style="font-weight:500; color:var(--accent); font-size:0.85rem; margin-top:12px;">বিস্তারিত পড়ুন →</div>
-        </div>
-      `;
-    }).join('');
-    
-    // Attach event listeners dynamically (কার্ড ক্লিক + ফেবারিট বাটন)
-    document.querySelectorAll('.card').forEach(card => {
-      const idAttr = card.getAttribute('data-id');
-      if (idAttr) {
-        card.addEventListener('click', (e) => {
-          // fav বাটনে ক্লিক করলে প্রপাগেশন থামানো হবে আলাদাভাবে, কিন্তু এখানে চেক
-          if (e.target.closest('[data-fav-toggle]')) return;
-          const numericId = parseInt(idAttr, 10);
-          if (!isNaN(numericId)) openModal(numericId);
-        });
-      }
-    });
-    
-    document.querySelectorAll('[data-fav-toggle]').forEach(star => {
-      star.removeEventListener('click', handleFavClick);
-      star.addEventListener('click', handleFavClick);
-    });
+
+    grid.innerHTML = displayData.map((s, idx) => `
+      <div class="card" onclick="openModal(${s.id})">
+        <div class="card-badge">${idx + 1}</div>
+        <i class="fa-solid fa-star fav-btn ${favorites.includes(s.id) ? 'active' : ''}" onclick="toggleFav(event, ${s.id})"></i>
+        <h3><i class="fa-solid fa-leaf" style="color:#2ecc71"></i> ${s.title}</h3>
+        <p>${s.short_description}</p>
+        <div style="font-weight:bold; color:var(--accent); font-size:0.85rem;">বিস্তারিত পড়ুন →</div>
+      </div>
+    `).join('');
   }
-  
-  // ফেবারিট টগল handler
-  function handleFavClick(e) {
-    e.stopPropagation();
-    const element = e.currentTarget;
-    const idStr = element.getAttribute('data-id');
-    if (!idStr) return;
-    const id = parseInt(idStr, 10);
-    if (isNaN(id)) return;
-    
-    if (favorites.includes(id)) {
-      favorites = favorites.filter(fav => fav !== id);
-    } else {
-      favorites.push(id);
-    }
-    localStorage.setItem('sd_favs', JSON.stringify(favorites));
-    renderGrid();   // প্রিয় স্টেট অনুযায়ী পুনরায় রেন্ডার (সার্চ/ট্যাব সংরক্ষিত)
-  }
-  
-  // XSS প্রতিরোধে basic escape
-  function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-      if (m === '&') return '&amp;';
-      if (m === '<') return '&lt;';
-      if (m === '>') return '&gt;';
-      return m;
-    }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-      return c;
-    });
-  }
-  
-  // ---------- MODAL (বিস্তারিত দেখানো) ----------
+
   function openModal(id) {
-    const solution = allData.find(s => s.id === id);
-    if (!solution) return;
-    
+    const s = allData.find(x => x.id === id);
+    if(!s) return;
+    const modal = document.getElementById('dataModal');
     modal.style.display = 'block';
     document.body.style.overflow = 'hidden';
     
-    // উপকরণ প্রক্রিয়া ও FAQ নিরাপদে হ্যান্ডেল
-    const ingredientsList = Array.isArray(solution.ingredients) ? solution.ingredients : [];
-    const workingSteps = Array.isArray(solution.working_process) ? solution.working_process : [];
-    const faqList = Array.isArray(solution.faqs) ? solution.faqs : [];
-    
-    const ingHtml = ingredientsList.length ? 
-      ingredientsList.map(ing => `<span class="ing-tag"><i class="fa-regular fa-circle-check"></i> ${escapeHtml(ing.name) || 'উপাদান'}</span>`).join('') :
-      '<span class="ing-tag">তথ্য নেই</span>';
-    
-    const stepsHtml = workingSteps.length ? 
-      workingSteps.map(step => `
-        <div class="step-card">
-          <div class="step-icon">${step.step || '•'}</div>
-          <div>${escapeHtml(step.description) || 'বিস্তারিত নেই'}</div>
-        </div>
-      `).join('') : '<div class="step-card"><div class="step-icon">📘</div><div>বিস্তারিত প্রক্রিয়া সংযোজন করা হবে।</div></div>';
-    
-    const faqHtml = faqList.length ?
-      faqList.map(f => `
-        <div class="qna-card">
-          <b><i class="fa-regular fa-circle-question"></i> প্রশ্ন: ${escapeHtml(f.question)}</b>
-          <div><i class="fa-regular fa-message"></i> উত্তর: ${escapeHtml(f.answer)}</div>
-        </div>
-      `).join('') : '<div class="qna-card">কোনো প্রশ্নোত্তর সংযোজিত নেই।</div>';
-    
-    const longDescHtml = solution.long_description ? `<p>${escapeHtml(solution.long_description)}</p>` : '<p>বিস্তারিত তথ্য শীঘ্রই আপডেট হবে।</p>';
-    
-    modalContentDiv.innerHTML = `
-      <div class="modal-hero">
-        <h2><i class="fa-regular fa-note-sticky"></i> ${escapeHtml(solution.title)}</h2>
-      </div>
+    document.getElementById('modalContent').innerHTML = `
+      <div class="modal-hero"><h2>${s.title}</h2></div>
       <div class="modal-body">
-        <div class="section-head"><i class="fa-regular fa-file-lines"></i> বিস্তারিত তথ্য</div>
-        ${longDescHtml}
-        
-        <div class="section-head"><i class="fa-regular fa-basket-shopping"></i> উপকরণ / উপাদান</div>
-        <div style="margin-bottom: 8px;">${ingHtml}</div>
-        
-        <div class="section-head"><i class="fa-regular fa-chart-line"></i> প্রক্রিয়া (পদ্ধতি)</div>
-        ${stepsHtml}
-        
-        <div class="section-head"><i class="fa-regular fa-comments"></i> সাধারণ জিজ্ঞাসা</div>
-        ${faqHtml}
-      </div>
-    `;
+        <div class="section-head">বিস্তারিত তথ্য</div>
+        <p>${s.long_description}</p>
+        <div class="section-head">উপকরণ</div>
+        <div>${s.ingredients.map(ing => `<span class="ing-tag">${ing.name}</span>`).join('')}</div>
+        <div class="section-head">প্রক্রিয়া</div>
+        ${s.working_process.map(st => `<div class="step-card"><div class="step-icon">${st.step}</div><div>${st.description}</div></div>`).join('')}
+        <div class="section-head">প্রশ্নোত্তর</div>
+        ${s.faqs.map(f => `<div class="qna-card"><b>Q: ${f.question}</b><br>A: ${f.answer}</div>`).join('')}
+      </div>`;
   }
+
+  function closeModal() { document.getElementById('dataModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+  function toggleFav(e, id) { e.stopPropagation(); if(favorites.includes(id)) favorites = favorites.filter(f => f !== id); else favorites.push(id); localStorage.setItem('sd_favs', JSON.stringify(favorites)); renderGrid(allData); }
+  function changeTab(tab, el) { currentTab = tab; document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); renderGrid(allData); }
   
-  function closeModalFunc() {
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    const val = e.target.value.toLowerCase();
+    const filtered = allData.filter(s => s.title.toLowerCase().includes(val));
+    renderGrid(filtered);
+  });
+
+  function refreshData() {
+    init().then(() => alert('তথ্য আপডেট হয়েছে!'));
   }
-  
-  // ---------- ট্যাব সুইচ ----------
-  function setActiveTab(tabName) {
-    currentTab = tabName;
-    const btns = document.querySelectorAll('.tab-btn');
-    btns.forEach(btn => {
-      const btnTab = btn.getAttribute('data-tab');
-      if (btnTab === tabName) btn.classList.add('active');
-      else btn.classList.remove('active');
-    });
-    renderGrid();   // ফিল্টার আপডেট
-  }
-  
-  // ---------- ডেটা লোড (JSON ফাইল থেকে) ----------
-  async function loadAllGardeningData() {
-    const tempData = [];
-    // 01.json থেকে 10.json পর্যন্ত চেষ্টা করবে (প্রকল্পের task ফোল্ডার)
-    for (let i = 1; i <= 10; i++) {
-      try {
-        const fileName = String(i).padStart(2, '0') + '.json';
-        // cache busting using timestamp
-        const url = `task/${fileName}?v=${Date.now()}`;
-        const response = await fetch(url);
-        if (response.ok) {
-          const json = await response.json();
-          if (json && Array.isArray(json.gardening_solutions)) {
-            tempData.push(...json.gardening_solutions);
-          } else if (json && json.gardening_solutions && Array.isArray(json.gardening_solutions)) {
-            tempData.push(...json.gardening_solutions);
-          } else if (Array.isArray(json)) {   // fallback: সরাসরি array
-            tempData.push(...json);
-          }
-        } else {
-          // ফাইল না থাকলে নীরবে এগিয়ে যান
-          console.debug(`File ${fileName} not found, skipping`);
-        }
-      } catch (err) {
-        console.warn(`Error loading task/${String(i).padStart(2,'0')}.json`, err);
-      }
-    }
-    // ডুপ্লিকেট আইডি থাকলে ইউনিক রাখা (যদি কোনো আইডি একাধিকবার আসে)
-    const uniqueMap = new Map();
-    for (const item of tempData) {
-      if (item && typeof item.id !== 'undefined') {
-        if (!uniqueMap.has(item.id)) {
-          uniqueMap.set(item.id, item);
-        }
-      } else if (item) {
-        // আইডি না থাকলে এলোমেলো তৈরি (তবে সংরক্ষণ করব)
-        const fallbackId = Date.now() + Math.random() + (uniqueMap.size);
-        item.id = item.id || fallbackId;
-        uniqueMap.set(item.id, item);
-      }
-    }
-    allData = Array.from(uniqueMap.values());
-    // ডিফল্ট সর্ট (আইডি অনুযায়ী বাছাই)
-    allData.sort((a,b) => (a.id || 0) - (b.id || 0));
-  }
-  
-  // ---------- ইনিশিয়ালাইজ ও রিফ্রেশ ----------
-  async function initApp() {
-    // লোকালস্টোরেজ থেকে favourites লোড
-    const storedFav = localStorage.getItem('sd_favs');
-    if (storedFav) {
-      try {
-        favorites = JSON.parse(storedFav);
-        if (!Array.isArray(favorites)) favorites = [];
-      } catch(e) { favorites = []; }
-    } else {
-      favorites = [];
-    }
-    
-    await loadAllGardeningData();
-    // সার্চ টার্ম এবং ট্যাব রেস্টোর (ইউজার ইন্টারঅ্যাক্টিভিটি প্রিজার্ভ)
-    renderGrid();
-  }
-  
-  // রিফ্রেশ বাটন: ডেটা পুনরায় ফেচ, favourites এবং ট্যাব, সার্চ রিসেট না করে
-  async function refreshData() {
-    // favourites এবং ট্যাব / সার্চ টার্ম রাখা হবে, শুধু ডেটা পুনরায় লোড
-    await loadAllGardeningData();
-    renderGrid();
-    // ছোট নোটিফিকেশন
-    const toastMsg = document.createElement('div');
-    toastMsg.innerText = '✅ তথ্য আপডেট সম্পন্ন!';
-    toastMsg.style.position = 'fixed';
-    toastMsg.style.bottom = '20px';
-    toastMsg.style.left = '50%';
-    toastMsg.style.transform = 'translateX(-50%)';
-    toastMsg.style.backgroundColor = '#2d6a4f';
-    toastMsg.style.color = 'white';
-    toastMsg.style.padding = '10px 24px';
-    toastMsg.style.borderRadius = '60px';
-    toastMsg.style.zIndex = '9999';
-    toastMsg.style.fontSize = '0.9rem';
-    toastMsg.style.boxShadow = '0 6px 14px rgba(0,0,0,0.1)';
-    document.body.appendChild(toastMsg);
-    setTimeout(() => toastMsg.remove(), 2000);
-  }
-  
-  // ---------- ইভেন্ট লিসেনার সেটআপ ----------
-  function bindEvents() {
-    // সার্চ ইনপুট
-    if (searchInput) {
-      searchInput.addEventListener('input', (e) => {
-        currentSearchTerm = e.target.value;
-        renderGrid();    // ফিল্টার পরিবর্তন
-      });
-    }
-    
-    // ট্যাব বাটন (ডাইনামিক অ্যাট্রিবিউট)
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    tabBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const tabVal = btn.getAttribute('data-tab');
-        if (tabVal === 'all') setActiveTab('all');
-        else if (tabVal === 'fav') setActiveTab('fav');
-      });
-    });
-    
-    // রিফ্রেশ বাটন
-    if (refreshBtn) {
-      refreshBtn.addEventListener('click', () => refreshData());
-    }
-    
-    // মডাল ক্লোজ
-    if (closeModalBtn) {
-      closeModalBtn.addEventListener('click', closeModalFunc);
-    }
-    window.addEventListener('click', (e) => {
-      if (e.target === modal) closeModalFunc();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'block') closeModalFunc();
-    });
-  }
-  
-  // শুরু করুন
-  (async () => {
-    await initApp();
-    bindEvents();
-    // ম্যানুয়ালি সার্চ টার্ম সিঙ্ক (ইনপুট খালি থাকবে)
-    if (searchInput) searchInput.value = '';
-    currentSearchTerm = '';
-    renderGrid();
-  })();
+
+  init();
 </script>
 </body>
 </html>
