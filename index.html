@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SD Gardening | স্মার্ট কৃষি ড্যাশবোর্ড</title>
+  <title>SD Gardening Dashboard</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
@@ -14,7 +14,7 @@
     }
 
     :root {
-      --primary-dark: #0a1f16; /* নতুন হেডার কালার */
+      --primary-dark: #0a1f16;
       --secondary: #2d6a4f;
       --accent: #52b788;
       --bg: #f4f7f4;
@@ -24,127 +24,109 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
-    body { font-family: 'Kalpurush', sans-serif; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; }
+    body { font-family: 'Kalpurush', sans-serif; background-color: var(--bg); display: flex; flex-direction: column; }
 
-    /* --- Navigation (Updated Design) --- */
+    /* --- Full Width Header Image --- */
+    header {
+      width: 100%;
+      line-height: 0; /* ইমেজের নিচের বাড়তি গ্যাপ দূর করতে */
+      background: var(--primary-dark);
+    }
+    .header-img {
+      width: 100%;
+      height: auto;
+      max-height: 300px; /* আপনার প্রয়োজন অনুযায়ী অ্যাডজাস্ট করতে পারেন */
+      object-fit: cover;
+      display: block;
+    }
+
+    /* --- Navigation & Search --- */
     nav {
       position: sticky;
       top: 0;
-      background: linear-gradient(135deg, var(--primary-dark) 0%, #1b4332 100%);
+      background: rgba(255, 255, 255, 0.98);
       z-index: 1000;
-      padding: 1.2rem 6%;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      padding: 15px 6%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      display: flex;
+      justify-content: center;
     }
-
-    .nav-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-    .brand h1 { font-size: 1.5rem; color: #fff; display: flex; align-items: center; gap: 12px; }
-    .brand i { color: var(--accent); }
-
-    .search-box { position: relative; flex-grow: 1; max-width: 500px; }
+    .search-box { position: relative; width: 100%; max-width: 500px; }
     .search-box input {
-      width: 100%;
-      padding: 14px 20px 14px 50px;
-      border-radius: 15px;
-      border: none;
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      font-family: inherit;
-      outline: none;
-      transition: 0.3s;
-      border: 1px solid rgba(255,255,255,0.1);
+      width: 100%; padding: 12px 20px 12px 45px; border-radius: 12px;
+      border: 1px solid #dce4dc; background: #f8faf8; font-family: inherit; outline: none;
     }
-    .search-box input::placeholder { color: #aac4b9; }
-    .search-box input:focus { background: rgba(255,255,255,0.2); border-color: var(--accent); }
-    .search-box i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--accent); }
+    .search-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--secondary); }
 
     /* --- Tabs --- */
-    .tabs { display: flex; justify-content: center; gap: 15px; margin: 25px 0; }
+    .tabs { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
     .tab-btn {
-      padding: 12px 28px; border-radius: 50px; border: 1px solid #dce4dc;
-      background: #fff; color: var(--secondary); font-weight: bold;
-      cursor: pointer; font-family: inherit; transition: 0.3s;
-      display: flex; align-items: center; gap: 10px;
+      padding: 8px 20px; border-radius: 50px; border: 1px solid #dce4dc;
+      background: #fff; color: var(--secondary); font-weight: bold; cursor: pointer; font-family: inherit;
     }
-    .tab-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); box-shadow: 0 5px 15px rgba(45, 106, 79, 0.2); }
+    .tab-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
 
     /* --- Grid --- */
     main { flex: 1 0 auto; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; padding: 0 6% 60px; }
-
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 0 6% 40px; }
     .card {
-      background: var(--card-bg); border-radius: 28px; padding: 2rem;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.03); transition: 0.3s;
-      cursor: pointer; position: relative; border: 1px solid rgba(0,0,0,0.02);
+      background: var(--card-bg); border-radius: 20px; padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: 0.3s;
+      cursor: pointer; position: relative; border: 1px solid rgba(0,0,0,0.01);
     }
-    .card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); border-color: var(--accent); }
-    .card h3 { font-size: 1.25rem; color: var(--primary-dark); margin-bottom: 12px; }
-    .bookmark-btn { position: absolute; top: 25px; right: 25px; color: #eee; font-size: 1.3rem; transition: 0.3s; }
-    .bookmark-btn.active { color: #f1c40f; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.06); }
+    .card h3 { font-size: 1.1rem; color: var(--primary-dark); margin-bottom: 8px; }
+    .fav-btn { position: absolute; top: 15px; right: 15px; color: #eee; font-size: 1.2rem; }
+    .fav-btn.active { color: #f1c40f; }
 
-    /* --- Full Screen Modal (Reset-proof) --- */
+    /* --- Full Screen Modal (FIXED SCROLL) --- */
     .modal {
       position: fixed; inset: 0; background: #fff;
-      z-index: 2000; display: none; overflow-y: auto;
-      animation: slideUp 0.4s cubic-bezier(0, 0, 0.2, 1);
+      z-index: 2000; display: none; 
+      overflow-y: scroll; /* স্ক্রলবার সবসময় রাখতে */
+      scroll-behavior: auto !important; /* ইনস্ট্যান্ট টপ পজিশনের জন্য */
     }
-    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
     .close-btn {
-      position: fixed; top: 25px; right: 25px;
-      width: 50px; height: 50px; border-radius: 50%;
-      background: #c0392b; color: #fff; border: none;
-      cursor: pointer; z-index: 2100; font-size: 1.4rem;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3); transition: 0.3s;
+      position: fixed; top: 20px; right: 20px; width: 45px; height: 45px;
+      border-radius: 50%; background: #c0392b; color: #fff; border: none;
+      cursor: pointer; z-index: 2100; font-size: 1.2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    .close-btn:hover { background: #ff0000; transform: rotate(90deg); }
 
-    .modal-hero { background: linear-gradient(135deg, #0a1f16 0%, #1b4332 100%); padding: 6rem 10% 3rem; color: #fff; }
-    .meta-row { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
-    .meta-box { background: rgba(255,255,255,0.12); padding: 10px 18px; border-radius: 12px; font-size: 0.9rem; display: flex; align-items: center; gap: 10px; border: 1px solid rgba(255,255,255,0.1); }
+    .modal-hero { background: var(--primary-dark); padding: 4rem 10% 2rem; color: #fff; }
+    .modal-body { padding: 2rem 10%; max-width: 900px; margin: 0 auto; }
+    .section-head { font-size: 1.2rem; font-weight: bold; color: var(--primary-dark); margin: 1.5rem 0 1rem; display: flex; align-items: center; gap: 10px; }
+    .step-box { background: #f9f9f9; padding: 1rem; border-radius: 12px; margin-bottom: 10px; border-left: 4px solid var(--accent); }
+    .qna-card { background: #fffdf0; border: 1px solid #f2e9c9; padding: 1.2rem; border-radius: 15px; margin-bottom: 10px; }
 
-    .modal-body { padding: 3rem 10%; max-width: 1050px; margin: 0 auto; }
-    .section-head { font-size: 1.3rem; font-weight: 800; color: var(--primary-dark); margin: 2.5rem 0 1.2rem; display: flex; align-items: center; gap: 12px; }
-    .section-head i { color: var(--accent); }
-
-    .ingredient-pill { display: inline-block; background: #f0f7f4; padding: 8px 18px; border-radius: 10px; margin: 5px; font-weight: 600; border: 1px solid #e0eee7; }
-    .step-box { display: flex; gap: 18px; background: #fafafa; padding: 1.5rem; border-radius: 20px; margin-bottom: 15px; border: 1px solid #eee; line-height: 1.7; }
-    .step-num { width: 30px; height: 30px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; }
-
-    .qna-card { background: #fffcf0; border: 1px solid #f2e9c9; padding: 1.8rem; border-radius: 24px; margin-bottom: 15px; }
-    .q-text { font-weight: 800; color: #7d651a; margin-bottom: 10px; display: flex; gap: 12px; font-size: 1.1rem; }
-
-    .modal-nav { display: flex; justify-content: space-between; margin-top: 5rem; padding-top: 2.5rem; border-top: 2px solid #f0f0f0; gap: 20px; }
-    .nav-btn { flex: 1; padding: 18px; border-radius: 18px; border: 1px solid #dce4dc; background: #fff; cursor: pointer; font-family: inherit; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 12px; color: var(--primary-dark); transition: 0.3s; }
-    .nav-btn:hover { background: #f0f7f4; border-color: var(--accent); }
-
-    /* --- Footer (Special Message) --- */
-    footer { background: var(--primary-dark); color: #c8d5cf; padding: 4rem 6% 2.5rem; flex-shrink: 0; border-top: 4px solid var(--accent); }
-    .footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; max-width: 1200px; margin: 0 auto; }
-    .footer-msg h3 { color: #fff; margin-bottom: 15px; font-size: 1.5rem; }
-    .footer-link { color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-weight: bold; font-size: 1.1rem; }
-
-    @media (max-width: 768px) {
-      .modal-body { padding: 2rem 6%; }
-      .nav-content { flex-direction: column; text-align: center; }
-      .search-box { width: 100%; max-width: 100%; }
+    /* --- Compact Footer --- */
+    footer {
+      background: var(--primary-dark); color: #8fa199;
+      padding: 15px 6%; text-align: center; font-size: 0.85rem; border-top: 2px solid var(--accent);
     }
+    .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 5px; }
+    .footer-links a { color: var(--accent); text-decoration: none; font-weight: bold; }
+
+    /* Modal Navigation */
+    .modal-nav { display: flex; gap: 15px; margin-top: 30px; }
+    .nav-btn { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-family: inherit; font-weight: bold; }
   </style>
 </head>
 <body>
 
+<header>
+  <img src="IMG_20260329_113755.png" alt="Header Image" class="header-img">
+</header>
+
 <nav>
-  <div class="nav-content">
-    <div class="brand"><h1><i class="fa-solid fa-wand-magic-sparkles"></i> SD Gardening</h1></div>
-    <div class="search-box">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="text" id="searchInput" placeholder="কিছু একটা লিখে সার্চ করুন (যেমন: সার, পোকা)...">
-    </div>
+  <div class="search-box">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text" id="searchInput" placeholder="সার্চ করুন...">
   </div>
 </nav>
 
 <div class="tabs">
-  <button class="tab-btn active" onclick="changeTab('all', this)"><i class="fa-solid fa-grip"></i> সব সলিউশন</button>
-  <button class="tab-btn" onclick="changeTab('fav', this)"><i class="fa-solid fa-heart"></i> আমার প্রিয়</button>
+  <button class="tab-btn active" onclick="changeTab('all', this)">সব সমাধান</button>
+  <button class="tab-btn" onclick="changeTab('fav', this)">প্রিয় তালিকা</button>
 </div>
 
 <main>
@@ -157,22 +139,11 @@
 </div>
 
 <footer>
-  <div class="footer-content">
-    <div class="footer-msg">
-      <h3>সুপ্রিয় বাগানপ্রেমী বন্ধু,</h3>
-      <p style="max-width: 500px; line-height: 1.8; font-size: 1.1rem; color: #a3b8ae;">
-        প্রকৃতির সাথে আপনার এই পথচলা হোক আরও সহজ ও আনন্দময়। এখানে দেওয়া প্রতিটি সমাধান বৈজ্ঞানিক ও পরীক্ষিত। আপনার ছাদবাগান কিংবা কৃষি জমি যেন সবসময় সবুজে ঘেরা থাকে, সেই লক্ষ্যেই আমাদের এই ক্ষুদ্র প্রচেষ্টা। আপনার যেকোনো প্রয়োজনে আমরা পাশে আছি।
-      </p>
-    </div>
-    <div>
-      <h3 style="color: #fff; margin-bottom: 15px;">যোগাযোগের মাধ্যম</h3>
-      <a href="https://www.facebook.com/sdxrubel" target="_blank" class="footer-link"><i class="fa-brands fa-facebook-f"></i> Facebook Page</a>
-      <a href="tel:+8801516050402" class="footer-link"><i class="fa-solid fa-headset"></i> +8801516050402</a>
-    </div>
+  <div class="footer-links">
+    <a href="https://www.facebook.com/sdxrubel" target="_blank"><i class="fa-brands fa-facebook"></i> Facebook</a>
+    <a href="tel:+8801516050402"><i class="fa-solid fa-phone"></i> Call</a>
   </div>
-  <div style="text-align: center; margin-top: 3rem; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem;">
-    সহজ কৃষি শিক্ষা ও সমাধান ড্যাশবোর্ড &copy; ২০২৬ | SD Gardening Solution
-  </div>
+  <p>&copy; 2026 SD Gardening Solution | সহজ কৃষি সেবা</p>
 </footer>
 
 <script>
@@ -197,13 +168,11 @@
   function renderGrid(data) {
     const grid = document.getElementById('mainGrid');
     let displayData = currentTab === 'all' ? data : data.filter(d => favorites.includes(d.id));
-    
     grid.innerHTML = displayData.map(s => `
       <div class="card" onclick="openModal(${s.id})">
-        <i class="fa-solid fa-heart bookmark-btn ${favorites.includes(s.id) ? 'active' : ''}" 
-           onclick="toggleFav(event, ${s.id})"></i>
-        <h3><i class="fa-solid fa-seedling"></i> ${s.title}</h3>
-        <p style="color: #666; font-size: 0.95rem; line-height: 1.5;">${s.short_description}</p>
+        <i class="fa-solid fa-star fav-btn ${favorites.includes(s.id) ? 'active' : ''}" onclick="toggleFav(event, ${s.id})"></i>
+        <h3>${s.title}</h3>
+        <p style="color: #777; font-size: 0.85rem;">${s.short_description}</p>
       </div>
     `).join('');
   }
@@ -213,51 +182,42 @@
     const idx = allData.findIndex(x => x.id === id);
     const modal = document.getElementById('dataModal');
     
-    modal.scrollTop = 0; // ওপেন হওয়ার সময় স্ক্রল রিসেট
+    // ১. মোডাল কন্টেন্ট দেখানোর আগে স্ক্রল পজিশন একদম উপরে নিয়ে আসা
+    modal.style.display = 'block';
+    modal.scrollTop = 0; 
+    document.body.style.overflow = 'hidden';
 
     let html = `
       <div class="modal-hero">
-        <h2 style="font-size: 2rem;">${s.title}</h2>
-        <div class="meta-row">
-          <div class="meta-box"><i class="fa-solid fa-hourglass-half"></i> সময়: ${s.preparation_time_hours} ঘণ্টা</div>
-          <div class="meta-box"><i class="fa-solid fa-shield-halved"></i> লেভেল: ${s.difficulty === 'easy' ? 'সহজ' : 'মাঝারি'}</div>
-          <div class="meta-box"><i class="fa-solid fa-box-open"></i> স্থায়িত্ব: ${s.shelf_life_days} দিন</div>
-        </div>
+        <h2>${s.title}</h2>
+        <p style="margin-top:10px; font-size:0.9rem; opacity:0.8;">সময়: ${s.preparation_time_hours} ঘণ্টা | স্থায়িত্ব: ${s.shelf_life_days} দিন</p>
       </div>
       <div class="modal-body">
-        <div class="section-head"><i class="fa-solid fa-feather-pointed"></i> মূল বিবরণ</div>
-        <p style="line-height: 1.9; color: #444; font-size: 1.15rem;">${s.long_description}</p>
+        <div class="section-head"><i class="fa-solid fa-info-circle"></i> বিবরণ</div>
+        <p style="line-height:1.7; color:#444;">${s.long_description}</p>
 
-        <div class="section-head"><i class="fa-solid fa-list-check"></i> প্রয়োজনীয় উপকরণ</div>
-        <div>${s.ingredients.map(ing => `<span class="ingredient-pill"><i class="fa-solid fa-circle-check" style="color:var(--accent)"></i> ${ing.name} (${ing.quantity} ${ing.unit})</span>`).join('')}</div>
+        <div class="section-head"><i class="fa-solid fa-list"></i> উপকরণ</div>
+        <div>${s.ingredients.map(ing => `<span class="step-box" style="display:inline-block; margin-right:5px; padding:5px 10px;">${ing.name}</span>`).join('')}</div>
 
-        <div class="section-head"><i class="fa-solid fa-gears"></i> প্রয়োগ ও ব্যবহার বিধি</div>
-        ${s.working_process.map(st => `<div class="step-box"><span class="step-num">${st.step}</span> <div>${st.description}</div></div>`).join('')}
+        <div class="section-head"><i class="fa-solid fa-tools"></i> প্রয়োগ পদ্ধতি</div>
+        ${s.working_process.map(st => `<div class="step-box"><b>${st.step}.</b> ${st.description}</div>`).join('')}
 
-        <div class="section-head"><i class="fa-solid fa-clipboard-question"></i> সচরাচর জিজ্ঞাসা (Q&A)</div>
-        ${s.faqs.map(f => `
-          <div class="qna-card">
-            <div class="q-text"><i class="fa-solid fa-circle-question"></i> ${f.question}</div>
-            <div style="padding-left: 35px; color: #444; line-height: 1.6;"><i class="fa-solid fa-hand-holding-heart" style="color: #27ae60;"></i> ${f.answer}</div>
-          </div>
-        `).join('')}
+        <div class="section-head"><i class="fa-solid fa-question-circle"></i> প্রশ্নোত্তর</div>
+        ${s.faqs.map(f => `<div class="qna-card"><b><i class="fa-solid fa-q"></i> ${f.question}</b><br><i class="fa-solid fa-a" style="color:green"></i> ${f.answer}</div>`).join('')}
 
         <div class="modal-nav">
-          <button class="nav-btn" onclick="openModal(${allData[idx-1]?.id || id})"><i class="fa-solid fa-chevron-left"></i> আগেরটি</button>
-          <button class="nav-btn" onclick="openModal(${allData[idx+1]?.id || id})">পরেরটি <i class="fa-solid fa-chevron-right"></i></button>
+          <button class="nav-btn" onclick="openModal(${allData[idx-1]?.id || id})">আগেরটি</button>
+          <button class="nav-btn" onclick="openModal(${allData[idx+1]?.id || id})">পরেরটি</button>
         </div>
       </div>
     `;
-
     document.getElementById('modalContent').innerHTML = html;
-    modal.style.display = 'block';
-    document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
     const modal = document.getElementById('dataModal');
     modal.style.display = 'none';
-    modal.scrollTop = 0; // কেটে দেওয়ার সময় স্ক্রল রিসেট (আপনার চাওয়া অনুযায়ী)
+    modal.scrollTop = 0; // বন্ধ করার সময়ও রিসেট করে রাখা
     document.body.style.overflow = 'auto';
   }
 
@@ -276,19 +236,9 @@
     renderGrid(allData);
   }
 
-  // Smart Search (Fuzzy Logic) - ১৯-২০ ভুল হলেও ডাটা আসবে
   document.getElementById('searchInput').addEventListener('input', (e) => {
-    const val = e.target.value.toLowerCase().trim();
-    if(!val) return renderGrid(allData);
-
-    const filtered = allData.filter(s => {
-      const title = s.title.toLowerCase();
-      const desc = s.short_description.toLowerCase();
-      
-      // মূল শব্দের মিল অথবা ৩ অক্ষরের মিল থাকলেই দেখাবে (Fuzzy)
-      return title.includes(val) || desc.includes(val) || 
-             (val.length > 2 && title.split('').some((char, i) => title.includes(val.substring(0, 3))));
-    });
+    const val = e.target.value.toLowerCase();
+    const filtered = allData.filter(s => s.title.toLowerCase().includes(val) || s.short_description.toLowerCase().includes(val));
     renderGrid(filtered);
   });
 
