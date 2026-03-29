@@ -287,6 +287,84 @@
     modal.style.display = 'none';
     document.body.style.overflow = 'auto';
   }
+  // --- ব্যাক বাটন 'লক' করার পদ্ধতি ---
+  function openModal(id) {
+    const s = allData.find(x => x.id === id);
+    const idx = allData.findIndex(x => x.id === id);
+    if(!s) return;
+
+    const modal = document.getElementById('dataModal');
+    
+    // মোডাল ওপেন হওয়ার সময় হিস্টোরিতে একটি স্টেট পুশ করা
+    window.history.pushState(null, null, window.location.href);
+
+    // ইউজার ব্যাক বাটন চাপলে তাকে আবার এই পেজেই 'পুশ' করে আটকে রাখা
+    window.onpopstate = function() {
+      if (modal.style.display === 'block') {
+        window.history.pushState(null, null, window.location.href);
+      }
+    };
+
+    modal.style.display = 'block';
+    modal.scrollTop = 0; 
+    document.body.style.overflow = 'hidden';
+
+    const prevItem = allData[idx - 1];
+    const nextItem = allData[idx + 1];
+
+    let html = `
+      <div class="modal-hero">
+        <h2 style="font-size: 1.6rem; line-height: 1.4;">${s.title}</h2>
+        <div style="margin-top:15px; display:flex; gap:12px; font-size:0.8rem; opacity:0.9;">
+          <span><i class="fa-solid fa-clock"></i> ${s.preparation_time_hours} ঘণ্টা</span>
+          <span><i class="fa-solid fa-layer-group"></i> ${s.difficulty === 'easy' ? 'সহজ' : 'মাঝারি'}</span>
+          <span><i class="fa-solid fa-box"></i> ${s.shelf_life_days} দিন</span>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="section-head"><i class="fa-solid fa-circle-info" style="color:#3498db"></i> বিস্তারিত তথ্য</div>
+        <p style="line-height:1.7; color:#444; font-size: 1.05rem;">${s.long_description}</p>
+
+        <div class="section-head"><i class="fa-solid fa-basket-shopping" style="color:#e67e22"></i> প্রয়োজনীয় উপকরণ</div>
+        <div>${s.ingredients.map(ing => `<div class="ing-tag"><i class="fa-solid fa-check"></i> ${ing.name} (${ing.quantity} ${ing.unit})</div>`).join('')}</div>
+
+        <div class="section-head"><i class="fa-solid fa-list-ol" style="color:#9b59b6"></i> প্রস্তুত ও প্রয়োগ প্রণালী</div>
+        ${s.working_process.map(st => `
+          <div class="step-card">
+            <div class="step-icon">${st.step}</div>
+            <div style="font-size: 1rem;">${st.description}</div>
+          </div>
+        `).join('')}
+
+        <div class="section-head"><i class="fa-solid fa-comments" style="color:#f1c40f"></i> সাধারণ প্রশ্ন ও উত্তর</div>
+        ${s.faqs.map(f => `
+          <div class="qna-card">
+            <div class="q-text"><i class="fa-solid fa-comment-dots"></i> ${f.question}</div>
+            <div class="a-text"><i class="fa-solid fa-square-check"></i> ${f.answer}</div>
+          </div>
+        `).join('')}
+
+        <div class="modal-nav">
+          <button class="nav-btn" ${!prevItem ? 'disabled style="opacity:0.5; cursor:default;"' : `onclick="openModal(${prevItem.id})"`}>
+            <i class="fa-solid fa-chevron-left"></i> আগের পোস্ট
+          </button>
+          <button class="nav-btn" ${!nextItem ? 'disabled style="opacity:0.5; cursor:default;"' : `onclick="openModal(${nextItem.id})"`}>
+            পরের পোস্ট <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    `;
+    document.getElementById('modalContent').innerHTML = html;
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('dataModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+    
+    // মোডাল ক্লোজ হলে ব্যাক বাটন লজিক রিমুভ করা
+    window.onpopstate = null;
+  }
 
   function toggleFav(e, id) {
     e.stopPropagation();
