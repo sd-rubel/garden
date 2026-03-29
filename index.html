@@ -28,8 +28,14 @@
     body { font-family: 'Kalpurush', sans-serif; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; }
 
     /* --- Header Logo Section --- */
-    header { width: 100%; background: var(--primary-dark); display: flex; justify-content: center; align-items: center; overflow: hidden; line-height: 0; }
-    .header-img { width: 100%; max-width: 100%; height: auto; object-fit: contain; display: block; }
+    header { width: 100%; background: var(--primary-dark); display: flex; justify-content: center; align-items: center; line-height: 0; padding: 0; margin: 0; }
+    .header-img { 
+      width: 100%; 
+      max-width: 100%; 
+      height: auto; 
+      display: block; 
+      object-fit: contain;
+    }
 
     /* --- Navigation --- */
     nav {
@@ -97,23 +103,27 @@
     .step-card { display: flex; gap: 15px; background: #fafafa; padding: 1.2rem; border-radius: 18px; margin-bottom: 12px; border: 1px solid #eee; }
     .step-icon { width: 35px; height: 35px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 0.9rem; }
 
-    /* Q&A New Icons */
+    /* Q&A Icons */
     .qna-card { background: #fffdf5; border: 1px solid #f6eed0; padding: 1.5rem; border-radius: 20px; margin-bottom: 12px; }
     .q-text { font-weight: 800; color: #7d651a; margin-bottom: 8px; display: flex; gap: 10px; }
     .q-text i { color: #e67e22; }
     .a-text { display: flex; gap: 10px; color: #444; padding-left: 5px; line-height: 1.6; }
     .a-text i { color: #27ae60; margin-top: 4px; }
 
-    /* --- Redesigned Footer --- */
+    /* --- Updated Footer Design --- */
     footer { 
-      background: #fbfdfc; color: #5e716a; padding: 40px 6% 25px; 
-      text-align: center; border-top: 1px solid #e8f0ed; margin-top: 40px;
+      background: #eff5f2; /* হালকা এবং সুন্দর ব্যাকগ্রাউন্ড কালার */
+      color: #3b4d45; 
+      padding: 40px 6% 25px; 
+      text-align: center; 
+      border-top: 2px solid #e0eee7; 
+      margin-top: 40px;
     }
-    .footer-quote { font-style: italic; font-size: 0.95rem; margin-bottom: 20px; color: var(--secondary); max-width: 600px; margin-left: auto; margin-right: auto; }
+    .footer-quote { font-style: italic; font-size: 0.95rem; margin-bottom: 20px; color: var(--secondary); max-width: 600px; margin-left: auto; margin-right: auto; font-weight: 500; }
     .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; }
     .footer-links a { color: #1b4332; text-decoration: none; font-weight: bold; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
     .footer-links a:hover { color: var(--accent); }
-    .footer-bottom { font-size: 0.75rem; color: #999; border-top: 1px solid #f0f0f0; padding-top: 15px; }
+    .footer-bottom { font-size: 0.75rem; color: #7f8c8d; border-top: 1px solid #dcdcdc; padding-top: 15px; }
 
     .modal-nav { display: flex; gap: 15px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
     .nav-btn { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-weight: bold; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem; }
@@ -122,7 +132,7 @@
 <body>
 
 <header>
-  <img src="IMG_20260329_113755.png" alt="SD Gardening Logo" class="header-img">
+  <img src="./IMG_20260329_113755.png" alt="SD Gardening Logo" class="header-img">
 </header>
 
 <nav>
