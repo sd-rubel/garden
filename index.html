@@ -27,101 +27,53 @@
     html, body { height: 100%; scroll-behavior: smooth; }
     body { font-family: 'Kalpurush', sans-serif; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; }
 
-    /* --- Header Logo Section --- */
     header { width: 100%; background: var(--primary-dark); display: flex; justify-content: center; align-items: center; line-height: 0; padding: 0; margin: 0; }
-    .header-img { 
-      width: 100%; 
-      max-width: 100%; 
-      height: auto; 
-      display: block; 
-      object-fit: contain;
-    }
+    .header-img { width: 100%; max-width: 100%; height: auto; display: block; object-fit: contain; }
 
-    /* --- Navigation --- */
-    nav {
-      position: sticky; top: 0; background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(10px); z-index: 1000; padding: 12px 6%;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: center;
-    }
+    nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); z-index: 1000; padding: 12px 6%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: center; }
     .search-box { position: relative; width: 100%; max-width: 500px; }
-    .search-box input {
-      width: 100%; padding: 12px 20px 12px 45px; border-radius: 12px;
-      border: 1px solid #dce4dc; background: #fdfdfd; font-family: inherit; outline: none;
-    }
+    .search-box input { width: 100%; padding: 12px 20px 12px 45px; border-radius: 12px; border: 1px solid #dce4dc; background: #fdfdfd; font-family: inherit; outline: none; }
     .search-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--secondary); }
 
-    /* --- Tabs --- */
     .tabs { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
-    .tab-btn {
-      padding: 10px 22px; border-radius: 50px; border: 1px solid #dce4dc;
-      background: #fff; color: var(--secondary); font-weight: bold; cursor: pointer;
-      font-family: inherit; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
-    }
+    .tab-btn { padding: 10px 22px; border-radius: 50px; border: 1px solid #dce4dc; background: #fff; color: var(--secondary); font-weight: bold; cursor: pointer; font-family: inherit; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
     .tab-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
 
-    /* --- Grid & Card --- */
     main { flex: 1 0 auto; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 25px; padding: 0 6% 50px; }
-    
-    .card {
-      background: var(--card-bg); border-radius: 22px; padding: 1.8rem;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.03); transition: 0.3s;
-      cursor: pointer; position: relative; border: 1px solid rgba(0,0,0,0.03);
-    }
+    .card { background: var(--card-bg); border-radius: 22px; padding: 1.8rem; box-shadow: 0 4px 18px rgba(0,0,0,0.03); transition: 0.3s; cursor: pointer; position: relative; border: 1px solid rgba(0,0,0,0.03); }
     .card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.07); }
-    
-    .card-badge {
-      position: absolute; top: -12px; left: -12px; width: 34px; height: 34px;
-      background: var(--secondary); color: #fff; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: bold; font-size: 0.9rem; border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      z-index: 5;
-    }
-
+    .card-badge { position: absolute; top: -12px; left: -12px; width: 34px; height: 34px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 5; }
     .card h3 { font-size: 1.15rem; color: var(--primary-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
     .card p { color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px; }
     .read-more { font-weight: bold; color: var(--accent); font-size: 0.85rem; display: flex; align-items: center; gap: 5px; }
     .fav-btn { position: absolute; top: 15px; right: 15px; color: #eee; font-size: 1.3rem; transition: 0.3s; z-index: 5; }
     .fav-btn.active { color: var(--gold); }
 
-    /* --- Modal --- */
-    .modal {
-      position: fixed; inset: 0; background: #fff; z-index: 2000; display: none; 
-      overflow-y: auto; scroll-behavior: auto !important;
-    }
-    .close-btn {
-      position: fixed; top: 15px; right: 15px; width: 45px; height: 45px;
-      border-radius: 50%; background: #c0392b; color: #fff; border: none;
-      cursor: pointer; z-index: 2100; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-
+    .modal { position: fixed; inset: 0; background: #fff; z-index: 2000; display: none; overflow-y: auto; scroll-behavior: auto !important; }
+    .close-btn { position: fixed; top: 15px; right: 15px; width: 45px; height: 45px; border-radius: 50%; background: #c0392b; color: #fff; border: none; cursor: pointer; z-index: 2100; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
     .modal-hero { background: linear-gradient(135deg, #071a13 0%, #1b4332 100%); padding: 5rem 10% 2.5rem; color: #fff; }
     .modal-body { padding: 2.5rem 10%; max-width: 950px; margin: 0 auto; }
     .section-head { font-size: 1.2rem; font-weight: bold; color: var(--primary-dark); margin: 2rem 0 1rem; display: flex; align-items: center; gap: 10px; }
     
-    .ing-tag { display: inline-flex; align-items: center; gap: 6px; background: #f0f7f4; padding: 8px 15px; border-radius: 10px; margin: 4px; font-weight: 600; font-size: 0.9rem; border: 1px solid #e0eee7; }
+    /* --- Table Design for Ingredients --- */
+    .ing-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #e0eee7; }
+    .ing-table th { background: #f0f7f4; color: var(--secondary); text-align: left; padding: 12px 15px; font-size: 0.95rem; border-bottom: 2px solid #e0eee7; }
+    .ing-table td { padding: 12px 15px; border-bottom: 1px solid #f0f0f0; font-size: 1rem; color: #444; }
+    .ing-table tr:last-child td { border-bottom: none; }
+    .ing-table .emoji-col { width: 50px; text-align: center; font-size: 1.3rem; }
+
     .step-card { display: flex; gap: 15px; background: #fafafa; padding: 1.2rem; border-radius: 18px; margin-bottom: 12px; border: 1px solid #eee; }
     .step-icon { width: 35px; height: 35px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 0.9rem; }
 
     .qna-card { background: #fffdf5; border: 1px solid #f6eed0; padding: 1.5rem; border-radius: 20px; margin-bottom: 12px; }
     .q-text { font-weight: 800; color: #7d651a; margin-bottom: 8px; display: flex; gap: 10px; }
-    .q-text i { color: #e67e22; }
     .a-text { display: flex; gap: 10px; color: #444; padding-left: 5px; line-height: 1.6; }
-    .a-text i { color: #27ae60; margin-top: 4px; }
 
-    /* --- Footer --- */
-    footer { 
-      background: #eff5f2; 
-      color: #3b4d45; 
-      padding: 40px 6% 25px; 
-      text-align: center; 
-      border-top: 2px solid #e0eee7; 
-      margin-top: 40px;
-    }
-    .footer-quote { font-style: italic; font-size: 0.95rem; margin-bottom: 20px; color: var(--secondary); max-width: 600px; margin-left: auto; margin-right: auto; font-weight: 500; }
+    footer { background: #eff5f2; color: #3b4d45; padding: 40px 6% 25px; text-align: center; border-top: 2px solid #e0eee7; margin-top: 40px; }
+    .footer-quote { font-style: italic; font-size: 0.95rem; margin-bottom: 20px; color: var(--secondary); max-width: 600px; margin-left: auto; margin-right: auto; }
     .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; }
-    .footer-links a { color: #1b4332; text-decoration: none; font-weight: bold; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
-    .footer-links a:hover { color: var(--accent); }
+    .footer-links a { color: #1b4332; text-decoration: none; font-weight: bold; font-size: 0.85rem; }
     .footer-bottom { font-size: 0.75rem; color: #7f8c8d; border-top: 1px solid #dcdcdc; padding-top: 15px; }
 
     .modal-nav { display: flex; gap: 15px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
@@ -156,16 +108,12 @@
 </div>
 
 <footer>
-  <div class="footer-quote">
-    "গাছ লাগান, পরিবেশ বাঁচান। আপনার প্রতিটি ছোট পদক্ষেপ আমাদের পৃথিবীকে আরও সবুজ করে তুলবে।"
-  </div>
+  <div class="footer-quote">"গাছ লাগান, পরিবেশ বাঁচান। আপনার প্রতিটি ছোট পদক্ষেপ আমাদের পৃথিবীকে আরও সবুজ করে তুলবে।"</div>
   <div class="footer-links">
     <a href="https://www.facebook.com/sdxrubel" target="_blank"><i class="fa-brands fa-facebook-f"></i> ফেসবুক পেজ</a>
     <a href="tel:+8801516050402"><i class="fa-solid fa-headset"></i> সাপোর্ট হেল্পলাইন</a>
   </div>
-  <div class="footer-bottom">
-    &copy; ২০২৬ SD Gardening Solution | সর্বস্বত্ব সংরক্ষিত | v1.0.1
-  </div>
+  <div class="footer-bottom">&copy; ২০২৬ SD Gardening Solution | সর্বস্বত্ব সংরক্ষিত</div>
 </footer>
 
 <script>
@@ -176,13 +124,10 @@
   async function init() {
     const maxFiles = 1000;
     const fetchPromises = [];
-    
-    // ক্যাশ এড়ানোর জন্য একটি ইউনিক টাইমস্ট্যাম্প তৈরি করা হলো
     const cacheBuster = new Date().getTime();
 
     for (let i = 1; i <= maxFiles; i++) {
       const fileName = String(i).padStart(2, '0') + '.json';
-      // ফাইলের শেষে ?v=TIMESTAMP যোগ করা হয়েছে যাতে ব্রাউজার সবসময় নতুন ডেটা আনে
       fetchPromises.push(
         fetch(`task/${fileName}?v=${cacheBuster}`)
           .then(res => res.ok ? res.json() : null)
@@ -191,25 +136,17 @@
     }
 
     const results = await Promise.all(fetchPromises);
-
     results.forEach(data => {
-      if (data && data.gardening_solutions && Array.isArray(data.gardening_solutions)) {
+      if (data && data.gardening_solutions) {
         allData = [...allData, ...data.gardening_solutions];
       }
     });
-
     renderGrid(allData);
   }
 
   function renderGrid(data) {
     const grid = document.getElementById('mainGrid');
     let displayData = currentTab === 'all' ? data : data.filter(d => favorites.includes(d.id));
-    
-    if (displayData.length === 0) {
-      grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 50px; color: #888;">কোন তথ্য পাওয়া যায়নি।</div>`;
-      return;
-    }
-
     grid.innerHTML = displayData.map((s, idx) => `
       <div class="card" onclick="openModal(${s.id})">
         <div class="card-badge">${idx + 1}</div>
@@ -224,15 +161,35 @@
   function openModal(id) {
     const s = allData.find(x => x.id === id);
     if (!s) return;
-
     const idx = allData.findIndex(x => x.id === id);
     const modal = document.getElementById('dataModal');
-    
     modal.style.display = 'block';
-    modal.scrollTop = 0; 
+    modal.scrollTop = 0;
     document.body.style.overflow = 'hidden';
 
-    let html = `
+    // টেবিল তৈরি করার লজিক
+    let tableHtml = `
+      <table class="ing-table">
+        <thead>
+          <tr>
+            <th class="emoji-col">চিহ্ন</th>
+            <th>উপকরণের নাম</th>
+            <th>পরিমাণ</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${s.ingredients_summary_table.map(item => `
+            <tr>
+              <td class="emoji-col">${item.emoji}</td>
+              <td>${item.item}</td>
+              <td><b>${item.amount}</b></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+
+    document.getElementById('modalContent').innerHTML = `
       <div class="modal-hero">
         <h2 style="font-size: 1.6rem; line-height: 1.4;">${s.title}</h2>
         <div style="margin-top:15px; display:flex; gap:12px; font-size:0.8rem; opacity:0.9;">
@@ -243,24 +200,24 @@
       </div>
       <div class="modal-body">
         <div class="section-head"><i class="fa-solid fa-circle-info" style="color:#3498db"></i> বিস্তারিত তথ্য</div>
-        <p style="line-height:1.7; color:#444; font-size: 1.05rem;">${s.long_description}</p>
+        <p style="line-height:1.7; color:#444;">${s.long_description}</p>
 
         <div class="section-head"><i class="fa-solid fa-basket-shopping" style="color:#e67e22"></i> প্রয়োজনীয় উপকরণ</div>
-        <div>${s.ingredients.map(ing => `<div class="ing-tag"><i class="fa-solid fa-check"></i> ${ing.name} (${ing.quantity} ${ing.unit})</div>`).join('')}</div>
+        ${tableHtml}
 
         <div class="section-head"><i class="fa-solid fa-list-ol" style="color:#9b59b6"></i> প্রস্তুত ও প্রয়োগ প্রণালী</div>
         ${s.working_process.map(st => `
           <div class="step-card">
             <div class="step-icon">${st.step}</div>
-            <div style="font-size: 1rem;">${st.description}</div>
+            <div>${st.description}</div>
           </div>
         `).join('')}
 
         <div class="section-head"><i class="fa-solid fa-comments" style="color:#f1c40f"></i> সাধারণ প্রশ্ন ও উত্তর</div>
         ${s.faqs.map(f => `
           <div class="qna-card">
-            <div class="q-text"><i class="fa-solid fa-comment-dots"></i> ${f.question}</div>
-            <div class="a-text"><i class="fa-solid fa-square-check"></i> ${f.answer}</div>
+            <div class="q-text"><i class="fa-solid fa-comment-dots" style="color:#e67e22"></i> ${f.question}</div>
+            <div class="a-text"><i class="fa-solid fa-square-check" style="color:#27ae60"></i> ${f.answer}</div>
           </div>
         `).join('')}
 
@@ -270,36 +227,12 @@
         </div>
       </div>
     `;
-    document.getElementById('modalContent').innerHTML = html;
   }
 
-  function closeModal() {
-    const modal = document.getElementById('dataModal');
-    modal.style.display = 'none';
-    modal.scrollTop = 0; 
-    document.body.style.overflow = 'auto';
-  }
-
-  function toggleFav(e, id) {
-    e.stopPropagation();
-    if(favorites.includes(id)) favorites = favorites.filter(f => f !== id);
-    else favorites.push(id);
-    localStorage.setItem('sd_favs', JSON.stringify(favorites));
-    renderGrid(allData);
-  }
-
-  function changeTab(tab, el) {
-    currentTab = tab;
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    el.classList.add('active');
-    renderGrid(allData);
-  }
-
-  document.getElementById('searchInput').addEventListener('input', (e) => {
-    const val = e.target.value.toLowerCase().trim();
-    const filtered = allData.filter(s => s.title.toLowerCase().includes(val) || s.short_description.toLowerCase().includes(val));
-    renderGrid(filtered);
-  });
+  function closeModal() { document.getElementById('dataModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
+  function toggleFav(e, id) { e.stopPropagation(); if(favorites.includes(id)) favorites = favorites.filter(f => f !== id); else favorites.push(id); localStorage.setItem('sd_favs', JSON.stringify(favorites)); renderGrid(allData); }
+  function changeTab(tab, el) { currentTab = tab; document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); renderGrid(allData); }
+  document.getElementById('searchInput').addEventListener('input', (e) => { const val = e.target.value.toLowerCase().trim(); const filtered = allData.filter(s => s.title.toLowerCase().includes(val) || s.short_description.toLowerCase().includes(val)); renderGrid(filtered); });
 
   init();
 </script>
