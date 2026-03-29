@@ -27,30 +27,31 @@
     html, body { height: 100%; scroll-behavior: smooth; }
     body { font-family: 'Kalpurush', sans-serif; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; }
 
-    /* --- Header Logo Section --- */
     header { width: 100%; background: var(--primary-dark); display: flex; justify-content: center; align-items: center; line-height: 0; padding: 0; margin: 0; }
-    .header-img { 
-      width: 100%; 
-      max-width: 100%; 
-      height: auto; 
-      display: block; 
-      object-fit: contain;
-    }
+    .header-img { width: 100%; max-width: 100%; height: auto; display: block; object-fit: contain; }
 
-    /* --- Navigation --- */
+    /* --- Navigation with Refresh Button --- */
     nav {
       position: sticky; top: 0; background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(10px); z-index: 1000; padding: 12px 6%;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center; gap: 10px;
     }
-    .search-box { position: relative; width: 100%; max-width: 500px; }
+    .search-box { position: relative; width: 100%; max-width: 450px; }
     .search-box input {
       width: 100%; padding: 12px 20px 12px 45px; border-radius: 12px;
       border: 1px solid #dce4dc; background: #fdfdfd; font-family: inherit; outline: none;
     }
-    .search-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--secondary); }
+    .search-box i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--secondary); }
 
-    /* --- Tabs --- */
+    /* Refresh Button Style */
+    .refresh-btn {
+      background: var(--secondary); color: white; border: none; width: 45px; height: 45px;
+      border-radius: 12px; cursor: pointer; transition: 0.3s; display: flex;
+      align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+    .refresh-btn:hover { background: var(--accent); transform: rotate(180deg); }
+    .refresh-btn:active { transform: scale(0.9); }
+
     .tabs { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
     .tab-btn {
       padding: 10px 22px; border-radius: 50px; border: 1px solid #dce4dc;
@@ -59,7 +60,6 @@
     }
     .tab-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
 
-    /* --- Grid & Card with Top-Left Circle Numbering --- */
     main { flex: 1 0 auto; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 25px; padding: 0 6% 50px; }
     
@@ -84,45 +84,24 @@
     .fav-btn { position: absolute; top: 15px; right: 15px; color: #eee; font-size: 1.3rem; transition: 0.3s; z-index: 5; }
     .fav-btn.active { color: var(--gold); }
 
-    /* --- Modal Scroll Reset Logic --- */
-    .modal {
-      position: fixed; inset: 0; background: #fff; z-index: 2000; display: none; 
-      overflow-y: auto; scroll-behavior: auto !important;
-    }
-    .close-btn {
-      position: fixed; top: 15px; right: 15px; width: 45px; height: 45px;
-      border-radius: 50%; background: #c0392b; color: #fff; border: none;
-      cursor: pointer; z-index: 2100; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
+    .modal { position: fixed; inset: 0; background: #fff; z-index: 2000; display: none; overflow-y: auto; }
+    .close-btn { position: fixed; top: 15px; right: 15px; width: 45px; height: 45px; border-radius: 50%; background: #c0392b; color: #fff; border: none; cursor: pointer; z-index: 2100; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
     .modal-hero { background: linear-gradient(135deg, #071a13 0%, #1b4332 100%); padding: 5rem 10% 2.5rem; color: #fff; }
     .modal-body { padding: 2.5rem 10%; max-width: 950px; margin: 0 auto; }
     .section-head { font-size: 1.2rem; font-weight: bold; color: var(--primary-dark); margin: 2rem 0 1rem; display: flex; align-items: center; gap: 10px; }
-    
     .ing-tag { display: inline-flex; align-items: center; gap: 6px; background: #f0f7f4; padding: 8px 15px; border-radius: 10px; margin: 4px; font-weight: 600; font-size: 0.9rem; border: 1px solid #e0eee7; }
     .step-card { display: flex; gap: 15px; background: #fafafa; padding: 1.2rem; border-radius: 18px; margin-bottom: 12px; border: 1px solid #eee; }
     .step-icon { width: 35px; height: 35px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 0.9rem; }
 
-    /* Q&A Icons */
     .qna-card { background: #fffdf5; border: 1px solid #f6eed0; padding: 1.5rem; border-radius: 20px; margin-bottom: 12px; }
     .q-text { font-weight: 800; color: #7d651a; margin-bottom: 8px; display: flex; gap: 10px; }
-    .q-text i { color: #e67e22; }
     .a-text { display: flex; gap: 10px; color: #444; padding-left: 5px; line-height: 1.6; }
-    .a-text i { color: #27ae60; margin-top: 4px; }
 
-    /* --- Updated Footer Design --- */
-    footer { 
-      background: #eff5f2; /* হালকা এবং সুন্দর ব্যাকগ্রাউন্ড কালার */
-      color: #3b4d45; 
-      padding: 40px 6% 25px; 
-      text-align: center; 
-      border-top: 2px solid #e0eee7; 
-      margin-top: 40px;
-    }
+    footer { background: #eff5f2; color: #3b4d45; padding: 40px 6% 25px; text-align: center; border-top: 2px solid #e0eee7; margin-top: 40px; }
     .footer-quote { font-style: italic; font-size: 0.95rem; margin-bottom: 20px; color: var(--secondary); max-width: 600px; margin-left: auto; margin-right: auto; font-weight: 500; }
     .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; }
-    .footer-links a { color: #1b4332; text-decoration: none; font-weight: bold; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; transition: 0.2s; }
-    .footer-links a:hover { color: var(--accent); }
+    .footer-links a { color: #1b4332; text-decoration: none; font-weight: bold; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; }
     .footer-bottom { font-size: 0.75rem; color: #7f8c8d; border-top: 1px solid #dcdcdc; padding-top: 15px; }
 
     .modal-nav { display: flex; gap: 15px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
@@ -140,6 +119,9 @@
     <i class="fa-solid fa-magnifying-glass"></i>
     <input type="text" id="searchInput" placeholder="আপনার সমস্যাটি লিখে সার্চ করুন...">
   </div>
+  <button class="refresh-btn" onclick="refreshData()" title="নতুন ডেটা আপডেট করুন">
+    <i class="fa-solid fa-rotate"></i>
+  </button>
 </nav>
 
 <div class="tabs">
@@ -175,10 +157,12 @@
   let currentTab = 'all';
 
   async function init() {
+    allData = []; // রিসেট ডাটা
     let i = 1;
     while(true) {
       try {
-        let res = await fetch(`task/${String(i).padStart(2, '0')}.json`);
+        // Cache busting যোগ করা হয়েছে যাতে আপডেট সাথে সাথে পাওয়া যায়
+        let res = await fetch(`task/${String(i).padStart(2, '0')}.json?v=${new Date().getTime()}`);
         if(!res.ok) break;
         let data = await res.json();
         allData = [...allData, ...data.gardening_solutions];
@@ -186,6 +170,16 @@
       } catch (e) { break; }
     }
     renderGrid(allData);
+  }
+
+  // রিফ্রেশ ফাংশন
+  function refreshData() {
+    const btnIcon = document.querySelector('.refresh-btn i');
+    btnIcon.classList.add('fa-spin'); // বাটন ঘুরবে
+    init().then(() => {
+      setTimeout(() => btnIcon.classList.remove('fa-spin'), 500);
+      alert('নতুন তথ্য আপডেট করা হয়েছে!');
+    });
   }
 
   function renderGrid(data) {
@@ -204,9 +198,9 @@
 
   function openModal(id) {
     const s = allData.find(x => x.id === id);
+    if(!s) return;
     const idx = allData.findIndex(x => x.id === id);
     const modal = document.getElementById('dataModal');
-    
     modal.style.display = 'block';
     modal.scrollTop = 0; 
     document.body.style.overflow = 'hidden';
@@ -255,7 +249,6 @@
   function closeModal() {
     const modal = document.getElementById('dataModal');
     modal.style.display = 'none';
-    modal.scrollTop = 0; 
     document.body.style.overflow = 'auto';
   }
 
