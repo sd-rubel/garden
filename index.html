@@ -19,11 +19,11 @@
       --primary: #143628;
       --secondary: #2d6a4f;
       --accent: #52b788;
-      --bg: #f0f4f0;
+      --bg: #f4f7f4;
       --card-bg: #ffffff;
       --text-main: #1b4332;
       --text-muted: #5e716a;
-      --shadow: 0 10px 30px rgba(0,0,0,0.05);
+      --white: #ffffff;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -39,168 +39,162 @@
     nav {
       position: sticky;
       top: 0;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
       z-index: 1000;
       padding: 1rem 6%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .brand i { font-size: 1.8rem; color: var(--secondary); }
-    .brand h1 { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand i { font-size: 1.6rem; color: var(--secondary); }
+    .brand h1 { font-size: 1.3rem; font-weight: 800; color: var(--primary); }
 
-    .search-bar {
-      background: #e9f0e9;
-      padding: 8px 15px;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      width: 350px;
+    .search-container {
+      position: relative;
+      flex-grow: 1;
+      max-width: 400px;
+    }
+    .search-container input {
+      width: 100%;
+      padding: 10px 15px 10px 40px;
+      border-radius: 12px;
+      border: 1px solid #dce4dc;
+      background: #f8faf8;
+      font-family: inherit;
+      outline: none;
       transition: 0.3s;
     }
-    .search-bar:focus-within { background: #fff; box-shadow: 0 0 0 2px var(--accent); }
-    .search-bar input {
-      border: none; background: none; outline: none; width: 100%;
-      padding-left: 10px; font-family: inherit;
-    }
-    .search-bar i { color: var(--secondary); }
+    .search-container input:focus { background: #fff; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.1); }
+    .search-container i { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
     /* --- Filter Area --- */
     .filter-section {
-      padding: 1.5rem 6%;
+      padding: 1rem 6%;
       display: flex;
-      gap: 12px;
+      gap: 10px;
       overflow-x: auto;
       scrollbar-width: none;
     }
     .filter-section::-webkit-scrollbar { display: none; }
 
     .tag-chip {
-      padding: 8px 20px;
+      padding: 8px 18px;
       background: #fff;
       border-radius: 50px;
       cursor: pointer;
+      font-size: 0.85rem;
       font-weight: 600;
-      font-size: 0.9rem;
       transition: 0.3s;
-      display: flex; align-items: center; gap: 8px;
-      border: 1px solid #d8e2dc;
       white-space: nowrap;
+      border: 1px solid #e0e6e0;
+      display: flex; align-items: center; gap: 6px;
     }
     .tag-chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
     /* --- Main Grid --- */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 25px;
-      padding: 10px 6% 50px;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      padding: 1rem 6% 4rem;
+      min-height: 60vh;
     }
 
     .solution-card {
       background: var(--card-bg);
-      border-radius: 30px;
-      padding: 2rem;
-      position: relative;
-      border: 1px solid rgba(0,0,0,0.02);
-      box-shadow: var(--shadow);
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      border-radius: 24px;
+      padding: 1.8rem;
+      border: 1px solid rgba(0,0,0,0.03);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+      transition: 0.3s;
       cursor: pointer;
     }
-    .solution-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-    
-    .card-icon {
-      width: 50px; height: 50px; background: #f0f7f4;
-      border-radius: 15px; display: flex; align-items: center;
-      justify-content: center; margin-bottom: 1.5rem;
-      color: var(--secondary); font-size: 1.4rem;
-    }
+    .solution-card:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); }
+    .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
+    .card-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
 
-    .card-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; color: var(--primary); }
-    .card-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.5rem; }
-
-    .card-footer {
-      display: flex; justify-content: space-between; align-items: center;
-      border-top: 1px solid #f1f1f1; padding-top: 1rem;
-    }
-    .badge { font-size: 0.8rem; font-weight: 700; color: var(--secondary); text-transform: uppercase; }
-
-    /* --- Modal: Single View Premium --- */
+    /* --- Full Screen Modal --- */
     .modal {
-      position: fixed; inset: 0; background: rgba(10, 26, 18, 0.6);
-      backdrop-filter: blur(12px); z-index: 2000;
-      display: none; justify-content: center; align-items: center; padding: 20px;
+      position: fixed; inset: 0; background: var(--white);
+      z-index: 2000; display: none; overflow-y: auto;
+      animation: pageUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .modal-content {
-      background: #fff; width: 100%; max-width: 900px; max-height: 92vh;
-      border-radius: 40px; overflow-y: auto; position: relative;
-      animation: slideUp 0.5s ease-out;
-    }
-    @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    @keyframes pageUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-    .modal-header {
-      background: linear-gradient(135deg, #143628 0%, #2d6a4f 100%);
-      padding: 3rem 2.5rem; color: #fff; position: relative;
-    }
     .close-modal {
-      position: absolute; top: 25px; right: 25px;
+      position: fixed; top: 20px; right: 20px;
       width: 45px; height: 45px; border-radius: 50%;
-      background: rgba(255,255,255,0.15); border: none; color: #fff;
-      cursor: pointer; font-size: 1.2rem; transition: 0.3s;
+      background: var(--primary); color: #fff; border: none;
+      cursor: pointer; font-size: 1.2rem; z-index: 2100;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
-    .close-modal:hover { background: #fff; color: var(--primary); }
 
-    .modal-body { padding: 2.5rem; }
+    .modal-hero {
+      background: linear-gradient(135deg, #143628 0%, #2d6a4f 100%);
+      padding: 4rem 10% 2.5rem; color: #fff;
+    }
+    .modal-hero h2 { font-size: 1.6rem; margin-bottom: 15px; line-height: 1.3; }
+
+    /* Compact Meta Information */
+    .meta-inline {
+      display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .meta-box {
+      background: rgba(255,255,255,0.1); padding: 8px 15px;
+      border-radius: 12px; font-size: 0.85rem; display: flex; align-items: center; gap: 8px;
+    }
+
+    .modal-body { padding: 2.5rem 10%; max-width: 1000px; margin: 0 auto; }
     
-    .meta-row {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 15px; margin-top: -5rem; margin-bottom: 2rem;
+    .section-title {
+      font-size: 1.1rem; font-weight: 800; color: var(--primary);
+      margin: 2rem 0 1rem; display: flex; align-items: center; gap: 10px;
     }
-    .meta-card {
-      background: #fff; padding: 1.2rem; border-radius: 20px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05); text-align: center;
-    }
-    .meta-card i { color: var(--accent); margin-bottom: 8px; display: block; font-size: 1.2rem; }
-    .meta-card b { font-size: 1rem; color: var(--primary); }
+    .section-title i { color: var(--accent); }
 
-    .section { margin-bottom: 2.5rem; }
-    .section-head {
-      font-size: 1.2rem; font-weight: 800; color: var(--primary);
-      margin-bottom: 1.2rem; display: flex; align-items: center; gap: 12px;
-    }
-    .section-head i { color: var(--accent); }
-
-    .ingredient-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: #f0f7f4; padding: 8px 18px; border-radius: 12px;
-      margin: 5px; font-weight: 600; border: 1px solid #e0eee7;
+    .ingredient-item {
+      display: inline-block; background: #f0f7f4; padding: 6px 15px;
+      border-radius: 8px; margin: 4px; font-size: 0.9rem; font-weight: 600;
     }
 
-    .step-item {
-      display: flex; gap: 20px; background: #fafafa;
-      padding: 1.5rem; border-radius: 20px; margin-bottom: 15px;
-      border: 1px solid #f0f0f0;
+    .step-card {
+      display: flex; gap: 15px; background: #fff; padding: 1.2rem;
+      border-radius: 18px; margin-bottom: 12px; border: 1px solid #f0f0f0;
     }
-    .step-count {
-      width: 35px; height: 35px; background: var(--primary); color: #fff;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; font-weight: bold;
+    .step-idx { color: var(--accent); font-weight: 800; font-size: 1.1rem; }
+
+    .faq-card {
+      background: #fffdf2; border: 1px solid #f6eed0;
+      padding: 1.2rem; border-radius: 18px; margin-bottom: 10px;
+    }
+    .faq-q { font-weight: 800; color: #7d651a; margin-bottom: 5px; }
+
+    /* --- Footer --- */
+    footer {
+      background: var(--primary); color: #c8d5cf;
+      padding: 3rem 6% 2rem; margin-top: 4rem;
+    }
+    .footer-content {
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 30px;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .footer-info h3 { color: #fff; margin-bottom: 15px; font-size: 1.2rem; }
+    .contact-link { color: var(--accent); text-decoration: none; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .footer-bottom {
+      text-align: center; border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: 2.5rem; padding-top: 1.5rem; font-size: 0.8rem;
     }
 
-    .faq-item {
-      background: #fffdf5; border: 1px solid #f9f2d5;
-      padding: 1.5rem; border-radius: 20px; margin-bottom: 12px;
-    }
-    .faq-q { font-weight: 800; color: #856404; margin-bottom: 8px; display: flex; gap: 10px; }
-
-    @media (max-width: 768px) {
-      .search-bar { display: none; }
-      .grid { grid-template-columns: 1fr; }
-      .modal-content { border-radius: 0; max-height: 100vh; }
+    @media (max-width: 600px) {
+      .modal-hero { padding: 4rem 6% 2rem; }
+      .modal-body { padding: 1.5rem 6%; }
+      .search-container { order: 3; max-width: 100%; }
     }
   </style>
 </head>
@@ -208,174 +202,163 @@
 
 <nav>
   <div class="brand">
-    <i class="fa-solid fa-seedling"></i>
+    <i class="fa-solid fa-leaf"></i>
     <h1>SD Gardening</h1>
   </div>
-  <div class="search-bar">
+  <div class="search-container">
     <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" id="searchInput" placeholder="আপনার সমস্যা বা সমাধান খুঁজুন...">
+    <input type="text" id="searchInput" placeholder="সার্চ করুন...">
   </div>
 </nav>
 
 <div class="filter-section" id="filterArea">
-  <div class="tag-chip active" onclick="filterByCat('all')">
-    <i class="fa-solid fa-border-all"></i> সব সমাধান
-  </div>
+  <div class="tag-chip active" onclick="filterByCat('all')">সব সমাধান</div>
 </div>
 
 <main class="grid" id="mainGrid">
   </main>
 
-<div class="modal" id="modalOverlay">
-  <div class="modal-content">
-    <button class="close-modal" onclick="closeM()"><i class="fa-solid fa-xmark"></i></button>
-    <div class="modal-header">
-      <h2 id="mTitle" style="font-size: 2rem; max-width: 80%;">শিরোনাম</h2>
-      <p id="mCategory" style="opacity: 0.8; margin-top: 10px;"></p>
+<div class="modal" id="fullModal">
+  <button class="close-modal" onclick="closeM()"><i class="fa-solid fa-xmark"></i></button>
+  <div class="modal-hero">
+    <h2 id="mTitle">শিরোনাম</h2>
+    <div class="meta-inline">
+      <div class="meta-box"><i class="fa-solid fa-clock"></i> সময়: <span id="mTime">-</span></div>
+      <div class="meta-box"><i class="fa-solid fa-layer-group"></i> লেভেল: <span id="mDiff">-</span></div>
+      <div class="meta-box"><i class="fa-solid fa-calendar-check"></i> স্থায়িত্ব: <span id="mLife">-</span></div>
     </div>
-    <div class="modal-body">
-      <div class="meta-row">
-        <div class="meta-card"><i class="fa-solid fa-clock"></i><label>সময়</label><br><b id="mTime">-</b></div>
-        <div class="meta-card"><i class="fa-solid fa-gauge-high"></i><label>লেভেল</label><br><b id="mDiff">-</b></div>
-        <div class="meta-card"><i class="fa-solid fa-box-archive"></i><label>স্থায়িত্ব</label><br><b id="mLife">-</b></div>
-      </div>
+  </div>
+  
+  <div class="modal-body">
+    <div class="section-title"><i class="fa-solid fa-align-left"></i> বিস্তারিত</div>
+    <p id="mDesc" style="line-height: 1.8; color: var(--text-muted);"></p>
 
-      <div class="section">
-        <div class="section-head"><i class="fa-solid fa-circle-info"></i> বিস্তারিত বিবরণ</div>
-        <p id="mLongDesc" style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8;"></p>
-      </div>
+    <div class="section-title"><i class="fa-solid fa-flask"></i> উপকরণ</div>
+    <div id="mIngs"></div>
 
-      <div class="section">
-        <div class="section-head"><i class="fa-solid fa-basket-shopping"></i> প্রয়োজনীয় উপকরণ</div>
-        <div id="mIngs"></div>
-      </div>
+    <div class="section-title"><i class="fa-solid fa-list-check"></i> কার্যপদ্ধতি</div>
+    <div id="mSteps"></div>
 
-      <div class="section">
-        <div class="section-head"><i class="fa-solid fa-wand-magic-sparkles"></i> প্রস্তুত ও প্রয়োগ পদ্ধতি</div>
-        <div id="mSteps"></div>
-      </div>
-
-      <div class="section">
-        <div class="section-head"><i class="fa-solid fa-circle-question"></i> সচরাচর জিজ্ঞাসা</div>
-        <div id="mFaqs"></div>
-      </div>
-    </div>
+    <div class="section-title"><i class="fa-solid fa-comments-question"></i> প্রশ্নোত্তর</div>
+    <div id="mFaqs"></div>
   </div>
 </div>
 
+<footer>
+  <div class="footer-content">
+    <div class="footer-info">
+      <h3>SD Gardening Solution</h3>
+      <p style="max-width: 300px; margin-bottom: 15px;">আপনার ছাদবাগান বা কৃষি জমির জন্য প্রিমিয়াম অর্গানিক সলিউশন। প্রকৃতির সাথে থাকুন নিরাপদ উপায়ে।</p>
+    </div>
+    <div class="footer-contact">
+      <h3>যোগাযোগ করুন</h3>
+      <a href="https://www.facebook.com/sdxrubel" target="_blank" class="contact-link"><i class="fa-brands fa-facebook"></i> ফেসবুক পেইজ</a>
+      <a href="tel:+8801516050402" class="contact-link"><i class="fa-solid fa-phone"></i> +৮৮০১৭১৬০৫০৪০২</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; ২০২৬ | SD Gardening Solution | ডাটা স্বয়ংক্রিয়ভাবে লোড হচ্ছে
+  </div>
+</footer>
+
 <script>
-  let allSolutions = [];
+  let solutions = [];
 
-  // ১. ইনডিফিনিট লুপে JSON লোড করা (Infinity Loader)
-  async function init() {
-    let fileNum = 1;
-    let loading = true;
-
-    while(loading) {
-      let fileName = `task/${String(fileNum).padStart(2, '0')}.json`;
+  // ১. ডাটা লোডার (সিরিয়াল লোডিং)
+  async function loadData() {
+    let i = 1;
+    let keepLoading = true;
+    while(keepLoading) {
+      let file = `task/${String(i).padStart(2, '0')}.json`;
       try {
-        const response = await fetch(fileName);
-        if(!response.ok) throw new Error();
-        
-        const data = await response.json();
-        allSolutions = [...allSolutions, ...data.gardening_solutions];
-        fileNum++;
-      } catch (e) {
-        loading = false; // ফাইল না পাওয়া গেলে লুপ বন্ধ হবে
-      }
+        const res = await fetch(file);
+        if(!res.ok) throw new Error();
+        const data = await res.json();
+        solutions = [...solutions, ...data.gardening_solutions];
+        i++;
+      } catch (e) { keepLoading = false; }
     }
-    
-    render(allSolutions);
-    generateChips();
+    render(solutions);
+    makeChips();
   }
 
-  // ২. কার্ড রেন্ডার করা
+  // ২. কার্ড রেন্ডারিং
   function render(data) {
     const grid = document.getElementById('mainGrid');
-    grid.innerHTML = data.map(sol => `
-      <div class="solution-card" onclick="openM(${sol.id})">
-        <div class="card-icon">
-          <i class="${sol.category === 'organic_fertilizer' ? 'fa-solid fa-vial-circle-check' : 'fa-solid fa-shield-virus'}"></i>
-        </div>
-        <h2 class="card-title">${sol.title}</h2>
-        <p class="card-desc">${sol.short_description}</p>
-        <div class="card-footer">
-          <span class="badge"><i class="fa-solid fa-bolt"></i> ${sol.difficulty}</span>
-          <span style="color: var(--accent); font-weight: 800;">দেখুন <i class="fa-solid fa-arrow-right-long"></i></span>
+    grid.innerHTML = data.map(s => `
+      <div class="solution-card" onclick="openM(${s.id})">
+        <h2 class="card-title">${s.title}</h2>
+        <p class="card-desc">${s.short_description}</p>
+        <div style="margin-top: 15px; color: var(--accent); font-weight: bold; font-size: 0.85rem;">
+          বিস্তারিত পড়ুন <i class="fa-solid fa-circle-arrow-right"></i>
         </div>
       </div>
     `).join('');
   }
 
-  // ৩. মোডাল ডেটা সেট করা
+  // ৩. মোডাল ফাংশন
   function openM(id) {
-    const s = allSolutions.find(item => item.id === id);
+    const s = solutions.find(x => x.id === id);
     if(!s) return;
 
     document.getElementById('mTitle').innerText = s.title;
-    document.getElementById('mCategory').innerText = "# " + s.category.replace('_', ' ');
     document.getElementById('mTime').innerText = s.preparation_time_hours + " ঘণ্টা";
     document.getElementById('mDiff').innerText = s.difficulty === 'easy' ? "সহজ" : "মাঝারি";
     document.getElementById('mLife').innerText = s.shelf_life_days + " দিন";
-    document.getElementById('mLongDesc').innerText = s.long_description;
+    document.getElementById('mDesc').innerText = s.long_description;
 
     document.getElementById('mIngs').innerHTML = s.ingredients.map(i => `
-      <div class="ingredient-tag"><i class="fa-solid fa-check-circle"></i> ${i.name} - ${i.quantity} ${i.unit}</div>
+      <div class="ingredient-item">${i.name} (${i.quantity} ${i.unit})</div>
     `).join('');
 
     document.getElementById('mSteps').innerHTML = s.working_process.map(st => `
-      <div class="step-item">
-        <div class="step-count">${st.step}</div>
-        <div class="step-text">${st.description}</div>
+      <div class="step-card">
+        <div class="step-idx">${st.step}.</div>
+        <div>${st.description}</div>
       </div>
     `).join('');
 
     document.getElementById('mFaqs').innerHTML = s.faqs.map(f => `
-      <div class="faq-item">
-        <div class="faq-q"><i class="fa-solid fa-comment-dots"></i> ${f.question}</div>
-        <div class="faq-a" style="color: #555; padding-left: 32px;">${f.answer}</div>
+      <div class="faq-card">
+        <div class="faq-q">${f.question}</div>
+        <div style="font-size: 0.9rem; color: #555;">${f.answer}</div>
       </div>
     `).join('');
 
-    document.getElementById('modalOverlay').style.display = 'flex';
+    document.getElementById('fullModal').style.display = 'block';
     document.body.style.overflow = 'hidden';
   }
 
   function closeM() {
-    document.getElementById('modalOverlay').style.display = 'none';
+    document.getElementById('fullModal').style.display = 'none';
     document.body.style.overflow = 'auto';
   }
 
   // ৪. ফিল্টার ও সার্চ
-  function generateChips() {
-    const cats = ['all', ...new Set(allSolutions.map(s => s.category))];
+  function makeChips() {
+    const cats = ['all', ...new Set(solutions.map(s => s.category))];
     const area = document.getElementById('filterArea');
     area.innerHTML = cats.map(c => `
       <div class="tag-chip ${c === 'all' ? 'active' : ''}" onclick="filterByCat('${c}', this)">
-        <i class="fa-solid ${c === 'all' ? 'fa-leaf' : 'fa-tags'}"></i> ${c === 'all' ? 'সব সমাধান' : c.replace('_', ' ')}
+        ${c === 'all' ? 'সব সমাধান' : c.replace('_', ' ')}
       </div>
     `).join('');
   }
 
   function filterByCat(cat, el) {
-    if(el) {
-      document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
-      el.classList.add('active');
-    }
-    const filtered = cat === 'all' ? allSolutions : allSolutions.filter(s => s.category === cat);
+    document.querySelectorAll('.tag-chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    const filtered = cat === 'all' ? solutions : solutions.filter(s => s.category === cat);
     render(filtered);
   }
 
   document.getElementById('searchInput').addEventListener('input', (e) => {
     const val = e.target.value.toLowerCase();
-    const filtered = allSolutions.filter(s => 
-      s.title.toLowerCase().includes(val) || 
-      s.short_description.toLowerCase().includes(val)
-    );
+    const filtered = solutions.filter(s => s.title.toLowerCase().includes(val) || s.short_description.toLowerCase().includes(val));
     render(filtered);
   });
 
-  init();
+  loadData();
 </script>
 
 </body>
