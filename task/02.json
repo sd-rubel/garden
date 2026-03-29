@@ -29,6 +29,13 @@
         { "name": "সাধারণ পানি (মেশানোর জন্য)", "quantity": 8, "unit": "liter" }
       ],
 
+      "ingredients_summary_table": [
+        { "emoji": "🌿", "item": "তাঁজা নিম পাতা", "amount": "২ মুঠো" },
+        { "emoji": "🟡", "item": "হলুদ গুঁড়ো", "amount": "১ চা চামচ" },
+        { "emoji": "🔥", "item": "পানি (ফোটানোর জন্য)", "amount": "১ লিটার" },
+        { "emoji": "🚰", "item": "সাধারণ পানি (মেশানোর জন্য)", "amount": "৮ লিটার" }
+      ],
+
       "working_process": [
         {
           "step": 1,
