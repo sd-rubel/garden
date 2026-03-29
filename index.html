@@ -28,7 +28,7 @@
     body { font-family: 'Kalpurush', sans-serif; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; }
 
     /* --- Header Logo Section --- */
-    header { width: 100%; background: var(--primary-dark); display: flex; justify-content: center; align-items: center; overflow: hidden; }
+    header { width: 100%; background: var(--primary-dark); display: flex; justify-content: center; align-items: center; overflow: hidden; line-height: 0; }
     .header-img { width: 100%; max-width: 100%; height: auto; object-fit: contain; display: block; }
 
     /* --- Navigation --- */
@@ -53,7 +53,7 @@
     }
     .tab-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
 
-    /* --- Grid & Card with Top-Left Numbering --- */
+    /* --- Grid & Card with Top-Left Circle Numbering --- */
     main { flex: 1 0 auto; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 25px; padding: 0 6% 50px; }
     
@@ -64,18 +64,18 @@
     }
     .card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.07); }
     
-    /* নাম্বারিং ডিজাইন */
     .card-badge {
-      position: absolute; top: -10px; left: -10px; width: 32px; height: 32px;
+      position: absolute; top: -12px; left: -12px; width: 34px; height: 34px;
       background: var(--secondary); color: #fff; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-weight: bold; font-size: 0.85rem; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      font-weight: bold; font-size: 0.9rem; border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      z-index: 5;
     }
 
     .card h3 { font-size: 1.15rem; color: var(--primary-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
     .card p { color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px; }
     .read-more { font-weight: bold; color: var(--accent); font-size: 0.85rem; display: flex; align-items: center; gap: 5px; }
-    .fav-btn { position: absolute; top: 15px; right: 15px; color: #eee; font-size: 1.3rem; transition: 0.3s; }
+    .fav-btn { position: absolute; top: 15px; right: 15px; color: #eee; font-size: 1.3rem; transition: 0.3s; z-index: 5; }
     .fav-btn.active { color: var(--gold); }
 
     /* --- Modal Scroll Reset Logic --- */
@@ -94,16 +94,15 @@
     .section-head { font-size: 1.2rem; font-weight: bold; color: var(--primary-dark); margin: 2rem 0 1rem; display: flex; align-items: center; gap: 10px; }
     
     .ing-tag { display: inline-flex; align-items: center; gap: 6px; background: #f0f7f4; padding: 8px 15px; border-radius: 10px; margin: 4px; font-weight: 600; font-size: 0.9rem; border: 1px solid #e0eee7; }
-
     .step-card { display: flex; gap: 15px; background: #fafafa; padding: 1.2rem; border-radius: 18px; margin-bottom: 12px; border: 1px solid #eee; }
     .step-icon { width: 35px; height: 35px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 0.9rem; }
 
     /* Q&A New Icons */
     .qna-card { background: #fffdf5; border: 1px solid #f6eed0; padding: 1.5rem; border-radius: 20px; margin-bottom: 12px; }
     .q-text { font-weight: 800; color: #7d651a; margin-bottom: 8px; display: flex; gap: 10px; }
-    .q-text i { color: #e67e22; } /* Question icon color */
+    .q-text i { color: #e67e22; }
     .a-text { display: flex; gap: 10px; color: #444; padding-left: 5px; line-height: 1.6; }
-    .a-text i { color: #27ae60; margin-top: 4px; } /* Answer icon color */
+    .a-text i { color: #27ae60; margin-top: 4px; }
 
     /* --- Redesigned Footer --- */
     footer { 
@@ -198,7 +197,6 @@
     const idx = allData.findIndex(x => x.id === id);
     const modal = document.getElementById('dataModal');
     
-    // মডাল কন্টেন্ট আপডেট হওয়ার আগে স্ক্রল একদম উপরে নিয়ে যাওয়া
     modal.style.display = 'block';
     modal.scrollTop = 0; 
     document.body.style.overflow = 'hidden';
