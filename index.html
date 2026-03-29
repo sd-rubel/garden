@@ -59,7 +59,7 @@
     }
     .tab-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
 
-    /* --- Grid & Card with Top-Left Circle Numbering --- */
+    /* --- Grid & Card --- */
     main { flex: 1 0 auto; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 25px; padding: 0 6% 50px; }
     
@@ -84,7 +84,7 @@
     .fav-btn { position: absolute; top: 15px; right: 15px; color: #eee; font-size: 1.3rem; transition: 0.3s; z-index: 5; }
     .fav-btn.active { color: var(--gold); }
 
-    /* --- Modal Scroll Reset Logic --- */
+    /* --- Modal --- */
     .modal {
       position: fixed; inset: 0; background: #fff; z-index: 2000; display: none; 
       overflow-y: auto; scroll-behavior: auto !important;
@@ -103,14 +103,13 @@
     .step-card { display: flex; gap: 15px; background: #fafafa; padding: 1.2rem; border-radius: 18px; margin-bottom: 12px; border: 1px solid #eee; }
     .step-icon { width: 35px; height: 35px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 0.9rem; }
 
-    /* Q&A Icons */
     .qna-card { background: #fffdf5; border: 1px solid #f6eed0; padding: 1.5rem; border-radius: 20px; margin-bottom: 12px; }
     .q-text { font-weight: 800; color: #7d651a; margin-bottom: 8px; display: flex; gap: 10px; }
     .q-text i { color: #e67e22; }
     .a-text { display: flex; gap: 10px; color: #444; padding-left: 5px; line-height: 1.6; }
     .a-text i { color: #27ae60; margin-top: 4px; }
 
-    /* --- Footer Design --- */
+    /* --- Footer --- */
     footer { 
       background: #eff5f2; 
       color: #3b4d45; 
@@ -165,7 +164,7 @@
     <a href="tel:+8801516050402"><i class="fa-solid fa-headset"></i> সাপোর্ট হেল্পলাইন</a>
   </div>
   <div class="footer-bottom">
-    &copy; ২০২৬ SD Gardening Solution | সর্বস্বত্ব সংরক্ষিত
+    &copy; ২০২৬ SD Gardening Solution | সর্বস্বত্ব সংরক্ষিত | v1.0.1
   </div>
 </footer>
 
@@ -175,24 +174,25 @@
   let currentTab = 'all';
 
   async function init() {
-    // ১০০০টি ফাইল চেক করার জন্য লুপ
     const maxFiles = 1000;
     const fetchPromises = [];
+    
+    // ক্যাশ এড়ানোর জন্য একটি ইউনিক টাইমস্ট্যাম্প তৈরি করা হলো
+    const cacheBuster = new Date().getTime();
 
     for (let i = 1; i <= maxFiles; i++) {
       const fileName = String(i).padStart(2, '0') + '.json';
+      // ফাইলের শেষে ?v=TIMESTAMP যোগ করা হয়েছে যাতে ব্রাউজার সবসময় নতুন ডেটা আনে
       fetchPromises.push(
-        fetch(`task/${fileName}`)
+        fetch(`task/${fileName}?v=${cacheBuster}`)
           .then(res => res.ok ? res.json() : null)
           .catch(() => null)
       );
     }
 
-    // সব ডেটা একসাথে প্রসেস করা হচ্ছে দ্রুত লোডিংয়ের জন্য
     const results = await Promise.all(fetchPromises);
 
     results.forEach(data => {
-      // ফাইল খালি না হলে এবং সঠিক ফরম্যাটে ডেটা থাকলে তা allData তে যুক্ত হবে
       if (data && data.gardening_solutions && Array.isArray(data.gardening_solutions)) {
         allData = [...allData, ...data.gardening_solutions];
       }
