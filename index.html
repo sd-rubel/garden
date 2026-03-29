@@ -3,298 +3,386 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SD Gardening Solution | প্রিমিয়াম গার্ডেনিং সলিউশন</title>
-
-  <link href="https://fonts.cdnfonts.com/css/kalpurush" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+  <title>SD Gardening | প্রিমিয়াম কৃষি সলিউশন</title>
+  
   <style>
-    :root{
-      --primary:#1b5e20;
-      --secondary:#2e7d32;
-      --accent:#66bb6a;
-      --bg:#f4f7f2;
-      --card:#ffffff;
-      --text:#1b2b1b;
-      --muted:#6b8c6b;
+    /* লোকাল কালপুরুষ ফন্ট লোড */
+    @font-face {
+      font-family: 'Kalpurush';
+      src: url('kalpurush.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
     }
 
-    *{margin:0;padding:0;box-sizing:border-box;}
-
-    body{
-      font-family:'Kalpurush','Hind Siliguri',sans-serif;
-      background:var(--bg);
-      color:var(--text);
+    :root {
+      --primary: #1a4332;
+      --accent: #4ade80;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --glass: rgba(255, 255, 255, 0.8);
     }
 
-    .premium-header{
-      position:sticky;top:0;
-      background:#ffffffee;
-      backdrop-filter:blur(10px);
-      padding:1rem;
-      border-bottom:1px solid #e0ecd9;
-      z-index:100;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Kalpurush', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .header-container{
-      max-width:1200px;margin:auto;
-      display:flex;justify-content:space-between;align-items:center;
+    /* Header Design */
+    header {
+      position: sticky;
+      top: 0;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .logo-area{display:flex;gap:10px;align-items:center;}
-
-    .logo-icon{
-      width:42px;height:42px;
-      border-radius:50%;
-      background:linear-gradient(135deg,var(--primary),var(--secondary));
-      display:flex;align-items:center;justify-content:center;
-      color:#fff;
+    .logo h1 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      letter-spacing: -0.5px;
     }
 
-    .brand-text h1{
-      font-size:1.4rem;
-      color:var(--primary);
+    .search-wrapper {
+      position: relative;
+      width: 300px;
     }
 
-    .tab-bar{
-      display:flex;gap:1rem;
-      max-width:1200px;margin:auto;
-      padding:0.5rem;
+    .search-wrapper input {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      outline: none;
+      transition: 0.3s;
+      font-family: inherit;
     }
 
-    .tab-btn{
-      border:none;background:none;
-      padding:0.5rem 1rem;
-      cursor:pointer;
-      border-radius:20px;
-      color:var(--muted);
+    .search-wrapper input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.1); }
+
+    /* Filter Chips */
+    .filter-container {
+      padding: 1.5rem 5%;
+      display: flex;
+      gap: 0.8rem;
+      overflow-x: auto;
+      white-space: nowrap;
     }
 
-    .tab-btn.active{
-      background:var(--secondary);
-      color:#fff;
+    .chip {
+      padding: 0.5rem 1.2rem;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 100px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: 0.3s;
     }
 
-    .filters-bar{
-      max-width:1200px;margin:1rem auto;
-      display:flex;justify-content:space-between;gap:1rem;
-      flex-wrap:wrap;
+    .chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
     }
 
-    .category-chip{
-      padding:5px 12px;
-      border-radius:20px;
-      background:#e8f5e9;
-      cursor:pointer;
-      font-size:0.8rem;
+    /* Grid Layout */
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      padding: 0 5% 4rem;
     }
 
-    .category-chip.active{
-      background:var(--secondary);
-      color:#fff;
+    .card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 1.5rem;
+      border: 1px solid rgba(0,0,0,0.03);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      position: relative;
     }
 
-    .search-box{
-      background:#fff;
-      border-radius:20px;
-      padding:4px 10px;
-      display:flex;
-      border:1px solid #cfe3c8;
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
     }
 
-    .search-box input{
-      border:none;outline:none;
-      padding:5px;
+    .card-id {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      display: block;
     }
 
-    .main-content{
-      max-width:1200px;margin:auto;
-      padding:1rem;
+    .card h2 { font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--primary); }
+    .card p { font-size: 0.95rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+    /* Modal Styling - Premium Single View */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
     }
 
-    .solutions-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-      gap:1.2rem;
+    .modal-content {
+      background: #fff;
+      width: 100%;
+      max-width: 800px;
+      max-height: 90vh;
+      border-radius: 32px;
+      overflow-y: auto;
+      position: relative;
+      animation: modalFade 0.4s ease;
     }
 
-    .solution-card{
-      background:var(--card);
-      border-radius:16px;
-      padding:1rem;
-      cursor:pointer;
-      transition:0.25s;
-      border:1px solid #e0ecd9;
+    @keyframes modalFade { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+    .modal-header-img {
+      height: 120px;
+      background: linear-gradient(135deg, #1a4332 0%, #2d6a4f 100%);
+      padding: 2rem;
+      color: white;
     }
 
-    .solution-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
 
-    .card-title{
-      font-size:1.1rem;
-      font-weight:700;
-      color:var(--primary);
-      margin-bottom:5px;
+    .modal-inner { padding: 2rem; }
+    
+    .section-title {
+      font-size: 1.2rem;
+      color: var(--primary);
+      margin: 1.5rem 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
     }
 
-    .card-short-desc{
-      font-size:0.85rem;
-      color:var(--muted);
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
-    /* DETAILS PAGE */
-    .details-page{
-      display:none;
-      max-width:900px;
-      margin:1rem auto;
-      background:#fff;
-      padding:1.5rem;
-      border-radius:16px;
-      border:1px solid #e0ecd9;
+    .info-item {
+      background: var(--bg);
+      padding: 1rem;
+      border-radius: 16px;
+      text-align: center;
     }
 
-    .back-btn{
-      margin-bottom:1rem;
-      cursor:pointer;
-      color:var(--secondary);
+    .info-item label { display: block; font-size: 0.75rem; color: var(--text-muted); }
+    .info-item span { font-weight: bold; color: var(--primary); }
+
+    .step-box {
+      background: #fdfdfd;
+      border: 1px solid #f1f5f9;
+      padding: 1rem;
+      border-radius: 16px;
+      margin-bottom: 0.8rem;
     }
 
-    .ingredient-list li,
-    .step-list li{
-      margin-bottom:8px;
+    .step-num { color: var(--accent); font-weight: bold; margin-right: 8px; }
+
+    .faq-box {
+      background: #f0fdf4;
+      padding: 1rem;
+      border-radius: 16px;
+      margin-bottom: 1rem;
     }
 
-    .faq-item{
-      margin-bottom:10px;
-      padding:10px;
-      background:#f1f8ee;
-      border-left:4px solid var(--accent);
-      border-radius:8px;
-    }
+    .faq-q { font-weight: bold; color: var(--primary); margin-bottom: 5px; }
 
+    /* Scrollbar */
+    .modal-content::-webkit-scrollbar { width: 6px; }
+    .modal-content::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+    @media (max-width: 600px) {
+      .info-grid { grid-template-columns: 1fr; }
+      .search-wrapper { width: 150px; }
+    }
   </style>
 </head>
-
 <body>
 
-<header class="premium-header">
-  <div class="header-container">
-    <div class="logo-area">
-      <div class="logo-icon"><i class="fas fa-leaf"></i></div>
-      <div class="brand-text">
-        <h1>SD Gardening</h1>
-        <p>অর্গানিক গাইড</p>
-      </div>
-    </div>
-    <div><span id="globalCount">0</span> টি</div>
+<header>
+  <div class="logo">
+    <h1>SD Gardening</h1>
+  </div>
+  <div class="search-wrapper">
+    <input type="text" id="searchInput" placeholder="খুঁজুন...">
   </div>
 </header>
 
-<div class="tab-bar">
-  <button class="tab-btn active" data-tab="home">হোম</button>
-  <button class="tab-btn" data-tab="favorites">ফেভারিট (<span id="favCount">0</span>)</button>
+<div class="filter-container" id="filterChips">
+  <div class="chip active" onclick="filterData('all')">সব সমাধান</div>
 </div>
 
-<div class="filters-bar">
-  <div id="categoriesContainer">
-    <span class="category-chip active" data-cat="all">সব</span>
+<main class="solutions-grid" id="mainGrid">
+  </main>
+
+<div class="modal" id="modalOverlay">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <div class="modal-header-img">
+      <h2 id="mTitle">শিরোনাম</h2>
+    </div>
+    <div class="modal-inner">
+      <div class="info-grid">
+        <div class="info-item"><label>সময়</label><span id="mTime">-</span></div>
+        <div class="info-item"><label>কঠিনতা</label><span id="mDiff">-</span></div>
+        <div class="info-item"><label>স্থায়িত্ব</label><span id="mLife">-</span></div>
+      </div>
+
+      <div class="section-title">বিস্তারিত বিবরণ</div>
+      <p id="mDesc" style="color: var(--text-muted);"></p>
+
+      <div class="section-title">উপকরণসমূহ</div>
+      <div id="mIngredients" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+
+      <div class="section-title">প্রস্তুত প্রণালী</div>
+      <div id="mSteps"></div>
+
+      <div class="section-title">সাধারণ জিজ্ঞাসা</div>
+      <div id="mFaqs"></div>
+    </div>
   </div>
-  <div class="search-box">
-    <input id="searchInput" placeholder="সার্চ করুন">
-    <button id="searchBtn"><i class="fas fa-search"></i></button>
-  </div>
-</div>
-
-<main class="main-content">
-  <div id="solutionsGrid" class="solutions-grid"></div>
-</main>
-
-<!-- DETAILS PAGE -->
-<div id="detailsPage" class="details-page">
-  <div class="back-btn" onclick="goBack()"><i class="fas fa-arrow-left"></i> ফিরে যান</div>
-  <h2 id="dTitle"></h2>
-  <p id="dDesc"></p>
-
-  <h3>উপকরণ</h3>
-  <ul id="dIng" class="ingredient-list"></ul>
-
-  <h3>প্রক্রিয়া</h3>
-  <ul id="dSteps" class="step-list"></ul>
-
-  <h3>FAQ</h3>
-  <div id="dFaq"></div>
 </div>
 
 <script>
-let allSolutions=[];
-let favorites=new Set();
-let currentTab='home';
-let currentCategory='all';
-let search='';
+  let solutions = [];
 
-const grid=document.getElementById('solutionsGrid');
-
-function render(){
-  let data=[...allSolutions];
-
-  if(currentCategory!=='all'){
-    data=data.filter(d=>d.category===currentCategory);
+  // ১. ডেটা লোড করা
+  async function loadData() {
+    try {
+      const response = await fetch('task/01.json');
+      const data = await response.json();
+      solutions = data.gardening_solutions;
+      renderCards(solutions);
+      setupFilters();
+    } catch (error) {
+      console.error("ডেটা লোড করতে সমস্যা হয়েছে।", error);
+    }
   }
 
-  if(search){
-    data=data.filter(d=>d.title.toLowerCase().includes(search.toLowerCase()));
+  // ২. কার্ড রেন্ডার করা
+  function renderCards(data) {
+    const grid = document.getElementById('mainGrid');
+    grid.innerHTML = data.map(sol => `
+      <div class="card" onclick="openModal(${sol.id})">
+        <span class="card-id">#${sol.id}</span>
+        <h2>${sol.title}</h2>
+        <p>${sol.short_description}</p>
+        <div style="margin-top: 15px; font-weight: bold; color: var(--accent); font-size: 0.85rem;">
+          বিস্তারিত পড়ুন →
+        </div>
+      </div>
+    `).join('');
   }
 
-  if(currentTab==='favorites'){
-    data=data.filter(d=>favorites.has(d.id));
+  // ৩. মোডাল ওপেন করা (একক স্ক্রিন লেআউট)
+  function openModal(id) {
+    const sol = solutions.find(s => s.id === id);
+    if(!sol) return;
+
+    document.getElementById('mTitle').innerText = sol.title;
+    document.getElementById('mTime').innerText = sol.preparation_time_hours + " ঘণ্টা";
+    document.getElementById('mDiff').innerText = sol.difficulty === 'easy' ? "সহজ" : "মাঝারি";
+    document.getElementById('mLife').innerText = sol.shelf_life_days + " দিন";
+    document.getElementById('mDesc').innerText = sol.long_description;
+
+    // উপকরণ
+    document.getElementById('mIngredients').innerHTML = sol.ingredients.map(ing => 
+      `<span style="background: #e2e8f0; padding: 4px 12px; border-radius: 8px; font-size: 0.85rem;">${ing.name} (${ing.quantity} ${ing.unit})</span>`
+    ).join('');
+
+    // স্টেপস
+    document.getElementById('mSteps').innerHTML = sol.working_process.map(step => `
+      <div class="step-box">
+        <span class="step-num">${step.step}.</span> ${step.description}
+      </div>
+    `).join('');
+
+    // FAQ
+    document.getElementById('mFaqs').innerHTML = sol.faqs.map(f => `
+      <div class="faq-box">
+        <div class="faq-q">প্রশ্ন: ${f.question}</div>
+        <div style="font-size: 0.9rem; color: #4b5563;">উত্তর: ${f.answer}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('modalOverlay').style.display = 'flex';
   }
 
-  grid.innerHTML='';
-  data.forEach(d=>{
-    const div=document.createElement('div');
-    div.className='solution-card';
-    div.innerHTML=`
-      <div class="card-title">${d.title}</div>
-      <div class="card-short-desc">${d.short_description || ''}</div>
-    `;
-    div.onclick=()=>openDetails(d);
-    grid.appendChild(div);
+  function closeModal() {
+    document.getElementById('modalOverlay').style.display = 'none';
+  }
+
+  // ৪. ফিল্টার ও সার্চ লজিক
+  function setupFilters() {
+    const categories = ['all', ...new Set(solutions.map(s => s.category))];
+    const filterBox = document.getElementById('filterChips');
+    
+    filterBox.innerHTML = categories.map(cat => `
+      <div class="chip ${cat === 'all' ? 'active' : ''}" onclick="filterByCategory(this, '${cat}')">
+        ${cat === 'all' ? 'সব সমাধান' : cat.replace('_', ' ')}
+      </div>
+    `).join('');
+  }
+
+  function filterByCategory(el, cat) {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    
+    const filtered = cat === 'all' ? solutions : solutions.filter(s => s.category === cat);
+    renderCards(filtered);
+  }
+
+  document.getElementById('searchInput').addEventListener('input', (e) => {
+    const term = e.target.value.toLowerCase();
+    const filtered = solutions.filter(s => 
+      s.title.toLowerCase().includes(term) || 
+      s.short_description.toLowerCase().includes(term)
+    );
+    renderCards(filtered);
   });
-}
 
-function openDetails(d){
-  document.querySelector('.main-content').style.display='none';
-  document.getElementById('detailsPage').style.display='block';
-
-  dTitle.innerText=d.title;
-  dDesc.innerText=d.long_description || '';
-
-  dIng.innerHTML=(d.ingredients||[]).map(i=>`<li>${i.name} - ${i.quantity||''} ${i.unit||''}</li>`).join('');
-  dSteps.innerHTML=(d.working_process||[]).map(s=>`<li>${s.step}. ${s.description}</li>`).join('');
-  dFaq.innerHTML=(d.faqs||[]).map(f=>`<div class="faq-item"><b>${f.question}</b><br>${f.answer}</div>`).join('');
-}
-
-function goBack(){
-  document.querySelector('.main-content').style.display='block';
-  document.getElementById('detailsPage').style.display='none';
-}
-
-async function load(){
-  const res=await fetch('task/01.json');
-  const data=await res.json();
-  allSolutions=data.gardening_solutions;
-  document.getElementById('globalCount').innerText=allSolutions.length;
-  render();
-}
-
-document.getElementById('searchBtn').onclick=()=>{
-  search=searchInput.value;
-  render();
-};
-
-load();
+  // ইনিশিয়ালাইজ
+  loadData();
 </script>
 
 </body>
