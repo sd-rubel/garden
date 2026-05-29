@@ -1,4 +1,4 @@
-/* RESET & BASE */
+/* RESET & BASE (same as before, but add logo and footer styles) */
 * {
     margin: 0;
     padding: 0;
@@ -43,6 +43,21 @@ body {
     padding: 1rem 1.5rem;
 }
 
+/* LOGO GRADIENT */
+.logo {
+    font-family: 'Playfair Display', 'Inter', serif;
+    font-weight: 800;
+    font-size: 1.8rem;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+.logo-gradient {
+    background: linear-gradient(135deg, #6d28d9, #c026d3, #f97316);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
 /* Glass Header */
 .glass-header {
     background: var(--glass-bg);
@@ -61,16 +76,7 @@ body {
     flex-wrap: wrap;
 }
 
-.logo {
-    font-weight: 700;
-    font-size: 1.4rem;
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    text-decoration: none;
-}
-
+/* Buttons */
 .theme-btn, .back-btn, .clear-btn {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -88,7 +94,7 @@ body {
     color: white;
 }
 
-/* Hero */
+/* Hero section */
 .hero-section {
     text-align: center;
     margin-bottom: 2.5rem;
@@ -311,17 +317,89 @@ code {
     padding: 3rem;
 }
 
-/* Footer */
+/* ========== NEW FOOTER STYLES ========== */
 .modern-footer {
-    margin-top: 3rem;
-    text-align: center;
-    padding: 1.5rem;
+    margin-top: 4rem;
+    padding: 2rem 0 1.5rem;
     border-top: 1px solid var(--border);
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
-/* Responsive */
+.footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.footer-copyright, .footer-links, .footer-contact, .footer-social {
+    flex: 1;
+    min-width: 180px;
+}
+
+.footer-links a, .footer-contact a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+.footer-links a:hover, .footer-contact a:hover {
+    color: var(--primary-light);
+}
+
+.footer-social a {
+    display: inline-block;
+    background: var(--surface);
+    color: var(--text);
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: 0.7rem;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+}
+
+.footer-social a:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-3px);
+}
+
+.footer-contact p {
+    margin: 0.3rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.footer-contact i {
+    width: 20px;
+    color: var(--primary-light);
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .footer-grid {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+    .footer-social a {
+        margin: 0 0.5rem;
+    }
+    .footer-contact p {
+        justify-content: center;
+    }
+}
+
+/* Existing responsive */
 @media (max-width: 680px) {
     .app-container {
         padding: 0.8rem;
