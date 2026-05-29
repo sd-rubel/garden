@@ -1,251 +1,57 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Taqwa</title>
-<meta name="description" content="Taqwa একটি ইসলামিক ওয়েব অ্যাপ, যেখানে কুরআন, দোয়া, ইসলামিক শিক্ষা ও প্রয়োজনীয় বিষয় সহজভাবে শেখার সুবিধা রয়েছে।">
-<meta name="keywords" content="Taqwa, ইসলামিক অ্যাপ, কুরআন শিক্ষা, দোয়া, ইসলামিক ওয়েবসাইট, বাংলা ইসলামিক কনটেন্ট">
-<meta name="author" content="SD Rubel">
-<meta name="robots" content="index, follow">
-
-<link rel="canonical" href="https://taqwa.top/">
-
-<meta property="og:title" content="Taqwa | ইসলামিক ওয়েব অ্যাপ">
-<meta property="og:description" content="বাংলা ভাষায় ইসলামিক শিক্ষা, দোয়া ও কুরআন শেখার সহজ ওয়েব অ্যাপ।">
-<meta property="og:url" content="https://taqwa.top/">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://taqwa.top/IMG_20260329_113755.png">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  
-  <style>
-    @font-face {
-      font-family: 'Kalpurush';
-      src: url('kalpurush.ttf') format('truetype');
-    }
-
-    :root {
-      --primary-dark: #071a13;
-      --secondary: #2d6a4f;
-      --accent: #40916c;
-      --gold: #f1c40f;
-      --bg: #f8faf8;
-      --card-bg: #ffffff;
-      --text-main: #1b4332;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; scroll-behavior: smooth; }
-    body { font-family: 'Kalpurush', sans-serif; background-color: var(--bg); color: var(--text-main); display: flex; flex-direction: column; }
-
-    header { width: 100%; background: var(--primary-dark); display: flex; justify-content: center; align-items: center; line-height: 0; padding: 0; margin: 0; }
-    .header-img { width: 100%; max-width: 100%; height: auto; display: block; object-fit: contain; }
-
-    nav { position: sticky; top: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); z-index: 1000; padding: 12px 6%; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: center; }
-    .search-box { position: relative; width: 100%; max-width: 500px; }
-    .search-box input { width: 100%; padding: 12px 20px 12px 45px; border-radius: 12px; border: 1px solid #dce4dc; background: #fdfdfd; font-family: inherit; outline: none; }
-    .search-box i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--secondary); }
-
-    .tabs { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
-    .tab-btn { padding: 10px 22px; border-radius: 50px; border: 1px solid #dce4dc; background: #fff; color: var(--secondary); font-weight: bold; cursor: pointer; font-family: inherit; transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
-    .tab-btn.active { background: var(--secondary); color: white; border-color: var(--secondary); }
-
-    main { flex: 1 0 auto; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 25px; padding: 0 6% 50px; }
-    .card { background: var(--card-bg); border-radius: 22px; padding: 1.8rem; box-shadow: 0 4px 18px rgba(0,0,0,0.03); transition: 0.3s; cursor: pointer; position: relative; border: 1px solid rgba(0,0,0,0.03); }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.07); }
-    .card-badge { position: absolute; top: -12px; left: -12px; width: 34px; height: 34px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem; border: 3px solid #fff; box-shadow: 0 3px 10px rgba(0,0,0,0.1); z-index: 5; }
-    .card h3 { font-size: 1.15rem; color: var(--primary-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-    .card p { color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px; }
-    .read-more { font-weight: bold; color: var(--accent); font-size: 0.85rem; display: flex; align-items: center; gap: 5px; }
-    .fav-btn { position: absolute; top: 15px; right: 15px; color: #eee; font-size: 1.3rem; transition: 0.3s; z-index: 5; }
-    .fav-btn.active { color: var(--gold); }
-
-    .modal { position: fixed; inset: 0; background: #fff; z-index: 2000; display: none; overflow-y: auto; scroll-behavior: auto !important; }
-    .close-btn { position: fixed; top: 15px; right: 15px; width: 45px; height: 45px; border-radius: 50%; background: #c0392b; color: #fff; border: none; cursor: pointer; z-index: 2100; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-    .modal-hero { background: linear-gradient(135deg, #071a13 0%, #1b4332 100%); padding: 5rem 10% 2.5rem; color: #fff; }
-    .modal-body { padding: 2.5rem 10%; max-width: 950px; margin: 0 auto; }
-    .section-head { font-size: 1.2rem; font-weight: bold; color: var(--primary-dark); margin: 2rem 0 1rem; display: flex; align-items: center; gap: 10px; }
-    
-    /* --- Table Design for Ingredients --- */
-    .ing-table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid #e0eee7; }
-    .ing-table th { background: #f0f7f4; color: var(--secondary); text-align: left; padding: 12px 15px; font-size: 0.95rem; border-bottom: 2px solid #e0eee7; }
-    .ing-table td { padding: 12px 15px; border-bottom: 1px solid #f0f0f0; font-size: 1rem; color: #444; }
-    .ing-table tr:last-child td { border-bottom: none; }
-    .ing-table .emoji-col { width: 50px; text-align: center; font-size: 1.3rem; }
-
-    .step-card { display: flex; gap: 15px; background: #fafafa; padding: 1.2rem; border-radius: 18px; margin-bottom: 12px; border: 1px solid #eee; }
-    .step-icon { width: 35px; height: 35px; background: var(--secondary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-weight: bold; font-size: 0.9rem; }
-
-    .qna-card { background: #fffdf5; border: 1px solid #f6eed0; padding: 1.5rem; border-radius: 20px; margin-bottom: 12px; }
-    .q-text { font-weight: 800; color: #7d651a; margin-bottom: 8px; display: flex; gap: 10px; }
-    .a-text { display: flex; gap: 10px; color: #444; padding-left: 5px; line-height: 1.6; }
-
-    footer { background: #eff5f2; color: #3b4d45; padding: 40px 6% 25px; text-align: center; border-top: 2px solid #e0eee7; margin-top: 40px; }
-    .footer-quote { font-style: italic; font-size: 0.95rem; margin-bottom: 20px; color: var(--secondary); max-width: 600px; margin-left: auto; margin-right: auto; }
-    .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; }
-    .footer-links a { color: #1b4332; text-decoration: none; font-weight: bold; font-size: 0.85rem; }
-    .footer-bottom { font-size: 0.75rem; color: #7f8c8d; border-top: 1px solid #dcdcdc; padding-top: 15px; }
-
-    .modal-nav { display: flex; gap: 15px; margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; }
-    .nav-btn { flex: 1; padding: 12px; border-radius: 12px; border: 1px solid #ddd; background: #fff; cursor: pointer; font-weight: bold; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.9rem; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ডায়নামিক ব্লগ | স্বয়ংক্রিয় কন্টেন্ট</title>
+    <meta name="description" content="স্বয়ংক্রিয় ওয়েব অ্যাপ - জাস্ট JSON যোগ করুন, ওয়েবসাইট নিজেই আপডেট হবে।">
+    <!-- Open Graph / SEO -->
+    <meta property="og:title" content="ডায়নামিক ব্লগ">
+    <meta property="og:description" content="সহজ, দ্রুত এবং আধুনিক কন্টেন্ট সিস্টেম।">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta name="twitter:card" content="summary_large_image">
+    <!-- CSS & Favicon (placeholder) -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236d28d9'%3E%3Cpath d='M4 4h16v16H4z'/%3E%3C/svg%3E">
 </head>
 <body>
+    <div class="app-container">
+        <header class="glass-header">
+            <div class="header-flex">
+                <a href="/" class="logo">📄 ডায়নামিক ব্লগ</a>
+                <div class="header-actions">
+                    <button id="themeToggle" class="theme-btn" aria-label="ডার্ক মোড টগল">🌙</button>
+                </div>
+            </div>
+        </header>
 
-<header>
-  <img src="./IMG_20260329_113755.png" alt="SD Gardening Logo" class="header-img">
-</header>
+        <main>
+            <section class="hero-section">
+                <h1>📂 JSON ফোল্ডার থেকে স্বয়ংক্রিয় পোস্ট</h1>
+                <p>শুধু <code>/json/</code> ফোল্ডারে <code>.json</code> ফাইল যোগ করুন। commit + push করলেই সাইট আপডেট!</p>
+            </section>
 
-<nav>
-  <div class="search-box">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <input type="text" id="searchInput" placeholder="আপনার সমস্যাটি লিখে সার্চ করুন...">
-  </div>
-</nav>
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="🔍 পোস্ট খুঁজুন (টাইটেল বা বিবরণে)" class="search-input">
+                <button id="clearSearch" class="clear-btn">✖</button>
+            </div>
 
-<div class="tabs">
-  <button class="tab-btn active" onclick="changeTab('all', this)"><i class="fa-solid fa-border-all"></i> সব পোস্ট</button>
-  <button class="tab-btn" onclick="changeTab('fav', this)"><i class="fa-solid fa-star"></i> প্রিয় তালিকা</button>
-</div>
+            <div id="cardsGrid" class="cards-grid"></div>
+            <div id="messageArea" class="message-area"></div>
+        </main>
 
-<main>
-  <div class="grid" id="mainGrid"></div>
-</main>
+        <footer class="modern-footer">
+            <p>✨ সম্পূর্ণ ক্লায়েন্ট-সাইড | GitHub Pages + REST API | JSON driven</p>
+            <p>🇧🇩 বাংলা কন্টেন্টের জন্য প্রস্তুত</p>
+        </footer>
+    </div>
 
-<div class="modal" id="dataModal">
-  <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
-  <div id="modalContent"></div>
-</div>
-
-<footer>
-  <div class="footer-quote">"গাছ লাগান, পরিবেশ বাঁচান। আপনার প্রতিটি ছোট পদক্ষেপ আমাদের পৃথিবীকে আরও সবুজ করে তুলবে।"</div>
-  <div class="footer-links">
-    <a href="https://www.facebook.com/sdxrubel" target="_blank"><i class="fa-brands fa-facebook-f"></i> ফেসবুক পেজ</a>
-    <a href="tel:+8801516050402"><i class="fa-solid fa-headset"></i> সাপোর্ট হেল্পলাইন</a>
-  </div>
-  <div class="footer-bottom">&copy; ২০২৬ SD Gardening Solution | সর্বস্বত্ব সংরক্ষিত</div>
-</footer>
-
-<script>
-  let allData = [];
-  let favorites = JSON.parse(localStorage.getItem('sd_favs')) || [];
-  let currentTab = 'all';
-
-  async function init() {
-    const maxFiles = 1000;
-    const fetchPromises = [];
-    const cacheBuster = new Date().getTime();
-
-    for (let i = 1; i <= maxFiles; i++) {
-      const fileName = String(i).padStart(2, '0') + '.json';
-      fetchPromises.push(
-        fetch(`task/${fileName}?v=${cacheBuster}`)
-          .then(res => res.ok ? res.json() : null)
-          .catch(() => null)
-      );
-    }
-
-    const results = await Promise.all(fetchPromises);
-    results.forEach(data => {
-      if (data && data.gardening_solutions) {
-        allData = [...allData, ...data.gardening_solutions];
-      }
-    });
-    renderGrid(allData);
-  }
-
-  function renderGrid(data) {
-    const grid = document.getElementById('mainGrid');
-    let displayData = currentTab === 'all' ? data : data.filter(d => favorites.includes(d.id));
-    grid.innerHTML = displayData.map((s, idx) => `
-      <div class="card" onclick="openModal(${s.id})">
-        <div class="card-badge">${idx + 1}</div>
-        <i class="fa-solid fa-star fav-btn ${favorites.includes(s.id) ? 'active' : ''}" onclick="toggleFav(event, ${s.id})"></i>
-        <h3><i class="fa-solid fa-leaf" style="color:#2ecc71"></i> ${s.title}</h3>
-        <p>${s.short_description}</p>
-        <div class="read-more">বিস্তারিত পড়ুন <i class="fa-solid fa-arrow-right-long"></i></div>
-      </div>
-    `).join('');
-  }
-
-  function openModal(id) {
-    const s = allData.find(x => x.id === id);
-    if (!s) return;
-    const idx = allData.findIndex(x => x.id === id);
-    const modal = document.getElementById('dataModal');
-    modal.style.display = 'block';
-    modal.scrollTop = 0;
-    document.body.style.overflow = 'hidden';
-
-    // টেবিল তৈরি করার লজিক
-    let tableHtml = `
-      <table class="ing-table">
-        <thead>
-          <tr>
-            <th class="emoji-col">চিহ্ন</th>
-            <th>উপকরণের নাম</th>
-            <th>পরিমাণ</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${s.ingredients_summary_table.map(item => `
-            <tr>
-              <td class="emoji-col">${item.emoji}</td>
-              <td>${item.item}</td>
-              <td><b>${item.amount}</b></td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    `;
-
-    document.getElementById('modalContent').innerHTML = `
-      <div class="modal-hero">
-        <h2 style="font-size: 1.6rem; line-height: 1.4;">${s.title}</h2>
-        <div style="margin-top:15px; display:flex; gap:12px; font-size:0.8rem; opacity:0.9;">
-          <span><i class="fa-solid fa-clock"></i> ${s.preparation_time_hours} ঘণ্টা</span>
-          <span><i class="fa-solid fa-layer-group"></i> ${s.difficulty === 'easy' ? 'সহজ' : 'মাঝারি'}</span>
-          <span><i class="fa-solid fa-box"></i> ${s.shelf_life_days} দিন</span>
-        </div>
-      </div>
-      <div class="modal-body">
-        <div class="section-head"><i class="fa-solid fa-circle-info" style="color:#3498db"></i> বিস্তারিত তথ্য</div>
-        <p style="line-height:1.7; color:#444;">${s.long_description}</p>
-
-        <div class="section-head"><i class="fa-solid fa-basket-shopping" style="color:#e67e22"></i> প্রয়োজনীয় উপকরণ</div>
-        ${tableHtml}
-
-        <div class="section-head"><i class="fa-solid fa-list-ol" style="color:#9b59b6"></i> প্রস্তুত ও প্রয়োগ প্রণালী</div>
-        ${s.working_process.map(st => `
-          <div class="step-card">
-            <div class="step-icon">${st.step}</div>
-            <div>${st.description}</div>
-          </div>
-        `).join('')}
-
-        <div class="section-head"><i class="fa-solid fa-comments" style="color:#f1c40f"></i> সাধারণ প্রশ্ন ও উত্তর</div>
-        ${s.faqs.map(f => `
-          <div class="qna-card">
-            <div class="q-text"><i class="fa-solid fa-comment-dots" style="color:#e67e22"></i> ${f.question}</div>
-            <div class="a-text"><i class="fa-solid fa-square-check" style="color:#27ae60"></i> ${f.answer}</div>
-          </div>
-        `).join('')}
-
-        <div class="modal-nav">
-          ${idx > 0 ? `<button class="nav-btn" onclick="openModal(${allData[idx-1].id})"><i class="fa-solid fa-chevron-left"></i> আগের পোস্ট</button>` : '<div></div>'}
-          ${idx < allData.length - 1 ? `<button class="nav-btn" onclick="openModal(${allData[idx+1].id})">পরের পোস্ট <i class="fa-solid fa-chevron-right"></i></button>` : '<div></div>'}
-        </div>
-      </div>
-    `;
-  }
-
-  function closeModal() { document.getElementById('dataModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
-  function toggleFav(e, id) { e.stopPropagation(); if(favorites.includes(id)) favorites = favorites.filter(f => f !== id); else favorites.push(id); localStorage.setItem('sd_favs', JSON.stringify(favorites)); renderGrid(allData); }
-  function changeTab(tab, el) { currentTab = tab; document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active')); el.classList.add('active'); renderGrid(allData); }
-  document.getElementById('searchInput').addEventListener('input', (e) => { const val = e.target.value.toLowerCase().trim(); const filtered = allData.filter(s => s.title.toLowerCase().includes(val) || s.short_description.toLowerCase().includes(val)); renderGrid(filtered); });
-
-  init();
-</script>
+    <script src="/js/config.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="/js/index.js"></script>
 </body>
 </html>
