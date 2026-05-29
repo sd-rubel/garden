@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>লোড হচ্ছে...</title>
+    <meta name="description" content="">
+    <!-- Open Graph meta (dynamic) -->
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="">
+    <meta property="og:type" content="article">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236d28d9'%3E%3Cpath d='M4 4h16v16H4z'/%3E%3C/svg%3E">
+    <!-- Nunjucks CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/nunjucks@3.2.4/browser/nunjucks.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header class="glass-header">
+            <div class="header-flex">
+                <a href="/" class="logo">📄 ডায়নামিক ব্লগ</a>
+                <div class="header-actions">
+                    <button id="themeToggle" class="theme-btn">🌙</button>
+                    <button id="backButton" class="back-btn">◀ হোম</button>
+                </div>
+            </div>
+        </header>
+        <main id="postContent">
+            <div class="loading-spinner">⏳ কন্টেন্ট লোড হচ্ছে...</div>
+        </main>
+        <footer class="modern-footer">
+            <p>✨ সম্পূর্ণ ক্লায়েন্ট-সাইড | GitHub Pages + REST API | JSON driven</p>
+        </footer>
+    </div>
+    <script src="/js/config.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="/js/post.js"></script>
+</body>
+</html>
