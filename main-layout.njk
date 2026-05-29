@@ -1,0 +1,44 @@
+<article class="post-article">
+    {% if image %}
+        <div class="hero-image-wrapper">
+            <img src="{{ image }}" alt="{{ title }}" class="hero-image" loading="eager">
+        </div>
+    {% endif %}
+    <div class="post-container">
+        <h1 class="post-title">{{ title }}</h1>
+        <p class="post-description">{{ description }}</p>
+        
+        <div class="post-actions">
+            <button id="shareBtn" class="share-btn">📤 শেয়ার করুন</button>
+        </div>
+        
+        <div class="post-content-sections">
+            {% for section in content %}
+                <section class="content-section">
+                    {% if section.heading %}
+                        <h2>{{ section.heading }}</h2>
+                    {% endif %}
+                    {% if section.text %}
+                        <p>{{ section.text }}</p>
+                    {% endif %}
+                </section>
+            {% endfor %}
+        </div>
+    </div>
+</article>
+
+<script>
+    // Share functionality (simple)
+    const shareBtn = document.getElementById('shareBtn');
+    if(shareBtn && navigator.share) {
+        shareBtn.addEventListener('click', () => {
+            navigator.share({
+                title: document.title,
+                text: '{{ description|escape }}',
+                url: window.location.href
+            });
+        });
+    } else if(shareBtn) {
+        shareBtn.style.display = 'none';
+    }
+</script>
