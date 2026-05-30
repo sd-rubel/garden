@@ -3,66 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Taqwa.top | স্বয়ংক্রিয় কন্টেন্ট ব্লগ</title>
-    <meta name="description" content="Taqwa.top - স্বয়ংক্রিয় ওয়েব অ্যাপ, শুধু JSON যোগ করুন এবং সাইট আপডেট হয়।">
-    <meta property="og:title" content="Taqwa.top | ডায়নামিক ব্লগ">
-    <meta property="og:description" content="সহজ, দ্রুত এবং আধুনিক কন্টেন্ট সিস্টেম।">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <!-- CSS & Google Fonts -->
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Taqwa.top - গার্ডেনিং সলিউশনস</title>
+    <meta name="description" content="প্রাকৃতিক উপায়ে গাছের পরিচর্যা - জৈব সার, বালাইনাশক ও টিপস।">
+    <!-- Preconnect & Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
-    <!-- Font Awesome 6 (free) for social icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236d28d9'%3E%3Cpath d='M4 4h16v16H4z'/%3E%3C/svg%3E">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
     <div class="app-container">
-        <header class="glass-header">
-            <div class="header-flex">
-                <a href="/" class="logo logo-gradient">Taqwa.top</a>
-                <div class="header-actions">
-                    <button id="themeToggle" class="theme-btn" aria-label="ডার্ক মোড টগল">🌙</button>
-                </div>
+        <header class="premium-header">
+            <div class="header-inner">
+                <a href="/" class="logo premium-logo">🌿 Taqwa.top</a>
+                <button id="themeToggle" class="theme-btn-glass" aria-label="থিম টগল"><i class="fas fa-moon"></i></button>
             </div>
         </header>
 
         <main>
-            <section class="hero-section">
-                <h1>📂 JSON ফোল্ডার থেকে স্বয়ংক্রিয় পোস্ট</h1>
-                <p>শুধু <code>/json/</code> ফোল্ডারে <code>.json</code> ফাইল যোগ করুন। commit + push করলেই সাইট আপডেট!</p>
+            <section class="hero-premium">
+                <h1>জৈব সমাধান <span class="gradient-text">আপনার বাগানের জন্য</span></h1>
+                <p>কলার খোসা থেকে নিম তেল – ঘরেই তৈরি করুন শক্তিশালী জৈব সার ও বালাইনাশক</p>
+                <div class="search-premium">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="সার্চ করুন (টাইটেল বা বিবরণে)" class="search-input-premium">
+                    <button id="clearSearch" class="clear-premium"><i class="fas fa-times"></i></button>
+                </div>
             </section>
 
-            <div class="search-wrapper">
-                <input type="text" id="searchInput" placeholder="🔍 পোস্ট খুঁজুন (টাইটেল বা বিবরণে)" class="search-input">
-                <button id="clearSearch" class="clear-btn">✖</button>
-            </div>
-
-            <div id="cardsGrid" class="cards-grid"></div>
-            <div id="messageArea" class="message-area"></div>
+            <div id="cardsGrid" class="cards-grid-premium"></div>
+            <div id="messageArea" class="message-premium"></div>
         </main>
 
-        <footer class="modern-footer">
+        <footer class="premium-footer">
             <div class="footer-grid">
-                <div class="footer-copyright">
-                    <p>© 2025 Taqwa.top. সমস্ত অধিকার সংরক্ষিত।</p>
+                <div class="footer-brand">
+                    <div class="footer-logo">🌿 Taqwa.top</div>
+                    <p>প্রাকৃতিক কৃষি ও বাগানচর্চায় বিশ্বাসী</p>
                 </div>
                 <div class="footer-links">
-                    <a href="/privacy.html" class="footer-link">গোপনীয়তা নীতি</a>
-                    <a href="/terms.html" class="footer-link">শর্তাবলী</a>
+                    <a href="#">গোপনীয়তা নীতি</a>
+                    <a href="#">শর্তাবলী</a>
+                    <a href="#">যোগাযোগ</a>
                 </div>
                 <div class="footer-contact">
-                    <p><i class="fas fa-map-marker-alt"></i> অফিস: মেহেরপুর হোটেল বাজার, মেহেরপুর</p>
-                    <p><i class="fas fa-envelope"></i> <a href="mailto:sdnrubel@gmail.com">sdnrubel@gmail.com</a></p>
+                    <p><i class="fas fa-map-marker-alt"></i> মেহেরপুর হোটেল বাজার, মেহেরপুর</p>
+                    <p><i class="fas fa-envelope"></i> sdnrubel@gmail.com</p>
                 </div>
                 <div class="footer-social">
-                    <a href="#" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 </div>
+            </div>
+            <div class="footer-copyright">
+                <p>© 2025 Taqwa.top – সর্বস্বত্ব সংরক্ষিত</p>
             </div>
         </footer>
     </div>
