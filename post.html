@@ -2,55 +2,45 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>লোড হচ্ছে...</title>
     <meta name="description" content="">
+    <!-- Open Graph & Twitter Card -->
     <meta property="og:title" content="">
     <meta property="og:description" content="">
     <meta property="og:image" content="">
     <meta property="og:type" content="article">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    <meta name="keywords" content="">
+    <link rel="canonical" href="" id="canonicalLink">
+    <!-- Resources -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236d28d9'%3E%3Cpath d='M4 4h16v16H4z'/%3E%3C/svg%3E">
-    <!-- Nunjucks CDN -->
+    <link rel="stylesheet" href="/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/nunjucks@3.2.4/browser/nunjucks.min.js"></script>
 </head>
 <body>
     <div class="app-container">
-        <header class="glass-header">
-            <div class="header-flex">
-                <a href="/" class="logo logo-gradient">Taqwa.top</a>
-                <div class="header-actions">
-                    <button id="themeToggle" class="theme-btn">🌙</button>
-                    <button id="backButton" class="back-btn">◀ হোম</button>
+        <header class="premium-header">
+            <div class="header-inner">
+                <a href="/" class="logo premium-logo">🌿 Taqwa.top</a>
+                <div style="display: flex; gap: 12px;">
+                    <button id="themeToggle" class="theme-btn-glass"><i class="fas fa-moon"></i></button>
+                    <button id="backButton" class="back-premium"><i class="fas fa-arrow-left"></i> হোম</button>
                 </div>
             </div>
         </header>
         <main id="postContent">
-            <div class="loading-spinner">⏳ কন্টেন্ট লোড হচ্ছে...</div>
+            <div class="loading-premium"><i class="fas fa-spinner fa-pulse"></i> কন্টেন্ট লোড হচ্ছে...</div>
         </main>
-        <footer class="modern-footer">
+        <footer class="premium-footer">
             <div class="footer-grid">
-                <div class="footer-copyright">
-                    <p>© 2025 Taqwa.top. সমস্ত অধিকার সংরক্ষিত।</p>
-                </div>
-                <div class="footer-links">
-                    <a href="/privacy.html" class="footer-link">গোপনীয়তা নীতি</a>
-                    <a href="/terms.html" class="footer-link">শর্তাবলী</a>
-                </div>
-                <div class="footer-contact">
-                    <p><i class="fas fa-map-marker-alt"></i> অফিস: মেহেরপুর হোটেল বাজার, মেহেরপুর</p>
-                    <p><i class="fas fa-envelope"></i> <a href="mailto:sdnrubel@gmail.com">sdnrubel@gmail.com</a></p>
-                </div>
-                <div class="footer-social">
-                    <a href="#" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" aria-label="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="#" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="#" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                </div>
+                <div class="footer-brand"><div class="footer-logo">🌿 Taqwa.top</div><p>প্রাকৃতিক কৃষি ও বাগানচর্চায় বিশ্বাসী</p></div>
+                <div class="footer-links"><a href="#">গোপনীয়তা নীতি</a><a href="#">শর্তাবলী</a><a href="#">যোগাযোগ</a></div>
+                <div class="footer-contact"><p><i class="fas fa-map-marker-alt"></i> মেহেরপুর হোটেল বাজার, মেহেরপুর</p><p><i class="fas fa-envelope"></i> sdnrubel@gmail.com</p></div>
+                <div class="footer-social"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a></div>
             </div>
+            <div class="footer-copyright"><p>© 2025 Taqwa.top – সর্বস্বত্ব সংরক্ষিত</p></div>
         </footer>
     </div>
     <script src="/js/config.js"></script>
