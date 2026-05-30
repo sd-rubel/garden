@@ -1,30 +1,19 @@
-// theme.js - persistent theme toggling
 (function() {
-    const STORAGE_KEY = 'blog-theme';
-    const getPreferredTheme = () => {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        if (stored) return stored;
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    };
+    const storageKey = 'taqwa-theme';
     const applyTheme = (theme) => {
-        if (theme === 'dark') {
-            document.body.classList.add('dark');
-        } else {
-            document.body.classList.remove('dark');
-        }
-        localStorage.setItem(STORAGE_KEY, theme);
+        if(theme === 'dark') document.body.classList.add('dark');
+        else document.body.classList.remove('dark');
+        localStorage.setItem(storageKey, theme);
         const btn = document.getElementById('themeToggle');
-        if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        if(btn) btn.innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
     };
-    const toggleTheme = () => {
-        const current = document.body.classList.contains('dark') ? 'dark' : 'light';
-        const newTheme = current === 'dark' ? 'light' : 'dark';
-        applyTheme(newTheme);
-    };
+    const getPreferred = () => localStorage.getItem(storageKey) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     window.addEventListener('DOMContentLoaded', () => {
-        const saved = getPreferredTheme();
-        applyTheme(saved);
+        applyTheme(getPreferred());
         const btn = document.getElementById('themeToggle');
-        if (btn) btn.addEventListener('click', toggleTheme);
+        if(btn) btn.addEventListener('click', () => {
+            const newTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
+            applyTheme(newTheme);
+        });
     });
 })();
