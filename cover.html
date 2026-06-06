@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>Premium Book Cover - For Green Paper Print</title>
+    <style>
+        /* ফোল্ডারে থাকা কালপুরুষ ফন্টটি সরাসরি লিঙ্ক করার জন্য */
+        @font-face {
+            font-family: 'Kalpurush';
+            src: url('kalpurush.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 0; /* প্রিন্টিং নিখুঁত রাখতে মার্জিন জিরো */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Kalpurush', sans-serif;
+            background-color: #ffffff; /* প্রিন্টের জন্য ব্যাকগ্রাউন্ড সম্পূর্ণ সাদা/স্বচ্ছ */
+            color: #000000; /* সবুজ কাগজের উপর ফুটিয়ে তোলার জন্য শতভাগ গাঢ় কালো কালি */
+            height: 297mm;
+            width: 210mm;
+            overflow: hidden;
+        }
+        
+        /* এ৪ সাইজ মূল ক্যানভাস */
+        .canvas {
+            width: 210mm;
+            height: 297mm;
+            padding: 18mm;
+            position: relative;
+            box-sizing: border-box;
+        }
+        
+        /* ইসলামিক ডাবল ফ্রেম (আউটার বর্ডার) */
+        .islamic-outer-border {
+            border: 2px solid #000000;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            padding: 4mm;
+        }
+        
+        /* ইসলামিক ইনার বর্ডার */
+        .islamic-inner-border {
+            border: 1px solid rgba(0, 0, 0, 0.6);
+            height: 100%;
+            width: 100%;
+            position: relative;
+            padding: 12mm 8mm;
+            text-align: center;
+        }
+        
+        /* চার কোনার রাজকীয় ইসলামিক কর্নার শেপ */
+        .corner {
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #000000;
+            z-index: 10;
+        }
+        .top-left { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .top-right { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .bottom-left { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .bottom-right { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+        
+        /* ভেতরের কোনার ছোট ডট অলঙ্করণ */
+        .corner-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #000000;
+            border-radius: 50%;
+        }
+        .cd-tl { top: 8px; left: 8px; }
+        .cd-tr { top: 8px; right: 8px; }
+        .cd-bl { bottom: 8px; left: 8px; }
+        .cd-br { bottom: 8px; right: 8px; }
+
+        /* ওপরের ইসলামিক মোটিফ ডিজাইন */
+        .header-motif {
+            margin: 0 auto 15mm auto;
+            text-align: center;
+        }
+        .motif-line {
+            display: inline-block;
+            width: 40px;
+            height: 1px;
+            background: rgba(0, 0, 0, 0.5);
+            vertical-align: middle;
+        }
+        .motif-diamond {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border: 1px solid #000000;
+            transform: rotate(45deg);
+            margin: 0 8px;
+            vertical-align: middle;
+        }
+        
+        /* শুরুর দোয়া */
+        .bismillah {
+            font-size: 16pt;
+            font-weight: normal;
+            letter-spacing: 1px;
+            margin-bottom: 28mm;
+        }
+        
+        /* মূল বইয়ের নাম */
+        .main-title {
+            font-size: 32pt;
+            font-weight: bold;
+            line-height: 1.4;
+            margin: 0 auto;
+            width: 95%;
+        }
+        
+        /* নাম ও উপনামের মাঝখানের ডিভাইডার */
+        .title-divider {
+            margin: 8mm auto;
+            width: 60%;
+            text-align: center;
+            position: relative;
+        }
+        .title-divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #000000, transparent);
+        }
+        .title-divider-center {
+            display: inline-block;
+            position: relative;
+            background: #ffffff; /* সাদা ব্যাকগ্রাউন্ডের সাথে মেলানোর জন্য */
+            padding: 0 10px;
+            z-index: 2;
+        }
+        
+        /* উপনাম বা বিস্তারিত */
+        .subtitle {
+            font-size: 13pt;
+            line-height: 1.6;
+            max-width: 85%;
+            margin: 0 auto 35mm auto;
+            opacity: 0.9;
+        }
+        
+        /* কভারের মাঝখানের হাইলাইট বক্স */
+        .features-box {
+            border-top: 1px dashed rgba(0, 0, 0, 0.4);
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.4);
+            padding: 6mm 0;
+            max-width: 80%;
+            margin: 0 auto 40mm auto;
+            font-size: 11.5pt;
+            line-height: 1.8;
+        }
+        .feature-item {
+            display: inline-block;
+            margin: 0 8px;
+        }
+        
+        /* সংকলক সেকশন (নিচে) */
+        .compiler-section {
+            position: absolute;
+            bottom: 20mm;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        .compiler-label {
+            font-size: 11pt;
+            margin-bottom: 2mm;
+            opacity: 0.85;
+        }
+        .compiler-name {
+            font-size: 18pt;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="canvas">
+        <div class="islamic-outer-border">
+            <!-- চার কোনার ইসলামিক ফ্রেম মেকানিজম -->
+            <div class="corner top-left"></div>
+            <div class="corner top-right"></div>
+            <div class="corner bottom-left"></div>
+            <div class="corner bottom-right"></div>
+            
+            <div class="islamic-inner-border">
+                <div class="corner-dot cd-tl"></div>
+                <div class="corner-dot cd-tr"></div>
+                <div class="corner-dot cd-bl"></div>
+                <div class="corner-dot cd-br"></div>
+                
+                <!-- ওপরের অলঙ্করণ -->
+                <div class="header-motif">
+                    <span class="motif-line"></span>
+                    <span class="motif-diamond"></span>
+                    <span class="motif-line"></span>
+                </div>
+                
+                <div class="bismillah">বিসমিল্লাহির রাহমানির রাহিম</div>
+                
+                <!-- বইয়ের নাম -->
+                <div class="main-title">ঈমান, সালাত ও দোয়ার<br>সহজ পাঠ</div>
+                
+                <div class="title-divider">
+                    <span class="title-divider-center">
+                        <span class="motif-diamond" style="margin:0; width:6px; height:6px;"></span>
+                    </span>
+                </div>
+                
+                <div class="subtitle">
+                    কালিমা, অধিকতর প্রয়োজনীয় সূরা ও দৈনন্দিন জীবনের মাসনুন দোয়ার একটি আংশিক সংকলন
+                </div>
+                
+                <!-- সূচির মূল বিষয়বস্তু হাইলাইট -->
+                <div class="features-box">
+                    <span class="feature-item">■ ৫ কালিমা ও ঈমান</span> 
+                    <span class="feature-item">■ সালাতের পূর্ণাঙ্গ দোয়া ও সূরা</span> <br>
+                    <span class="feature-item">■ নিত্যদিনের মাসনুন দোয়া ও ইস্তেগফার</span>
+                </div>
+                
+                <!-- সংকলক তথ্য -->
+                <div class="compiler-section">
+                    <div class="compiler-label">সংকলনে ও সম্পাদনায়</div>
+                    <div class="compiler-name">এসডি রুবেল</div>
+                    
+                    <div style="margin-top: 4mm;">
+                        <span class="motif-line" style="width: 25px;"></span>
+                        <span class="motif-diamond" style="width: 5px; height: 5px; margin: 0 4px;"></span>
+                        <span class="motif-line" style="width: 25px;"></span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Dua JSON Manager – Direct Save</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #f5f5f7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 12px;
+      color: #1c1c1e;
+    }
+    .fixed-header {
+      position: sticky;
+      top: 0;
+      background: #f5f5f7;
+      z-index: 100;
+      padding: 12px 18px 8px;
+      backdrop-filter: blur(10px);
+      border-bottom: 0.5px solid #e9e9ef;
+    }
+    h1 { font-size: 1.4rem; text-align: center; margin-bottom: 8px; }
+    .file-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .file-bar button {
+      flex: 1;
+      background: #e5e5ea;
+      color: #007aff;
+      padding: 8px;
+      font-size: 0.75rem;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+    }
+    .file-bar button.primary { background: #007aff; color: white; }
+    .file-name {
+      background: white;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 0.7rem;
+      flex: 2;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .tab-bar {
+      display: flex;
+      gap: 6px;
+      background: white;
+      border-radius: 14px;
+      padding: 4px;
+      margin-bottom: 10px;
+    }
+    .tab-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      border-radius: 12px;
+      padding: 8px 0;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #8e8e93;
+      cursor: pointer;
+    }
+    .tab-btn.active { background: #007aff; color: white; }
+    .add-btn-container { margin-top: 6px; }
+    #openNewModalBtn {
+      width: 100%;
+      padding: 10px;
+      font-size: 0.85rem;
+      background: #007aff;
+      border-radius: 12px;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      border: 0.5px solid #e9e9ef;
+    }
+    label { font-weight: 500; font-size: 0.75rem; margin-bottom: 6px; display: block; }
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 8px 14px;
+      font-weight: 500;
+      font-size: 0.75rem;
+      background: #007aff;
+      color: white;
+      cursor: pointer;
+    }
+    .danger-btn { background: #ff3b30; }
+    .outline-btn { background: transparent; border: 1px solid #007aff; color: #007aff; }
+    .flex-row { display: flex; gap: 10px; margin-top: 10px; }
+    .flex-row button { flex: 1; }
+    textarea {
+      width: 100%;
+      border: 0.5px solid #d9d9df;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.75rem;
+      font-family: monospace;
+      resize: vertical;
+      background: white;
+    }
+    .list-container { display: flex; flex-direction: column; gap: 10px; }
+    .dua-item {
+      background: #f2f2f7;
+      border-radius: 14px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .dua-item.selected { background: #e3f2fd; border-left: 3px solid #007aff; }
+    .arrow-group { display: flex; gap: 4px; }
+    .arrow-btn {
+      background: #e5e5ea;
+      width: 32px;
+      height: 32px;
+      border-radius: 24px;
+      font-size: 1rem;
+      color: #007aff;
+      cursor: pointer;
+      border: none;
+    }
+    .item-title { flex: 2; font-weight: 500; font-size: 0.85rem; word-break: break-word; }
+    .action-group { display: flex; gap: 6px; margin-left: auto; }
+    .icon-btn {
+      background: white;
+      border-radius: 24px;
+      padding: 6px 12px;
+      font-size: 0.7rem;
+      color: #007aff;
+      cursor: pointer;
+    }
+    .icon-btn.delete { color: #ff3b30; }
+    .counter-badge {
+      background: #f2f2f7;
+      padding: 4px 12px;
+      border-radius: 24px;
+      display: inline-block;
+      font-size: 0.7rem;
+      margin-bottom: 12px;
+    }
+    .final-json-area { background: #f9f9fb; font-size: 0.7rem; }
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.2s;
+    }
+    .modal-overlay.active { visibility: visible; opacity: 1; }
+    .modal-container {
+      background: white;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .modal-header {
+      padding: 14px 20px 10px;
+      border-bottom: 0.5px solid #e9e9ef;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 { font-size: 1.1rem; }
+    .close-modal { background: none; font-size: 22px; color: #8e8e93; cursor: pointer; }
+    .modal-body { padding: 16px 20px; }
+    .modal-body textarea { min-height: 180px; }
+    .modal-footer { padding: 12px 20px 20px; display: flex; gap: 10px; justify-content: flex-end; }
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(28,28,30,0.9);
+      backdrop-filter: blur(12px);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      z-index: 1100;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
+      text-align: center;
+    }
+    .toast.show { opacity: 1; }
+    .scrollable-content { padding: 0 18px 20px; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    @media (max-width: 550px) {
+      .fixed-header { padding: 10px 14px 6px; }
+      .scrollable-content { padding: 0 14px 20px; }
+      .dua-item { flex-wrap: wrap; }
+      .action-group { margin-left: 0; width: 100%; justify-content: flex-end; }
+    }
+  </style>
+</head>
+<body>
+<div class="fixed-header">
+  <h1>Dua JSON Manager</h1>
+  <div class="file-bar">
+    <button id="openFileBtn" class="primary">📂 Open JSON File</button>
+    <button id="saveFileBtn">💾 Save to File</button>
+    <div id="fileNameDisplay" class="file-name">No file loaded</div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" data-tab="listTab">Dua List</button>
+    <button class="tab-btn" data-tab="jsonTab">JSON Output</button>
+  </div>
+  <div class="add-btn-container">
+    <button id="openNewModalBtn">+ Add New Object</button>
+  </div>
+</div>
+<div class="scrollable-content">
+  <div id="listTab" class="tab-content active">
+    <div class="card">
+      <div class="counter-badge">Total Duas: <span id="totalCount">0</span></div>
+      <label>Dua List (use ↑ ↓ arrows to reorder)</label>
+      <div id="objectList" class="list-container"></div>
+    </div>
+  </div>
+  <div id="jsonTab" class="tab-content">
+    <div class="card">
+      <label>Final JSON Array (order preserved)</label>
+      <textarea id="finalJson" rows="6" readonly class="final-json-area"></textarea>
+      <div class="flex-row">
+        <button id="copyFinalBtn">Copy JSON</button>
+        <button id="clearAllBtn" class="danger-btn">Delete All</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalOverlay" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header"><h3 id="modalTitle">New Object</h3><button class="close-modal" id="closeModalBtn">&times;</button></div>
+    <div class="modal-body"><textarea id="modalJsonInput" placeholder='{ "dua_id": 1, "dua_name": "Example" }'></textarea></div>
+    <div class="modal-footer"><button id="modalCancelBtn" class="outline-btn">Cancel</button><button id="modalSaveBtn">Save</button></div>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+  // ---------- State ----------
+  let duaData = [];
+  let editTargetIndex = null;
+  let selectedItemIndex = null;
+  let fileHandle = null;        // for File System Access API
+  let currentFileName = "No file loaded";
+
+  // DOM elements
+  const openFileBtn = document.getElementById("openFileBtn");
+  const saveFileBtn = document.getElementById("saveFileBtn");
+  const fileNameDisplay = document.getElementById("fileNameDisplay");
+  const objectListDiv = document.getElementById("objectList");
+  const totalCountSpan = document.getElementById("totalCount");
+  const finalJsonTextarea = document.getElementById("finalJson");
+  const openNewModalBtn = document.getElementById("openNewModalBtn");
+  const modalOverlay = document.getElementById("modalOverlay");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalJsonInput = document.getElementById("modalJsonInput");
+  const closeModalBtn = document.getElementById("closeModalBtn");
+  const modalCancelBtn = document.getElementById("modalCancelBtn");
+  const modalSaveBtn = document.getElementById("modalSaveBtn");
+  const copyFinalBtn = document.getElementById("copyFinalBtn");
+  const clearAllBtn = document.getElementById("clearAllBtn");
+  const toastEl = document.getElementById("toast");
+
+  function showToast(msg) {
+    if (window.toastTimeout) clearTimeout(window.toastTimeout);
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    window.toastTimeout = setTimeout(() => toastEl.classList.remove("show"), 2500);
+  }
+
+  // Helper: get second attribute value for title
+  function getSecondAttributeValue(obj) {
+    if (!obj || typeof obj !== 'object') return "Invalid";
+    const keys = Object.keys(obj);
+    if (keys.length === 0) return "Empty";
+    if (keys.length === 1) {
+      const val = obj[keys[0]];
+      return val !== undefined && val !== null ? String(val) : "—";
+    }
+    const secondKey = keys[1];
+    const secondVal = obj[secondKey];
+    if (secondVal === undefined || secondVal === null) return "—";
+    if (typeof secondVal === 'object') return JSON.stringify(secondVal).slice(0, 40);
+    return String(secondVal);
+  }
+
+  function refreshUI() {
+    finalJsonTextarea.value = JSON.stringify(duaData, null, 2);
+    renderList();
+    totalCountSpan.innerText = duaData.length;
+  }
+
+  function renderList() {
+    objectListDiv.innerHTML = "";
+    if (!duaData.length) {
+      objectListDiv.innerHTML = `<div style="text-align:center; padding:28px; background:#f9f9fb; border-radius:24px;">No items. Open a JSON file or click + Add.</div>`;
+      return;
+    }
+    duaData.forEach((item, idx) => {
+      const div = document.createElement("div");
+      div.className = "dua-item";
+      if (selectedItemIndex === idx) div.classList.add("selected");
+
+      const arrowGroup = document.createElement("div");
+      arrowGroup.className = "arrow-group";
+      const up = document.createElement("button");
+      up.textContent = "↑";
+      up.className = "arrow-btn";
+      up.onclick = (e) => { e.stopPropagation(); moveUp(idx); };
+      const down = document.createElement("button");
+      down.textContent = "↓";
+      down.className = "arrow-btn";
+      down.onclick = (e) => { e.stopPropagation(); moveDown(idx); };
+      arrowGroup.appendChild(up); arrowGroup.appendChild(down);
+
+      const titleSpan = document.createElement("div");
+      titleSpan.className = "item-title";
+      titleSpan.textContent = getSecondAttributeValue(item);
+
+      const actionGroup = document.createElement("div");
+      actionGroup.className = "action-group";
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit";
+      editBtn.className = "icon-btn";
+      editBtn.onclick = (e) => { e.stopPropagation(); openEditModal(idx); };
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "Delete";
+      delBtn.className = "icon-btn delete";
+      delBtn.onclick = (e) => { e.stopPropagation(); deleteItem(idx); };
+      actionGroup.appendChild(editBtn); actionGroup.appendChild(delBtn);
+
+      div.appendChild(arrowGroup); div.appendChild(titleSpan); div.appendChild(actionGroup);
+      objectListDiv.appendChild(div);
+    });
+  }
+
+  function moveUp(idx) {
+    if (idx <= 0) { showToast("Already at top"); setSelected(idx); return; }
+    [duaData[idx-1], duaData[idx]] = [duaData[idx], duaData[idx-1]];
+    refreshUI(); setSelected(idx-1); showToast("Moved up");
+  }
+  function moveDown(idx) {
+    if (idx >= duaData.length-1) { showToast("Already at bottom"); setSelected(idx); return; }
+    [duaData[idx], duaData[idx+1]] = [duaData[idx+1], duaData[idx]];
+    refreshUI(); setSelected(idx+1); showToast("Moved down");
+  }
+  function deleteItem(idx) {
+    if (confirm("Delete permanently?")) {
+      duaData.splice(idx,1);
+      if (editTargetIndex === idx) editTargetIndex = null;
+      else if (editTargetIndex > idx) editTargetIndex--;
+      if (selectedItemIndex === idx) selectedItemIndex = null;
+      else if (selectedItemIndex > idx) selectedItemIndex--;
+      refreshUI(); showToast("Deleted");
+    } else setSelected(idx);
+  }
+  function setSelected(idx) { selectedItemIndex = idx; renderList(); }
+
+  // Modal logic
+  function openModal(isEdit, obj=null) {
+    if (isEdit && obj) { modalTitle.innerText = "Edit Object"; modalJsonInput.value = JSON.stringify(obj,null,2); }
+    else { modalTitle.innerText = "New Object"; modalJsonInput.value = ""; }
+    modalOverlay.classList.add("active");
+  }
+  function closeModal() { modalOverlay.classList.remove("active"); editTargetIndex = null; }
+  function saveModal() {
+    const raw = modalJsonInput.value.trim();
+    if (!raw) { showToast("Paste a JSON object"); return; }
+    let parsed;
+    try { parsed = JSON.parse(raw); if (Array.isArray(parsed) || typeof parsed !== "object") throw new Error(); }
+    catch(e) { showToast("Invalid JSON object"); return; }
+    if (editTargetIndex !== null && duaData[editTargetIndex]) {
+      duaData[editTargetIndex] = parsed;
+      showToast("Updated");
+      setSelected(editTargetIndex);
+      editTargetIndex = null;
+    } else {
+      duaData.push(parsed);
+      showToast("Added");
+      setSelected(duaData.length-1);
+    }
+    refreshUI();
+    closeModal();
+  }
+  function openEditModal(idx) { editTargetIndex = idx; openModal(true, duaData[idx]); setSelected(idx); }
+  function openNewModal() { editTargetIndex = null; openModal(false); }
+
+  function clearAllData() {
+    if (confirm("Delete ALL items? This will not save until you click 'Save to File'.")) {
+      duaData = []; editTargetIndex = null; selectedItemIndex = null;
+      refreshUI(); showToast("All cleared");
+    }
+  }
+  function copyFinalJson() {
+    const json = finalJsonTextarea.value;
+    if (!json.trim()) { showToast("Nothing to copy"); return; }
+    navigator.clipboard.writeText(json).then(()=>showToast("Copied")).catch(()=>showToast("Copy failed"));
+  }
+
+  // ---------- FILE HANDLING with File System Access API ----------
+  async function openFileWithHandle() {
+    if (!window.showOpenFilePicker) {
+      showToast("File System Access API not supported. Use classic file input.");
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "application/json";
+      input.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const text = await file.text();
+        try {
+          const parsed = JSON.parse(text);
+          if (!Array.isArray(parsed)) throw new Error();
+          duaData = parsed;
+          fileHandle = null;
+          currentFileName = file.name;
+          fileNameDisplay.textContent = currentFileName;
+          refreshUI();
+          showToast(`Loaded ${duaData.length} items`);
+        } catch(err) { showToast("Invalid JSON array"); }
+      };
+      input.click();
+      return;
+    }
+    try {
+      [fileHandle] = await window.showOpenFilePicker({
+        types: [{ description: 'JSON', accept: { 'application/json': ['.json'] } }],
+        excludeAcceptAllOption: true,
+        multiple: false,
+      });
+      const file = await fileHandle.getFile();
+      const contents = await file.text();
+      const parsed = JSON.parse(contents);
+      if (!Array.isArray(parsed)) throw new Error();
+      duaData = parsed;
+      currentFileName = file.name;
+      fileNameDisplay.textContent = currentFileName;
+      refreshUI();
+      showToast(`Opened ${duaData.length} items from ${file.name}`);
+    } catch (err) {
+      if (err.name !== 'AbortError') showToast("Open cancelled or invalid file");
+    }
+  }
+
+  async function saveToFile() {
+    if (!duaData.length && !confirm("Save empty array?")) return;
+    const jsonString = JSON.stringify(duaData, null, 2);
+    // If we have a valid fileHandle and API supported, write directly
+    if (fileHandle && window.showSaveFilePicker) {
+      try {
+        const writable = await fileHandle.createWritable();
+        await writable.write(jsonString);
+        await writable.close();
+        showToast(`Saved to ${currentFileName}`);
+        return;
+      } catch (err) {
+        showToast("Save failed, will try download");
+      }
+    }
+    // Fallback: download as new file
+    const blob = new Blob([jsonString], {type: "application/json"});
+    const a = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    a.href = url;
+    a.download = currentFileName !== "No file loaded" ? currentFileName : "duas.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast(`Downloaded as ${a.download}`);
+  }
+
+  // Tab switching
+  document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-tab");
+      document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+    });
+  });
+
+  // Event listeners
+  openFileBtn.addEventListener("click", openFileWithHandle);
+  saveFileBtn.addEventListener("click", saveToFile);
+  openNewModalBtn.addEventListener("click", openNewModal);
+  closeModalBtn.addEventListener("click", closeModal);
+  modalCancelBtn.addEventListener("click", closeModal);
+  modalSaveBtn.addEventListener("click", saveModal);
+  copyFinalBtn.addEventListener("click", copyFinalJson);
+  clearAllBtn.addEventListener("click", clearAllData);
+  modalOverlay.addEventListener("click", (e)=> { if(e.target===modalOverlay) closeModal(); });
+
+  refreshUI();
+  showToast("Click 'Open JSON File' to begin");
+</script>
+</body>
+</html>

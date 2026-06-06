@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>দুআ সংগ্রহ | Taqwa.Top</title>
+
+<style>
+/* আপনার লোকাল ফন্ট ডিরেক্টরি */
+@font-face {
+    font-family: 'Kalpurush';
+    src: url('kalpurush.ttf') format('truetype');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'ArabicFont';
+    src: url('arabic.ttf') format('truetype');
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: #f4f6f8;
+    font-family: 'Kalpurush', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1a1a1a;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* প্রধান কন্টেইনার */
+.app-container {
+    max-width: 720px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+    flex: 1;
+}
+
+/* প্রফেশনাল হেডার */
+.app-header {
+    padding: 40px 10px 24px 10px;
+    text-align: center;
+}
+
+.app-header .brand-link {
+    font-size: 16px;
+    font-weight: 700;
+    color: #007aff; /* Samsung Accent Blue */
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    background: #edf5ff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 12px;
+    transition: background 0.2s;
+}
+
+.app-header .brand-link:hover {
+    background: #dbecff;
+}
+
+.app-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #000000;
+    letter-spacing: -0.5px;
+}
+
+/* অ্যাকর্ডিয়ন লার্জ লিস্ট কন্টেইনার */
+.dua-list-container {
+    margin-bottom: 40px;
+}
+
+/* প্রতিটি দুআ আইটেম (Card) */
+.dua-accordion-item {
+    background: #ffffff;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.02);
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+}
+
+.dua-accordion-item:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+}
+
+/* ক্লিক করার হেডার বাটন */
+.dua-trigger-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+}
+
+.title-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dua-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+/* স্লাইডিং অ্যারো বাটন আইকন */
+.arrow-icon {
+    font-size: 14px;
+    color: #8e8e93;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #f1f3f5;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* অ্যাকর্ডিয়ন ওপেন হলে অ্যারো ঘুরবে এবং হেডার ব্যাকগ্রাউন্ড সামান্য হাইলাইট হবে */
+.dua-accordion-item.active .arrow-icon {
+    transform: rotate(90deg);
+    background: #edf5ff;
+    color: #007aff;
+}
+
+.dua-accordion-item.active .dua-trigger-btn {
+    background-color: #fafbfc;
+}
+
+/* হিডেন ডিটেইলস প্যানেল (স্মুথ অ্যানিমেশন) */
+.dua-panel-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    border-top: 0 solid #f1f3f5;
+}
+
+.dua-accordion-item.active .dua-panel-details {
+    border-top: 1px solid #f1f3f5;
+}
+
+.panel-body-content {
+    padding: 24px;
+}
+
+/* উৎস ব্যাজ */
+.dua-meta-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+}
+
+.dua-source {
+    font-size: 11px;
+    color: #b38146;
+    background: #fdf8f0;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+/* আরবি টেক্সট */
+.arabic-text {
+    font-family: 'ArabicFont', serif;
+    font-size: 26px;
+    text-align: center;
+    direction: rtl;
+    color: #000000;
+    line-height: 1.7;
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+}
+
+/* উচ্চারণ ও অনুবাদ */
+.translation-section {
+    margin-bottom: 20px;
+}
+
+.translation-block {
+    margin-bottom: 12px;
+}
+
+.label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #767676;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.text-value {
+    font-size: 15px;
+    color: #252525;
+    text-align: justify;
+}
+
+/* শব্দার্থ বিশ্লেষণ */
+.word-analysis-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.word-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.word-chip {
+    background: #f1f3f5;
+    border-radius: 12px;
+    padding: 10px;
+    flex: 1 1 calc(33.333% - 8px);
+    min-width: 95px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.chip-arabic {
+    font-family: 'ArabicFont', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.chip-pronounce, .chip-meaning {
+    font-size: 11px;
+    margin-top: 1px;
+}
+
+.chip-pronounce { color: #666666; }
+.chip-meaning { color: #1a1a1a; }
+
+.no-word-msg {
+    font-size: 12px;
+    color: #8e8e93;
+    font-style: italic;
+}
+
+/* ফজিলত বক্স */
+.merit-section {
+    background: #f8fafc;
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: #333333;
+    text-align: justify;
+    border: 1px solid #eef2f5;
+}
+
+.merit-section strong {
+    color: #007aff;
+}
+
+/* প্রফেশনাল ফুটার */
+.app-footer {
+    background-color: #ffffff;
+    border-top: 1px solid #eef2f5;
+    padding: 24px 16px;
+    text-align: center;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.footer-brand {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+}
+
+.footer-copyright {
+    font-size: 12px;
+    color: #8e8e93;
+}
+
+/* লোডিং ও এরর স্টেট */
+.state-message {
+    text-align: center;
+    padding: 60px;
+    font-size: 16px;
+    color: #666666;
+}
+
+.error-message {
+    text-align: center;
+    padding: 24px;
+    background: #ffeef0;
+    border-radius: 16px;
+    color: #e02424;
+}
+
+/* মোবাইল রেসপন্সিভ গ্রিড */
+@media (max-width: 480px) {
+    .app-header { padding: 30px 10px 20px 10px; }
+    .dua-trigger-btn { padding: 16px 20px; }
+    .dua-title { font-size: 16.5px; }
+    .panel-body-content { padding: 18px; }
+    .word-chip { flex: 1 1 calc(50% - 8px); }
+    .arabic-text { font-size: 22px; padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<div class="app-container">
+    
+    <header class="app-header">
+        <a href="https://Taqwa.Top" target="_blank" class="brand-link">Taqwa.Top</a>
+        <h1>দৈনন্দিন দুআ সংগ্রহ</h1>
+    </header>
+
+    <main id="main-content" class="dua-list-container">
+        <div class="state-message">দুআসমূহ লোড হচ্ছে...</div>
+    </main>
+
+</div>
+
+<footer class="app-footer">
+    <div class="footer-content">
+        <div class="footer-brand">Taqwa.Top</div>
+        <div class="footer-copyright">&copy; ২০২৬ সর্বস্বত্ব সংরক্ষিত। একটি আধুনিক ইসলামিক প্ল্যাটফর্ম।</div>
+    </div>
+</footer>
+
+<script>
+(function() {
+    const container = document.getElementById('main-content');
+
+    function toBengaliNumber(num) {
+        if (num === undefined || num === null) return '';
+        const en = '0123456789';
+        const bn = '০১২৩৪৫৬৭৮৯';
+        return num.toString().replace(/[0-9]/g, d => bn[en.indexOf(d)]);
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.toString().replace(/[&<>"]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            if (m === '"') return '&quot;';
+            return m;
+        });
+    }
+
+    // অ্যাকর্ডিয়ন টগল ফাংশন
+    window.toggleAccordion = function(button) {
+        const item = button.parentElement;
+        const panel = button.nextElementSibling;
+        
+        // অন্য কোনোটি খোলা থাকলে তা বন্ধ করতে চাইলে নিচের কমেন্ট সরাবেন:
+        /*
+        document.querySelectorAll('.dua-accordion-item').forEach(el => {
+            if (el !== item && el.classList.contains('active')) {
+                el.classList.remove('active');
+                el.querySelector('.dua-panel-details').style.maxHeight = null;
+            }
+        });
+        */
+
+        if (item.classList.contains('active')) {
+            item.classList.remove('active');
+            panel.style.maxHeight = null;
+        } else {
+            item.classList.add('active');
+            panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+    };
+
+    fetch('data.json')
+        .then(res => {
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+        })
+        .then(data => {
+            container.innerHTML = '';
+
+            if (!data || !data.length) {
+                container.innerHTML = '<div class="state-message">কোনো ডাটা পাওয়া যায়নি। data.json চেক করুন।</div>';
+                return;
+            }
+
+            data.forEach(dua => {
+                let wordChipsHtml = '';
+
+                if (Array.isArray(dua.word_by_word) && dua.word_by_word.length > 0) {
+                    wordChipsHtml = `
+                        <div class="word-analysis-title">শব্দার্থ বিশ্লেষণ</div>
+                        <div class="word-grid">
+                            ${dua.word_by_word.map(w => `
+                                <div class="word-chip">
+                                    <div class="chip-arabic">${escapeHtml(w.arabic || '—')}</div>
+                                    ${w.pronunciation ? `<div class="chip-pronounce">${escapeHtml(w.pronunciation)}</div>` : ''}
+                                    ${w.meaning ? `<div class="chip-meaning">${escapeHtml(w.meaning)}</div>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else {
+                    wordChipsHtml = `
+                        <div class="word-analysis-title">শব্দার্থ বিশ্লেষণ</div>
+                        <div class="word-grid"><span class="no-word-msg">শব্দভিত্তিক বিশ্লেষণ উপলব্ধ নেই</span></div>
+                    `;
+                }
+
+                const duaId = dua.dua_id ? toBengaliNumber(dua.dua_id) + '. ' : '';
+                const item = document.createElement('div');
+                item.className = 'dua-accordion-item';
+
+                item.innerHTML = `
+                    <button class="dua-trigger-btn" onclick="toggleAccordion(this)">
+                        <div class="title-wrapper">
+                            <span class="dua-title">${escapeHtml(duaId + (dua.dua_name || 'দোয়া'))}</span>
+                        </div>
+                        <div class="arrow-icon">❯</div>
+                    </button>
+
+                    <div class="dua-panel-details">
+                        <div class="panel-body-content">
+                            <div class="dua-meta-row">
+                                <span class="dua-source">${escapeHtml(dua.source || 'উৎস')}</span>
+                            </div>
+
+                            <div class="arabic-text">${escapeHtml(dua.arabic_full || '')}</div>
+
+                            <div class="translation-section">
+                                <div class="translation-block">
+                                    <span class="label">উচ্চারণ</span>
+                                    <div class="text-value">${escapeHtml(dua.pronunciation || '—')}</div>
+                                </div>
+                                <div class="translation-block">
+                                    <span class="label">অর্থ বাংলা</span>
+                                    <div class="text-value">${escapeHtml(dua.bangla_translation || 'অনুবাদ নেই')}</div>
+                                </div>
+                            </div>
+
+                            ${wordChipsHtml}
+
+                            <div class="merit-section">
+                                <strong>ফজিলত:</strong> ${escapeHtml(dua.merit || 'ফজিলত উল্লেখ নেই')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(item);
+            });
+        })
+        .catch(error => {
+            console.error(error);
+            container.innerHTML = `
+                <div class="error-message">
+                    <h3>ডাটা লোড করা যায়নি</h3>
+                    <p style="margin-top: 8px; font-size: 14px;">আপনার <strong>data.json</strong> ফাইলটি একই ফোল্ডারে আছে কিনা পরীক্ষা করে নিন।</p>
+                </div>
+            `;
+        });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>বইয়ের কভার | ঈমান সালাত ও দোয়ার সহজ পাঠ</title>
+
+<!-- Font Awesome 6 Free CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+    @font-face {
+        font-family: 'Kalpurush';
+        src: url('kalpurush.ttf') format('truetype');
+        font-display: swap;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background: #f0f2f5;
+        font-family: 'Kalpurush', sans-serif;
+        padding: 20px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* A4 সাইজ কভার */
+    .cover-wrapper {
+        width: 210mm;
+        height: 297mm;
+        background: #ffffff;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30mm 25mm;
+        box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    }
+
+    /* পরিচ্ছন্ন ডাবল বর্ডার */
+    .islamic-border-outer {
+        position: absolute;
+        top: 12mm; left: 12mm; right: 12mm; bottom: 12mm;
+        border: 3px solid #000000;
+        pointer-events: none;
+    }
+
+    .islamic-border-inner {
+        position: absolute;
+        top: 16mm; left: 16mm; right: 16mm; bottom: 16mm;
+        border: 1px dashed #000000;
+        pointer-events: none;
+    }
+
+    /* শীর্ষ অংশ: বিসমিল্লাহ */
+    .bismillah {
+        font-size: 18pt;
+        font-weight: bold;
+        color: #000000;
+        text-align: center;
+        margin-top: 5mm;
+    }
+
+    /* বইয়ের নাম সেকশন */
+    .title-container {
+        text-align: center;
+        width: 100%;
+        margin-top: 10mm;
+    }
+
+    .main-title {
+        font-size: 38pt;
+        font-weight: 900;
+        color: #000000;
+        line-height: 1.4;
+    }
+
+    /* প্রিমিয়াম ডিভাইডার */
+    .title-divider {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+        color: #000000;
+    }
+    .title-divider::before, .title-divider::after {
+        content: "";
+        width: 100px;
+        height: 2px;
+        background-color: #000000;
+        margin: 0 15px;
+    }
+    .title-divider i {
+        font-size: 16pt;
+    }
+
+    /* কেন্দ্র অংশ: বৃহৎ একক মসজিদ আইকন */
+    .islamic-scenery {
+        width: 100%;
+        height: 75mm;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 15mm 0;
+    }
+
+    .mosque-center {
+        font-size: 160pt;
+        color: #000000;
+        line-height: 1;
+    }
+
+    /* সংকালক সেকশন */
+    .author-container {
+        text-align: center;
+        margin-bottom: 10mm;
+        width: 100%;
+    }
+
+    .author-label {
+        font-size: 14pt;
+        font-weight: bold;
+        color: #000000;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+    }
+
+    /* মেহরাব স্টাইল ব্যানার */
+    .author-badge {
+        background: #000000;
+        padding: 14px 55px;
+        display: inline-block;
+        clip-path: polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%);
+    }
+
+    .author-name {
+        font-size: 22pt;
+        font-weight: bold;
+        color: #ffffff;
+        letter-spacing: 1px;
+    }
+
+    /* ওয়েব ইন্টারফেস বাটন */
+    .no-print {
+        position: fixed;
+        top: 14px;
+        right: 18px;
+        z-index: 1000;
+    }
+
+    .btn {
+        background: #000000;
+        color: #ffffff;
+        padding: 12px 28px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 11pt;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    }
+
+    /* A4 EXACT PRINT CONFIGURATION */
+    @media print {
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            background: #ffffff;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        .no-print {
+            display: none;
+        }
+
+        .cover-wrapper {
+            width: 210mm;
+            height: 297mm;
+            box-shadow: none;
+            padding: 30mm 25mm !important;
+            page-break-after: avoid;
+            page-break-before: avoid;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- প্রিন্ট বাটন -->
+<div class="no-print">
+    <button class="btn" onclick="window.print()">
+        🖨️ কভার পেজ প্রিন্ট করুন
+    </button>
+</div>
+
+<!-- মূল এ ফোর কভার পেজ -->
+<div class="cover-wrapper">
+
+    <!-- পরিচ্ছন্ন বর্ডার লেআউট -->
+    <div class="islamic-border-outer"></div>
+    <div class="islamic-border-inner"></div>
+
+    <!-- শীর্ষ অংশ: বিসমিল্লাহ (সংশোধিত বানান) -->
+    <div class="bismillah">বিসমিল্লাহির রাহমানির রাহিম</div>
+
+    <!-- বইয়ের নাম ও ডিভাইডার -->
+    <div class="title-container">
+        <h1 class="main-title">ঈমান, সালাত ও দোয়ার<br>সহজ পাঠ</h1>
+        <div class="title-divider">
+            <i class="fa-solid fa-star-and-crescent"></i>
+        </div>
+    </div>
+
+    <!-- কেন্দ্র অংশ: বৃহৎ একক মসজিদ আইকন -->
+    <div class="islamic-scenery">
+        <div class="mosque-center">
+            <i class="fa-solid fa-mosque"></i>
+        </div>
+    </div>
+
+    <!-- নিচের অংশ: সংকলক প্যানেল -->
+    <div class="author-container">
+        <div class="author-label">সংকলনে</div>
+        <div class="author-badge">
+            <div class="author-name">এসডি রুবেল</div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

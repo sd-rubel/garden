@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>দুআ বুকলেট | পৃষ্ঠা অপচয়হীন</title>
+
+<style>
+@font-face {
+    font-family: 'Kalpurush';
+    src: url('kalpurush.ttf') format('truetype');
+    font-display: swap;
+}
+@font-face {
+    font-family: 'ArabicFont';
+    src: url('arabic.ttf') format('truetype');
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #f5f3ef;
+    font-family: 'Kalpurush', 'Segoe UI', 'Noto Sans Bengali', serif;
+    color: #1f2a2f;
+    padding: 20px 12px;
+}
+
+.page-wrapper {
+    max-width: 210mm;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.dua-block {
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: all 0.2s;
+}
+
+.dua-header {
+    padding: 10px 14px 6px;
+    border-bottom: 1px solid #ddd0b0;
+    background: #fefaf3;
+}
+
+.dua-title {
+    font-size: 18pt;
+    font-weight: 800;
+    color: #2c6b55;
+    text-align: left;
+    letter-spacing: -0.2px;
+}
+
+.source-line {
+    font-size: 9.5pt;
+    color: #a5723e;
+    text-align: right;
+    direction: ltr;
+    margin-top: 2px;
+}
+
+.arabic-text {
+    font-family: 'ArabicFont', 'Scheherazade', 'Amiri', serif;
+    font-size: 26pt;
+    text-align: center;
+    direction: rtl;
+    padding: 12px 12px 6px;
+    line-height: 1.5;
+    word-break: break-word;
+}
+
+.text-content {
+    padding: 8px 14px 6px;
+    line-height: 1.5;
+    text-align: justify;
+}
+
+.pronunciation-line {
+    font-size: 11.5pt;
+    margin-bottom: 6px;
+    text-align: justify;
+}
+
+.meaning-line {
+    font-size: 12pt;
+    margin-top: 4px;
+    text-align: justify;
+}
+
+.label {
+    font-weight: 700;
+    color: #bf6f2c;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.word-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    padding: 8px 14px 12px;
+    background: #fefcf8;
+    border-top: 1px dashed #e5d5bc;
+}
+
+.word-chip {
+    flex: 0 0 auto;
+    text-align: center;
+    min-width: 100px;
+    max-width: 180px;
+    background: #fff6ed;
+    padding: 6px 10px;
+    border-radius: 24px;
+    border: 1px solid #eeddc8;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+}
+
+.chip-arabic {
+    font-family: 'ArabicFont', 'Scheherazade', serif;
+    font-size: 16pt;
+    font-weight: 600;
+    direction: rtl;
+    color: #1f5b48;
+    margin-bottom: 4px;
+}
+
+.chip-pronounce {
+    font-size: 9.5pt;
+    color: #8b6e48;
+    margin: 2px 0;
+}
+
+.chip-meaning {
+    font-size: 9.5pt;
+    color: #4c5c4c;
+    font-weight: 500;
+}
+
+.no-word-msg {
+    font-size: 10pt;
+    color: #968c71;
+    text-align: center;
+    width: 100%;
+    padding: 4px 0;
+}
+
+.merit {
+    padding: 8px 14px 12px;
+    font-size: 10.5pt;
+    color: #2f5548;
+    border-top: 1px solid #e3d9c5;
+    background: #fefcf8;
+    text-align: justify;
+}
+
+.merit b {
+    color: #9b5e2c;
+    font-size: 10.5pt;
+    font-weight: 700;
+}
+
+/* প্রিন্ট বাটন */
+.print-control {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    display: flex;
+    gap: 12px;
+    background: rgba(255,255,240,0.9);
+    backdrop-filter: blur(8px);
+    padding: 8px 16px;
+    border-radius: 60px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    border: 1px solid #cbbc8b;
+}
+
+.btn {
+    background: #2c6b55;
+    color: white;
+    font-family: 'Kalpurush', sans-serif;
+    padding: 8px 24px;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: 0.2s;
+    letter-spacing: 0.3px;
+}
+
+.btn:hover {
+    background: #1f4f3e;
+    transform: scale(1.02);
+}
+
+.btn:disabled {
+    background: #b0aa92;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.status-msg {
+    font-size: 11pt;
+    color: #4e6b5e;
+    align-self: center;
+    background: #f0ede5;
+    padding: 4px 12px;
+    border-radius: 32px;
+}
+
+.loading-placeholder {
+    text-align: center;
+    padding: 60px 24px;
+    font-size: 14pt;
+    color: #6a7c6e;
+    background: white;
+    border-radius: 20px;
+}
+
+.error-box {
+    text-align: center;
+    padding: 40px 20px;
+    background: #fff4ec;
+    border-radius: 20px;
+    border: 1px solid #e4c8b0;
+}
+
+/* প্রিন্ট অপটিমাইজেশন */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 12mm 8mm 15mm 8mm;
+    }
+
+    body {
+        background: white;
+        padding: 0;
+        margin: 0;
+    }
+
+    .print-control {
+        display: none !important;
+    }
+
+    .page-wrapper {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        background: white;
+        box-shadow: none;
+    }
+
+    .dua-block {
+        margin-bottom: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        break-inside: avoid-page;
+        overflow: visible;
+    }
+
+    .dua-header, .arabic-text, .text-content, .word-chips-container, .merit {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .word-chips-container {
+        gap: 8px;
+        padding: 6px 12px;
+    }
+
+    .word-chip {
+        min-width: 95px;
+        max-width: 175px;
+        background: #fff6ed;
+        border: 0.5px solid #ccc;
+        break-inside: avoid;
+    }
+
+    .chip-arabic {
+        font-size: 15pt !important;
+    }
+
+    .arabic-text {
+        font-size: 24pt !important;
+        line-height: 1.45;
+        padding: 8px 10px;
+    }
+
+    .dua-title {
+        font-size: 17pt !important;
+    }
+
+    .pronunciation-line, .meaning-line {
+        font-size: 12pt !important;
+    }
+
+    .merit {
+        font-size: 11pt !important;
+    }
+}
+
+@media (max-width: 700px) {
+    body {
+        padding: 12px 8px;
+    }
+    .dua-title {
+        font-size: 16pt;
+    }
+    .arabic-text {
+        font-size: 22pt;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="print-control" id="printControl">
+    <div class="status-msg" id="printStatusMsg">📖 প্রস্তুত হচ্ছে...</div>
+    <button class="btn" id="printBtn" disabled>🖨️ প্রিন্ট বুকলেট</button>
+</div>
+
+<div class="page-wrapper" id="main-content">
+    <div class="loading-placeholder">
+        🌿 দোয়ার তালিকা লোড হচ্ছে... <br> 
+        JSON ফাইলের পাথ: ../../../../JSON/data_dua.json
+    </div>
+</div>
+
+<script>
+(function() {
+    const container = document.getElementById('main-content');
+    const printBtn = document.getElementById('printBtn');
+    const statusMsgSpan = document.getElementById('printStatusMsg');
+    let dataLoaded = false;
+    let duasData = [];
+
+    // কনফিগার: আপনার JSON ফাইলের সঠিক রিলেটিভ পাথ
+    const JSON_PATH = "../../../../JSON/data_dua.json";
+
+    function toBengaliNumber(num) {
+        if (num === undefined || num === null) return '';
+        const bnDigits = '০১২৩৪৫৬৭৮৯';
+        return num.toString().replace(/\d/g, d => bnDigits[parseInt(d)]);
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function renderWordChips(wordArray) {
+        if (!Array.isArray(wordArray) || wordArray.length === 0) {
+            return `<div class="word-chips-container"><div class="no-word-msg">📖 শব্দভিত্তিক বিশ্লেষণ নেই</div></div>`;
+        }
+        const chips = wordArray.map(w => {
+            const arabicPart = w.arabic ? escapeHtml(w.arabic) : '—';
+            const pronouncePart = w.pronunciation ? `<div class="chip-pronounce">${escapeHtml(w.pronunciation)}</div>` : '';
+            const meaningPart = w.meaning ? `<div class="chip-meaning">${escapeHtml(w.meaning)}</div>` : '';
+            return `<div class="word-chip"><div class="chip-arabic">${arabicPart}</div>${pronouncePart}${meaningPart}</div>`;
+        }).join('');
+        return `<div class="word-chips-container">${chips}</div>`;
+    }
+
+    function createDuaBlock(dua, index) {
+        const duaIdNum = dua.dua_id ? toBengaliNumber(dua.dua_id) : (index + 1);
+        const titleText = dua.dua_name ? escapeHtml(dua.dua_name) : 'দোয়া';
+        const displayTitle = `${duaIdNum}. ${titleText}`;
+        const sourceText = dua.source ? escapeHtml(dua.source) : 'উৎস: সহীহুল বুখারী / মুসলিম';
+        const arabicFull = dua.arabic_full ? escapeHtml(dua.arabic_full) : '';
+        const pronunciation = dua.pronunciation ? escapeHtml(dua.pronunciation) : '—';
+        const banglaMeaning = dua.bangla_translation ? escapeHtml(dua.bangla_translation) : 'অনুবাদ পাওয়া যায়নি';
+        const meritText = dua.merit ? escapeHtml(dua.merit) : 'ফজিলত উল্লেখ নেই।';
+        const wordChipsHtml = renderWordChips(dua.word_by_word);
+        
+        return `
+            <div class="dua-block">
+                <div class="dua-header">
+                    <div class="dua-title">${displayTitle}</div>
+                    <div class="source-line">${sourceText}</div>
+                </div>
+                ${arabicFull ? `<div class="arabic-text">${arabicFull}</div>` : ''}
+                <div class="text-content">
+                    <div class="pronunciation-line"><span class="label">উচ্চারণ:</span> ${pronunciation}</div>
+                    <div class="meaning-line"><span class="label">অর্থ বাংলা:</span> ${banglaMeaning}</div>
+                </div>
+                ${wordChipsHtml}
+                <div class="merit"><b>ফজিলত:</b> ${meritText}</div>
+            </div>
+        `;
+    }
+
+    function renderAllDuas(duas) {
+        if (!duas || duas.length === 0) {
+            container.innerHTML = '<div class="error-box"><h3>⚠️ কোনো দুআ পাওয়া যায়নি</h3><p>JSON ফাইলে কোনো ডাটা নেই অথবা ফরম্যাট সঠিক নয়।</p></div>';
+            return;
+        }
+        let allBlocksHtml = '';
+        duas.forEach((dua, idx) => {
+            allBlocksHtml += createDuaBlock(dua, idx);
+        });
+        container.innerHTML = allBlocksHtml;
+    }
+
+    function safePrint() {
+        if (!dataLoaded) {
+            statusMsgSpan.innerHTML = '⚠️ তথ্য লোড হয়নি, একটু পরে চেষ্টা করুন';
+            alert('দুআগুলোর তথ্য এখনও প্রস্তুত হয়নি। একটু অপেক্ষা করে আবার প্রিন্ট বাটনে ক্লিক করুন।');
+            return false;
+        }
+        if (container.querySelector('.loading-placeholder')) {
+            statusMsgSpan.innerHTML = '⏳ প্রস্তুত হচ্ছে, পুনরায় চেষ্টা করুন';
+            return false;
+        }
+        statusMsgSpan.innerHTML = '🖨️ প্রিন্ট শুরু হচ্ছে...';
+        setTimeout(() => {
+            window.print();
+            setTimeout(() => {
+                if (dataLoaded) statusMsgSpan.innerHTML = '✅ প্রিন্ট প্রস্তুত | বুকলেট';
+                else statusMsgSpan.innerHTML = '📖 দোয়া বুকলেট';
+            }, 500);
+        }, 100);
+        return true;
+    }
+
+    function initPrintButton() {
+        if (printBtn) {
+            printBtn.onclick = (e) => {
+                e.preventDefault();
+                safePrint();
+            };
+        }
+    }
+
+    function handleFetchError(error) {
+        console.error('JSON লোড ব্যর্থ:', error);
+        container.innerHTML = `
+            <div class="error-box">
+                <h3 style="color:#aa5e2b;">❌ data_dua.json লোড করতে ব্যর্থ</h3>
+                <p style="margin-top:12px;">নিচের পাথে ফাইলটি আছে কিনা যাচাই করুন:<br/>
+                <strong style="background:#eee; padding:4px 8px; border-radius:8px;">${JSON_PATH}</strong></p>
+                <p style="margin-top:8px;">আপনার ডিরেক্টরি স্ট্রাকচার: <br/>
+                [Root]/JSON/data_dua.json <br/>
+                [Root]/Android/data/io.spck/files/দোয়া ও আমল/index.html</p>
+                <button id="retryLoadBtn" style="margin-top:20px; background:#2c6b55; color:white; border:none; padding:8px 20px; border-radius:36px; font-family:inherit; cursor:pointer;">🔄 পুনরায় চেষ্টা</button>
+            </div>
+        `;
+        dataLoaded = false;
+        if (printBtn) printBtn.disabled = true;
+        if (statusMsgSpan) statusMsgSpan.innerHTML = '⚠️ JSON লোড ব্যর্থ';
+        
+        const retryBtn = document.getElementById('retryLoadBtn');
+        if (retryBtn) retryBtn.addEventListener('click', () => fetchDataAndRender());
+    }
+
+    async function fetchDataAndRender() {
+        container.innerHTML = `<div class="loading-placeholder">📖 সংগৃহীত দুআ লোড হচ্ছে... <br> পাথ: ${JSON_PATH}</div>`;
+        if (printBtn) printBtn.disabled = true;
+        if (statusMsgSpan) statusMsgSpan.innerHTML = '⏳ লোডিং... দয়া করে অপেক্ষা করুন';
+        dataLoaded = false;
+        
+        try {
+            const response = await fetch(JSON_PATH + '?t=' + Date.now());
+            if (!response.ok) throw new Error(`HTTP ${response.status} - ফাইল পাওয়া যায়নি`);
+            const data = await response.json();
+            if (!data || !Array.isArray(data)) throw new Error('JSON ফরম্যাট সঠিক নয়: array প্রত্যাশিত');
+            duasData = data;
+            renderAllDuas(duasData);
+            dataLoaded = true;
+            if (printBtn) {
+                printBtn.disabled = false;
+                printBtn.style.opacity = '1';
+            }
+            if (statusMsgSpan) {
+                statusMsgSpan.innerHTML = `✅ ${duasData.length}টি দোয়া লোড হয়েছে | প্রিন্টের জন্য প্রস্তুত`;
+            }
+        } catch (err) {
+            handleFetchError(err);
+        }
+    }
+
+    window.addEventListener('load', () => {
+        initPrintButton();
+        fetchDataAndRender();
+        
+        window.addEventListener('beforeprint', () => {
+            if (!dataLoaded) {
+                alert('দুআ লোড না হওয়া পর্যন্ত প্রিন্ট করা সম্ভব নয়। একটু অপেক্ষা করুন।');
+                return;
+            }
+            const allBlocks = document.querySelectorAll('.dua-block');
+            allBlocks.forEach(block => {
+                block.style.setProperty('break-inside', 'avoid', 'important');
+                block.style.setProperty('page-break-inside', 'avoid', 'important');
+            });
+        });
+        
+        window.addEventListener('afterprint', () => {
+            if (dataLoaded && statusMsgSpan) {
+                statusMsgSpan.innerHTML = `📚 প্রিন্ট শেষ | ${duasData.length}টি দোয়া প্রস্তুত`;
+                setTimeout(() => {
+                    if (statusMsgSpan && dataLoaded) statusMsgSpan.innerHTML = `✅ ${duasData.length}টি দোয়া লোড হয়েছে | প্রিন্টের জন্য প্রস্তুত`;
+                }, 1500);
+            }
+        });
+    });
+})();
+</script>
+</body>
+</html>

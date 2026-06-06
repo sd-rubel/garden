@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Premium Quran Learning App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CSS Variables & Theme Defaults */
+        :root {
+            /* Minimal Black (Default) */
+            --bg-color: #000000;
+            --bg-gradient: linear-gradient(135deg, #0f0f0f 0%, #000000 100%);
+            --card-bg: rgba(30, 30, 30, 0.6);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent-color: #d4af37; /* Gold */
+            --accent-glow: rgba(212, 175, 55, 0.3);
+            
+            --arabic-fs: 2.5rem;
+            --bangla-fs: 1.2rem;
+            
+            /* Badges */
+            --badge-noun: rgba(52, 152, 219, 0.2);
+            --badge-noun-text: #61baf2;
+            --badge-verb: rgba(46, 204, 113, 0.2);
+            --badge-verb-text: #58d68d;
+            --badge-particle: rgba(155, 89, 182, 0.2);
+            --badge-particle-text: #c39bd3;
+        }
+
+        /* Themes */
+        [data-theme="green-islamic"] {
+            --bg-color: #0a1c14;
+            --bg-gradient: linear-gradient(135deg, #0e291e 0%, #05100b 100%);
+            --card-bg: rgba(20, 50, 35, 0.5);
+            --card-border: rgba(29, 185, 84, 0.2);
+            --text-main: #f0fdf4;
+            --accent-color: #1db954;
+            --accent-glow: rgba(29, 185, 84, 0.3);
+        }
+        [data-theme="golden-quran"] {
+            --bg-color: #1a1208;
+            --bg-gradient: radial-gradient(circle at 50% 0%, #2a1e0d 0%, #0f0a05 100%);
+            --card-bg: rgba(40, 28, 15, 0.6);
+            --card-border: rgba(212, 175, 55, 0.2);
+            --text-main: #fdf8e7;
+            --accent-color: #d4af37;
+            --accent-glow: rgba(212, 175, 55, 0.4);
+        }
+        [data-theme="kaaba-night"] {
+            --bg-color: #0b0b0b;
+            --bg-gradient: linear-gradient(180deg, #181818 0%, #000000 100%);
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --card-border: rgba(197, 160, 89, 0.3);
+            --text-main: #eaeaea;
+            --accent-color: #c5a059;
+            --accent-glow: rgba(197, 160, 89, 0.2);
+        }
+
+        /* Reset & Base */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Hind Siliguri', 'Kalpurush', 'Noto Sans Bengali', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Screen Recording Frames */
+        .app-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000; /* Letterbox background */
+        }
+        .frame {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background: var(--bg-gradient);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .frame.aspect-9-16 { aspect-ratio: 9/16; max-width: 100%; height: auto; max-height: 100%; }
+        .frame.aspect-16-9 { aspect-ratio: 16/9; max-height: 100%; width: auto; max-width: 100%; }
+
+        /* Background Visuals */
+        .bg-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image: radial-gradient(var(--text-main) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bg-glow {
+            position: absolute;
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(50px);
+        }
+
+        /* Top Bar */
+        .top-bar {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+            transition: opacity 0.3s;
+        }
+        .icon-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+        .icon-btn:active { transform: scale(0.9); }
+        .controls-group { display: flex; gap: 10px; }
+
+        /* Slide Container */
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+        }
+        .slide {
+            width: 100%;
+            max-width: 800px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .slide.active { display: flex; }
+
+        /* Typography */
+        .arabic-text {
+            font-family: 'Amiri', 'arabic.ttf', serif;
+            font-size: var(--arabic-fs);
+            line-height: 1.6;
+            direction: rtl;
+            color: var(--accent-color);
+            text-shadow: 0 0 15px var(--accent-glow);
+            margin-bottom: 20px;
+        }
+        .bangla-text {
+            font-size: var(--bangla-fs);
+            color: var(--text-main);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        .bangla-pronunciation {
+            font-size: calc(var(--bangla-fs) * 0.85);
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .ayah-badge {
+            background: var(--accent-color);
+            color: var(--bg-color);
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Intro Card */
+        .intro-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            width: 100%;
+        }
+        .intro-surah-ar { font-family: 'Amiri', serif; font-size: 4rem; color: var(--accent-color); margin-bottom: 10px; }
+        .intro-surah-bn { font-size: 2.5rem; font-weight: 700; margin-bottom: 15px; }
+        .intro-meta { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; color: var(--text-muted); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Word Breakdown */
+        .word-breakdown {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+            width: 100%;
+            direction: rtl;
+        }
+        .word-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px 15px;
+            min-width: 80px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+        }
+        .slide.active .word-card { animation: slideUp 0.4s forwards; }
+        .word-card:active { transform: scale(0.95) !important; }
+        .w-ar { font-family: 'Amiri', serif; font-size: calc(var(--arabic-fs) * 0.5); color: var(--accent-color); margin-bottom: 5px; }
+        .w-bn { font-size: calc(var(--bangla-fs) * 0.7); color: var(--text-main); direction: ltr; }
+        
+        /* Grammar Badges */
+        .g-badge {
+            position: absolute; top: -8px; left: -8px;
+            font-size: 0.6rem; padding: 2px 6px; border-radius: 8px;
+            display: none; font-weight: bold; direction: ltr;
+        }
+        body.grammar-mode .g-badge { display: block; }
+        .type-noun { background: var(--badge-noun); color: var(--badge-noun-text); border: 1px solid var(--badge-noun-text); }
+        .type-verb { background: var(--badge-verb); color: var(--badge-verb-text); border: 1px solid var(--badge-verb-text); }
+        .type-particle { background: var(--badge-particle); color: var(--badge-particle-text); border: 1px solid var(--badge-particle-text); }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: absolute;
+            bottom: 30px; left: 20px; right: 20px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .nav-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            pointer-events: auto;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav-btn:active { transform: scale(0.9); background: var(--accent-color); color: var(--bg-color); }
+        .nav-btn.hidden { opacity: 0; pointer-events: none; }
+
+        /* Modals & Bottom Sheets */
+        .overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            z-index: 40;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .overlay.active { display: block; opacity: 1; }
+        
+        .bottom-sheet, .modal {
+            position: fixed;
+            background: var(--bg-color);
+            border: 1px solid var(--card-border);
+            z-index: 50;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .bottom-sheet {
+            bottom: 0; left: 0; right: 0;
+            border-radius: 25px 25px 0 0;
+            padding: 30px 20px;
+            transform: translateY(100%);
+        }
+        .bottom-sheet.active { transform: translateY(0); }
+        
+        .modal {
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 90%; max-width: 400px;
+            border-radius: 20px;
+            padding: 25px;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .modal.active { transform: translate(-50%, -50%) scale(1); opacity: 1; pointer-events: auto; }
+
+        /* Modal specific styles */
+        .modal h3 { margin-bottom: 20px; color: var(--accent-color); text-align: center; }
+        .setting-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .btn-group { display: flex; gap: 10px; }
+        .btn-sm { padding: 5px 15px; border-radius: 8px; background: var(--card-bg); border: 1px solid var(--card-border); color: white; cursor: pointer; }
+        .btn-sm.active { background: var(--accent-color); color: #000; font-weight: bold; }
+        .toggle-switch { width: 40px; height: 20px; background: #333; border-radius: 10px; position: relative; cursor: pointer; }
+        .toggle-switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background: white; border-radius: 50%; transition: 0.3s; }
+        .toggle-switch.active { background: var(--accent-color); }
+        .toggle-switch.active::after { transform: translateX(20px); }
+
+        /* Root Word Content */
+        .rw-ar { font-family: 'Amiri', serif; font-size: 3rem; color: var(--accent-color); text-align: center; margin-bottom: 10px; }
+        .rw-root { text-align: center; color: var(--text-muted); font-size: 1.2rem; margin-bottom: 15px; letter-spacing: 2px; }
+        .rw-bn { text-align: center; font-size: 1.5rem; margin-bottom: 20px; }
+        .rw-meta { display: flex; justify-content: space-around; background: var(--card-bg); padding: 15px; border-radius: 15px; border: 1px solid var(--card-border); }
+        .rw-type { font-weight: bold; }
+        .rw-note { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Recording Mode */
+        body.recording .top-bar { opacity: 0; pointer-events: none; }
+        body.recording .nav-btn { background: transparent; border-color: transparent; color: rgba(255,255,255,0.2); }
+
+        /* Layout Adjustments */
+        @media (orientation: landscape) and (min-width: 600px) {
+            .ayah-layout { display: flex; flex-direction: row; align-items: center; gap: 40px; text-align: right; }
+            .ayah-text-content { flex: 1; display: flex; flex-direction: column; align-items: flex-end; }
+            .word-breakdown { flex: 1; justify-content: flex-end; margin-top: 0; }
+        }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes slideInLeft { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+
+    </style>
+</head>
+<body>
+
+<div class="app-wrapper">
+    <div class="frame" id="mainFrame">
+        <div class="bg-pattern"></div>
+        <div class="bg-glow"></div>
+
+        <!-- Top Controls -->
+        <div class="top-bar">
+            <div class="icon-btn" onclick="openSettings()">⚙️</div>
+            <div class="controls-group">
+                <div class="icon-btn" onclick="cycleTheme()">🎨</div>
+                <div class="icon-btn" onclick="toggleRecording()" id="recBtn">🎥</div>
+            </div>
+        </div>
+
+        <!-- Main Slide Area -->
+        <div class="slider-container" id="sliderContainer">
+            <!-- Slides injected via JS -->
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <button class="nav-btn" id="prevBtn" onclick="prevSlide()">❮ পূর্ববর্তী</button>
+            <button class="nav-btn" id="nextBtn" onclick="nextSlide()">পরবর্তী ❯</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modals & Overlays -->
+<div class="overlay" id="overlay" onclick="closeAllModals()"></div>
+
+<!-- Root Word Explorer Bottom Sheet -->
+<div class="bottom-sheet" id="rootWordSheet">
+    <div class="rw-ar" id="rwAr"></div>
+    <div class="rw-root" id="rwRoot"></div>
+    <div class="rw-bn" id="rwBn"></div>
+    <div class="rw-meta">
+        <div class="rw-type" id="rwType"></div>
+        <div class="rw-note" id="rwNote"></div>
+    </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="modal" id="settingsModal">
+    <h3>সেটিংস</h3>
+    
+    <div class="setting-row">
+        <span>আরবি ফন্ট সাইজ</span>
+        <div class="btn-group">
+            <button class="btn-sm" onclick="changeFontSize('arabic', -0.2)">-</button>
+            <button class="btn-sm" onclick="changeFontSize('arabic', 0.2)">+</button>
+        </div>
+    </div>
+    
+    <div class="setting-row">
+        <span>বাংলা ফন্ট সাইজ</span>
+        <div class="btn-group">
+            <button class="btn-sm" onclick="changeFontSize('bangla', -0.1)">-</button>
+            <button class="btn-sm" onclick="changeFontSize('bangla', 0.1)">+</button>
+        </div>
+    </div>
+
+    <div class="setting-row">
+        <span>স্ক্রিন রেশিও</span>
+        <div class="btn-group">
+            <button class="btn-sm ratio-btn active" data-ratio="auto" onclick="setRatio('auto')">Auto</button>
+            <button class="btn-sm ratio-btn" data-ratio="9-16" onclick="setRatio('9-16')">9:16</button>
+            <button class="btn-sm ratio-btn" data-ratio="16-9" onclick="setRatio('16-9')">16:9</button>
+        </div>
+    </div>
+
+    <div class="setting-row">
+        <span>কুরআনিক গ্রামার মোড</span>
+        <div class="toggle-switch" id="grammarToggle" onclick="toggleGrammar()"></div>
+    </div>
+</div>
+
+<script>
+    /* JSON Data: Surah Al-Fatiha */
+    const quranData = {
+        surah: "আল-ফাতিহা",
+        arabic: "الفاتحة",
+        type: "মাক্কী",
+        ayahCount: 7,
+        intro: "কুরআনের প্রথম সূরা। এটিকে 'উম্মুল কুরআন' বা কুরআনের মা বলা হয়। এটি প্রতিটি সালাতে পাঠ করা বাধ্যতামূলক।",
+        ayahs: [
+            {
+                number: 1,
+                arabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+                pronunciation: "বিসমিল্লাহির রাহমানির রাহীম",
+                translation: "পরম করুণাময় অসীম দয়ালু আল্লাহর নামে (শুরু করছি)",
+                words: [
+                    {arabic: "بِ", root: "-", meaning: "নামে/সাথে", type: "particle", note: "Harf-e-Jarr (Preposition)"},
+                    {arabic: "اسْمِ", root: "س م و", meaning: "নাম", type: "noun", note: "Majroor"},
+                    {arabic: "اللَّهِ", root: "أ ل ه", meaning: "আল্লাহর", type: "noun", note: "Proper Noun"},
+                    {arabic: "الرَّحْمَٰنِ", root: "ر ح م", meaning: "পরম করুণাময়", type: "noun", note: "Adjective"},
+                    {arabic: "الرَّحِيمِ", root: "ر ح م", meaning: "অসীম দয়ালু", type: "noun", note: "Adjective"}
+                ]
+            },
+            {
+                number: 2,
+                arabic: "الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ",
+                pronunciation: "আলহামদু লিল্লাহি রাব্বিল আলামীন",
+                translation: "যাবতীয় প্রশংসা জগতসমূহের প্রতিপালক আল্লাহর জন্য",
+                words: [
+                    {arabic: "الْحَمْدُ", root: "ح م د", meaning: "সকল প্রশংসা", type: "noun", note: "Definite Noun"},
+                    {arabic: "لِ", root: "-", meaning: "জন্য", type: "particle", note: "Preposition"},
+                    {arabic: "لَّهِ", root: "أ ل ه", meaning: "আল্লাহর", type: "noun", note: "Proper Noun"},
+                    {arabic: "رَبِّ", root: "ر ب ب", meaning: "প্রতিপালক", type: "noun", note: "Noun"},
+                    {arabic: "الْعَالَمِينَ", root: "ع ل م", meaning: "জগতসমূহের", type: "noun", note: "Plural Noun"}
+                ]
+            },
+            {
+                number: 3,
+                arabic: "الرَّحْمَٰنِ الرَّحِيمِ",
+                pronunciation: "আর-রাহমানির রাহীম",
+                translation: "যিনি পরম করুণাময়, অসীম দয়ালু",
+                words: [
+                    {arabic: "الرَّحْمَٰنِ", root: "ر ح م", meaning: "পরম করুণাময়", type: "noun", note: "Adjective"},
+                    {arabic: "الرَّحِيمِ", root: "ر ح م", meaning: "অসীম দয়ালু", type: "noun", note: "Adjective"}
+                ]
+            },
+            {
+                number: 4,
+                arabic: "مَالِكِ يَوْمِ الدِّينِ",
+                pronunciation: "মালিকি ইয়াওমিদ্দ্বীন",
+                translation: "যিনি বিচার দিনের মালিক",
+                words: [
+                    {arabic: "مَالِكِ", root: "م ل ك", meaning: "মালিক", type: "noun", note: "Active Participle"},
+                    {arabic: "يَوْمِ", root: "ي و م", meaning: "দিনের", type: "noun", note: "Noun"},
+                    {arabic: "الدِّينِ", root: "د ي ن", meaning: "বিচারের", type: "noun", note: "Definite Noun"}
+                ]
+            },
+            {
+                number: 5,
+                arabic: "إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ",
+                pronunciation: "ইয়্যাকা না'বুদু ওয়া ইয়্যাকা নাসতা'ঈন",
+                translation: "আমরা একমাত্র তোমারই ইবাদত করি এবং শুধুমাত্র তোমারই সাহায্য প্রার্থনা করি",
+                words: [
+                    {arabic: "إِيَّاكَ", root: "-", meaning: "একমাত্র তোমারই", type: "particle", note: "Pronoun"},
+                    {arabic: "نَعْبُدُ", root: "ع ب د", meaning: "আমরা ইবাদত করি", type: "verb", note: "Present Tense"},
+                    {arabic: "وَ", root: "-", meaning: "এবং", type: "particle", note: "Conjunction"},
+                    {arabic: "إِيَّاكَ", root: "-", meaning: "শুধুমাত্র তোমারই", type: "particle", note: "Pronoun"},
+                    {arabic: "نَسْتَعِينُ", root: "ع و ن", meaning: "আমরা সাহায্য চাই", type: "verb", note: "Present Tense"}
+                ]
+            },
+            {
+                number: 6,
+                arabic: "اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ",
+                pronunciation: "ইহদিনাস সিরাতাল মুস্তাকীম",
+                translation: "আমাদের সরল পথ প্রদর্শন করুন",
+                words: [
+                    {arabic: "اهْدِ", root: "ه د ي", meaning: "প্রদর্শন করুন", type: "verb", note: "Imperative"},
+                    {arabic: "نَا", root: "-", meaning: "আমাদের", type: "particle", note: "Attached Pronoun"},
+                    {arabic: "الصِّرَاطَ", root: "ص ر ط", meaning: "পথ", type: "noun", note: "Definite Noun"},
+                    {arabic: "الْمُسْتَقِيمَ", root: "ق و م", meaning: "সরল", type: "noun", note: "Adjective"}
+                ]
+            },
+            {
+                number: 7,
+                arabic: "صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ",
+                pronunciation: "সিরাতাল্লাজিনা আন'আমতা আলাইহিম, গাইরিল মাগদুবি আলাইহিম ওয়ালাদ-দাল্লীন",
+                translation: "তাদের পথ, যাদেরকে আপনি নেয়ামত দান করেছেন। তাদের পথ নয়, যাদের প্রতি আপনার গজব নাযিল হয়েছে এবং যারা পথভ্রষ্ট হয়েছে।",
+                words: [
+                    {arabic: "صِرَاطَ", root: "ص ر ط", meaning: "পথ", type: "noun", note: "Noun"},
+                    {arabic: "الَّذِينَ", root: "-", meaning: "যাদের", type: "particle", note: "Relative Pronoun"},
+                    {arabic: "أَنْعَمْتَ", root: "ن ع م", meaning: "আপনি নেয়ামত দিয়েছেন", type: "verb", note: "Past Tense"},
+                    {arabic: "عَلَيْ", root: "-", meaning: "উপর", type: "particle", note: "Preposition"},
+                    {arabic: "هِمْ", root: "-", meaning: "তাদের", type: "particle", note: "Attached Pronoun"},
+                    {arabic: "غَيْرِ", root: "غ ي ر", meaning: "নয়", type: "particle", note: "Negative Particle"},
+                    {arabic: "الْمَغْضُوبِ", root: "غ ض ب", meaning: "গজবপ্রাপ্ত", type: "noun", note: "Passive Participle"},
+                    {arabic: "وَ", root: "-", meaning: "এবং", type: "particle", note: "Conjunction"},
+                    {arabic: "لَا", root: "-", meaning: "না", type: "particle", note: "Negative Particle"},
+                    {arabic: "الضَّالِّينَ", root: "ض ل ل", meaning: "পথভ্রষ্ট", type: "noun", note: "Active Participle"}
+                ]
+            }
+        ]
+    };
+
+    /* App State */
+    let currentSlideIndex = 0;
+    let totalSlides = quranData.ayahs.length + 1; // +1 for Intro
+    let isRecording = false;
+    let grammarMode = false;
+    let currentThemeIndex = 0;
+    const themes = ['minimal-black', 'green-islamic', 'golden-quran', 'kaaba-night'];
+
+    let rootArabicFs = 2.5;
+    let rootBanglaFs = 1.2;
+
+    /* Initialization */
+    function initApp() {
+        loadSettings();
+        renderAllSlides();
+        showSlide(currentSlideIndex);
+        setupTouchSwipe();
+        setupTapZones();
+    }
+
+    /* Render Slides HTML */
+    function renderAllSlides() {
+        const container = document.getElementById('sliderContainer');
+        let html = '';
+
+        // Slide 0: Intro
+        html += `
+            <div class="slide" id="slide-0">
+                <div class="intro-card">
+                    <div class="intro-surah-ar">${quranData.arabic}</div>
+                    <div class="intro-surah-bn">সূরা ${quranData.surah}</div>
+                    <div class="intro-meta">
+                        <span>${quranData.type}</span> • <span>${quranData.ayahCount} আয়াত</span>
+                    </div>
+                    <div class="bangla-text">${quranData.intro}</div>
+                </div>
+            </div>
+        `;
+
+        // Ayah Slides
+        quranData.ayahs.forEach((ayah, index) => {
+            let wordsHtml = ayah.words.map((w, wIdx) => `
+                <div class="word-card" style="animation-delay: ${wIdx * 0.1}s" onclick="openRootWord('${w.arabic}', '${w.root}', '${w.meaning}', '${w.type}', '${w.note}')">
+                    <div class="g-badge type-${w.type}">${w.type === 'noun' ? 'N' : w.type === 'verb' ? 'V' : 'P'}</div>
+                    <div class="w-ar">${w.arabic}</div>
+                    <div class="w-bn">${w.meaning}</div>
+                </div>
+            `).join('');
+
+            html += `
+                <div class="slide" id="slide-${index + 1}">
+                    <div class="ayah-layout">
+                        <div class="ayah-text-content">
+                            <div class="ayah-badge">${ayah.number}</div>
+                            <div class="arabic-text">${ayah.arabic}</div>
+                            <div class="bangla-pronunciation">${ayah.pronunciation}</div>
+                            <div class="bangla-text">${ayah.translation}</div>
+                        </div>
+                        <div class="word-breakdown">
+                            ${wordsHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        container.innerHTML = html;
+    }
+
+    /* Navigation */
+    function showSlide(index, direction = 'right') {
+        if (index < 0 || index >= totalSlides) return;
+        
+        // Hide all
+        document.querySelectorAll('.slide').forEach(s => {
+            s.classList.remove('active');
+            s.style.animation = 'none';
+        });
+
+        // Show target
+        const target = document.getElementById(`slide-${index}`);
+        target.classList.add('active');
+        
+        // Trigger reflow for animation restart
+        void target.offsetWidth;
+        target.style.animation = direction === 'right' ? 'slideInRight 0.4s ease-out forwards' : 'slideInLeft 0.4s ease-out forwards';
+
+        currentSlideIndex = index;
+        updateNavButtons();
+        saveLastSlide();
+    }
+
+    function nextSlide() {
+        if (currentSlideIndex < totalSlides - 1) showSlide(currentSlideIndex + 1, 'right');
+    }
+
+    function prevSlide() {
+        if (currentSlideIndex > 0) showSlide(currentSlideIndex - 1, 'left');
+    }
+
+    function updateNavButtons() {
+        document.getElementById('prevBtn').classList.toggle('hidden', currentSlideIndex === 0);
+        document.getElementById('nextBtn').classList.toggle('hidden', currentSlideIndex === totalSlides - 1);
+    }
+
+    /* Tap Zones (Left 30%, Right 30%) */
+    function setupTapZones() {
+        document.getElementById('mainFrame').addEventListener('click', (e) => {
+            // Ignore if clicking a button, card, or controls
+            if (e.target.closest('.word-card') || e.target.closest('.nav-btn') || e.target.closest('.top-bar')) return;
+            
+            const w = window.innerWidth;
+            if (e.clientX < w * 0.3) {
+                prevSlide();
+            } else if (e.clientX > w * 0.7) {
+                nextSlide();
+            }
+        });
+    }
+
+    /* Swipe Logic */
+    function setupTouchSwipe() {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const slider = document.getElementById('sliderContainer');
+
+        slider.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        slider.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+
+        function handleSwipe() {
+            const threshold = 50;
+            if (touchEndX < touchStartX - threshold) nextSlide();
+            if (touchEndX > touchStartX + threshold) prevSlide();
+        }
+    }
+
+    /* Modals & Root Word Explorer */
+    function openRootWord(ar, root, bn, type, note) {
+        document.getElementById('rwAr').innerText = ar;
+        document.getElementById('rwRoot').innerText = `মূল: ${root}`;
+        document.getElementById('rwBn').innerText = bn;
+        document.getElementById('rwType').innerText = type === 'noun' ? 'বিশেষ্য (Noun)' : type === 'verb' ? 'ক্রিয়া (Verb)' : 'অব্যয় (Particle)';
+        document.getElementById('rwNote').innerText = note;
+
+        document.getElementById('overlay').classList.add('active');
+        document.getElementById('rootWordSheet').classList.add('active');
+    }
+
+    function openSettings() {
+        document.getElementById('overlay').classList.add('active');
+        document.getElementById('settingsModal').classList.add('active');
+    }
+
+    function closeAllModals() {
+        document.getElementById('overlay').classList.remove('active');
+        document.getElementById('rootWordSheet').classList.remove('active');
+        document.getElementById('settingsModal').classList.remove('active');
+    }
+
+    /* Settings Actions */
+    function toggleRecording() {
+        isRecording = !isRecording;
+        document.body.classList.toggle('recording', isRecording);
+        const recBtn = document.getElementById('recBtn');
+        recBtn.innerText = isRecording ? '🔴' : '🎥';
+        recBtn.style.color = isRecording ? '#ff4757' : '';
+    }
+
+    function cycleTheme() {
+        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+        const newTheme = themes[currentThemeIndex];
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('quran_theme', newTheme);
+    }
+
+    function toggleGrammar() {
+        grammarMode = !grammarMode;
+        document.getElementById('grammarToggle').classList.toggle('active', grammarMode);
+        document.body.classList.toggle('grammar-mode', grammarMode);
+        localStorage.setItem('quran_grammar', grammarMode);
+    }
+
+    function changeFontSize(type, amount) {
+        if (type === 'arabic') {
+            rootArabicFs = Math.max(1.5, Math.min(4.0, rootArabicFs + amount));
+            document.documentElement.style.setProperty('--arabic-fs', `${rootArabicFs}rem`);
+            localStorage.setItem('quran_ar_fs', rootArabicFs);
+        } else {
+            rootBanglaFs = Math.max(0.8, Math.min(2.0, rootBanglaFs + amount));
+            document.documentElement.style.setProperty('--bangla-fs', `${rootBanglaFs}rem`);
+            localStorage.setItem('quran_bn_fs', rootBanglaFs);
+        }
+    }
+
+    function setRatio(ratio) {
+        document.querySelectorAll('.ratio-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`.ratio-btn[data-ratio="${ratio}"]`).classList.add('active');
+        
+        const frame = document.getElementById('mainFrame');
+        frame.className = 'frame'; // reset
+        if (ratio !== 'auto') {
+            frame.classList.add(`aspect-${ratio}`);
+        }
+    }
+
+    /* LocalStorage Management */
+    function saveLastSlide() {
+        try { localStorage.setItem('quran_last_slide', currentSlideIndex); } catch(e){}
+    }
+
+    function loadSettings() {
+        try {
+            // Slide
+            let savedSlide = localStorage.getItem('quran_last_slide');
+            if (savedSlide !== null) currentSlideIndex = parseInt(savedSlide);
+
+            // Theme
+            let savedTheme = localStorage.getItem('quran_theme');
+            if (savedTheme && themes.includes(savedTheme)) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+                currentThemeIndex = themes.indexOf(savedTheme);
+            }
+
+            // Grammar Mode
+            let savedGrammar = localStorage.getItem('quran_grammar');
+            if (savedGrammar === 'true') toggleGrammar();
+
+            // Fonts
+            let savedArFs = localStorage.getItem('quran_ar_fs');
+            if (savedArFs) { rootArabicFs = parseFloat(savedArFs); document.documentElement.style.setProperty('--arabic-fs', `${rootArabicFs}rem`); }
+            
+            let savedBnFs = localStorage.getItem('quran_bn_fs');
+            if (savedBnFs) { rootBanglaFs = parseFloat(savedBnFs); document.documentElement.style.setProperty('--bangla-fs', `${rootBanglaFs}rem`); }
+
+        } catch(e) {} // Ignore if cookies/storage blocked
+    }
+
+    // Run
+    window.onload = initApp;
+
+</script>
+</body>
+</html>
