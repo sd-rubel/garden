@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>দুআ বুকলেট | পৃষ্ঠা অপচয়হীন</title>
+<title>Taqwa.top | ডিজিটাল দুআ ও জিকির ভাণ্ডার</title>
 
 <style>
+/* ফন্ট ইমপোর্ট */
 @font-face {
     font-family: 'Kalpurush';
     src: url('kalpurush.ttf') format('truetype');
@@ -29,314 +30,429 @@
 }
 
 body {
-    background: white;
+    background: #f4f7f5;
     font-family: 'Kalpurush', 'Segoe UI', 'Noto Sans Bengali', serif;
     color: #1f2a2f;
-    padding: 12px 8px;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.page-wrapper {
-    max-width: 210mm;
-    margin: 0 auto;
-    background: white;
+/* ওয়েবসাইট হেডার */
+header {
+    background: linear-gradient(135deg, #1f4f3e, #2c6b55);
+    color: white;
+    padding: 35px 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-/* বর্ডার সম্পূর্ণ বাদ */
-.dua-block {
-    background: white;
-    border: none;
-    border-radius: 0;
+header h1 {
+    font-size: 28pt;
+    font-weight: 800;
     margin-bottom: 8px;
-    overflow: visible;
+    letter-spacing: 1px;
 }
 
-.dua-header {
-    padding: 8px 12px 4px;
-    border-bottom: none;
+header p {
+    font-size: 13pt;
+    color: #e2ede9;
+    font-weight: 300;
 }
 
-.dua-title {
+/* মূল কন্টেইনার */
+.main-container {
+    max-width: 850px;
+    width: 92%;
+    margin: 30px auto;
+    flex: 1;
+}
+
+/* ভিউ কন্ট্রোল (লিস্ট ও ডিটেইল হাইড/শো করার জন্য) */
+.view-section {
+    display: none;
+}
+.view-section.active {
+    display: block;
+}
+
+/* --- ১. লিস্ট ভিউ স্টাইল --- */
+.list-title {
+    font-size: 16pt;
+    color: #1f4f3e;
+    margin-bottom: 15px;
+    font-weight: bold;
+    border-bottom: 2px solid #2c6b55;
+    padding-bottom: 5px;
+}
+
+.dua-list {
+    list-style: none;
+}
+
+.dua-item {
+    background: white;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    border: 1px solid #eef2f0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.dua-item:hover {
+    transform: translateX(5px);
+    background: #fafdfc;
+    border-color: #2c6b55;
+}
+
+.dua-item-name {
+    font-size: 14pt;
+    font-weight: bold;
+    color: #2c6b55;
+}
+
+.dua-item-source {
+    font-size: 10pt;
+    color: #a5723e;
+    background: #fbf5ee;
+    padding: 2px 10px;
+    border-radius: 20px;
+}
+
+/* --- ২. ডিটেইল ভিউ স্টাইল --- */
+.back-btn {
+    background: #2c6b55;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    font-size: 11pt;
+    font-family: 'Kalpurush', sans-serif;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: #1f4f3e;
+}
+
+.dua-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eef2f0;
+    overflow: hidden;
+}
+
+.dua-card-header {
+    padding: 20px 24px;
+    background: #fcfdfe;
+    border-bottom: 1px solid #f1f5f3;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dua-card-title {
     font-size: 18pt;
     font-weight: 800;
     color: #2c6b55;
-    text-align: left;
-}
-
-.source-line {
-    font-size: 9.5pt;
-    color: #a5723e;
-    text-align: right;
-    direction: ltr;
-    margin-top: 2px;
 }
 
 .arabic-text {
     font-family: 'ArabicFont', 'Scheherazade', serif;
-    font-size: 25pt;
+    font-size: 26pt;
     text-align: center;
     direction: rtl;
-    padding: 8px 12px 5px;
-    line-height: 1.45;
+    padding: 35px 24px;
+    line-height: 1.6;
+    background: #fafdfc;
+    color: #1a1a1a;
+    border-bottom: 1px solid #f6faf8;
 }
 
 .text-content {
-    padding: 5px 12px 6px;
-    line-height: 1.5;
-    text-align: justify;
+    padding: 20px 24px;
 }
 
-.pronunciation-line {
-    font-size: 11.5pt;
-    margin-bottom: 8px;
+.pronunciation-line, .meaning-line {
+    font-size: 13pt;
+    margin-bottom: 12px;
     text-align: justify;
 }
 
 .meaning-line {
-    font-size: 12pt;
-    margin-top: 4px;
-    text-align: justify;
+    margin-bottom: 0;
 }
 
 .label {
     font-weight: 700;
     color: #bf6f2c;
     display: inline-block;
-    margin-right: 6px;
+    margin-right: 8px;
 }
 
+/* শব্দভিত্তিক গ্রিড */
 .word-chips-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 9px;
-    padding: 5px 12px 9px;
+    gap: 12px;
+    padding: 15px 24px 25px;
+    background: #fdfdfd;
+    border-top: 1px dashed #e9efecc2;
 }
 
 .word-chip {
-    flex: 0 0 auto;
-    text-align: center;
-    min-width: 95px;
-    max-width: 165px;
+    background: #ffffff;
+    border: 1px solid #e2ece8;
+    border-radius: 10px;
+    padding: 10px;
+    min-width: 110px;
+    max-width: 180px;
+    flex: 1 1 calc(23% - 12px);
     display: inline-flex;
     flex-direction: column;
     align-items: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.01);
 }
 
 .chip-arabic {
     font-family: 'ArabicFont', 'Scheherazade', serif;
-    font-size: 15pt;
+    font-size: 16pt;
     font-weight: 600;
     direction: rtl;
     color: #1f5b48;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
 }
 
 .chip-pronounce {
-    font-size: 9pt;
+    font-size: 9.5pt;
     color: #8b6e48;
-    margin: 1px 0;
+    font-weight: bold;
+    margin: 2px 0;
 }
 
 .chip-meaning {
-    font-size: 9pt;
+    font-size: 9.5pt;
     color: #4c5c4c;
+    text-align: center;
 }
 
 .no-word-msg {
-    font-size: 9.5pt;
+    font-size: 10pt;
     color: #968c71;
     text-align: center;
     width: 100%;
+    font-style: italic;
 }
 
-/* ফজিলত লাইনের উপরের বর্ডার বাদ */
+/* ফজিলত সেকশন */
 .merit {
-    padding: 5px 12px 7px;
-    font-size: 10pt;
+    padding: 18px 24px;
+    font-size: 11pt;
     color: #2f5548;
-    border-top: none;
+    background: #f0f7f4;
+    border-top: 1px solid #e1ede8;
     text-align: justify;
 }
 
 .merit b {
     color: #9b5e2c;
-    font-size: 10pt;
 }
 
-.no-print {
-    position: fixed;
-    top: 14px;
-    right: 18px;
-    z-index: 1000;
-}
-
-.btn {
-    background: #2c6b55;
-    color: white;
-    font-family: 'Kalpurush', sans-serif;
-    padding: 6px 22px;
-    font-size: 12px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background: #1f4f3e;
-}
-
+/* প্লেসহোল্ডার */
 .loading-placeholder {
     text-align: center;
-    padding: 40px;
-    font-size: 13pt;
+    padding: 60px;
+    font-size: 15pt;
     color: #6a7c6e;
 }
 
-/* প্রিন্ট সেটআপ */
-@media print {
+/* ওয়েবসাইট ফুটার */
+footer {
+    background: #1e2623;
+    color: #a3b0aa;
+    padding: 35px 20px;
+    text-align: center;
+    margin-top: 60px;
+    font-size: 11pt;
+    border-top: 4px solid #2c6b55;
+}
 
-    @page {
-        size: A4 portrait;
-        margin: 10mm 8mm 14mm 8mm;
+footer .dev-info {
+    margin-bottom: 10px;
+    color: #e2ede9;
+}
 
-        @bottom-center {
-            content: counter(page, bengali);
-            font-family: 'Kalpurush', sans-serif;
-            font-size: 11pt;
-            color: #2c5e4c;
-        }
-    }
+footer a {
+    color: #4eb391;
+    text-decoration: none;
+}
 
-    body {
-        padding: 0;
-        margin: 0;
-        background: white;
-    }
+footer a:hover {
+    text-decoration: underline;
+}
 
-    .no-print {
-        display: none !important;
-    }
-
-    .page-wrapper {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* প্রিন্টেও কোন বর্ডার থাকবে না */
-    .dua-block {
-        margin-bottom: 5px;
-        border: none !important;
-        border-radius: 0;
-        overflow: visible;
-        page-break-inside: auto !important;
-        break-inside: auto !important;
-    }
-
-    .dua-header {
-        padding: 5px 10px 3px;
-        border-bottom: none !important;
-        break-inside: avoid;
-        page-break-inside: avoid;
-    }
-
-    .dua-title {
-        font-size: 18pt !important;
-    }
-
-    .source-line {
-        font-size: 10pt !important;
-    }
-
-    .arabic-text {
-        font-size: 26pt !important;
-        line-height: 1.45;
-        padding: 6px 10px 4px;
-        break-inside: avoid;
-        page-break-inside: avoid;
-    }
-
-    .text-content {
-        padding: 4px 10px 5px;
-    }
-
-    .pronunciation-line {
-        font-size: 13pt !important;
-        margin-bottom: 6px !important;
-    }
-
-    .meaning-line {
-        font-size: 14pt !important;
-    }
-
-    .word-chips-container {
-        gap: 8px;
-        padding: 4px 10px 6px;
-        break-inside: auto;
-        page-break-inside: auto;
-    }
-
-    .word-chip {
-        min-width: 115px;
-        max-width: 190px;
-        break-inside: avoid;
-        page-break-inside: avoid;
-    }
-
-    .chip-arabic {
-        font-size: 17pt !important;
-    }
-
-    .chip-pronounce,
-    .chip-meaning {
-        font-size: 10pt !important;
-    }
-
-    .merit {
-        border-top: none !important;
-        font-size: 12pt !important;
-        padding: 4px 10px 6px;
-    }
-
-    .merit b {
-        font-size: 12pt !important;
-    }
+/* রেসপন্সিভ ডিজাইন */
+@media (max-width: 600px) {
+    header h1 { font-size: 22pt; }
+    .dua-card-title { font-size: 15pt; }
+    .arabic-text { font-size: 22pt; }
+    .word-chip { flex: 1 1 calc(50% - 12px); }
+    .dua-item { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .dua-item-source { align-self: flex-end; }
 }
 </style>
 </head>
 
 <body>
 
-<div class="no-print">
-    <button class="btn" onclick="window.print()">🖨️ প্রিন্ট করুন</button>
+<!-- হেডার সেকশন -->
+<header>
+    <h1>Taqwa.top</h1>
+    <p>সহীহ দুআ ও শব্দভিত্তিক অর্থ বিশ্লেষণ</p>
+</header>
+
+<!-- মূল কন্টেন্ট এলাকা -->
+<div class="main-container">
+    
+    <!-- ১. লিস্ট ভিউ স্ক্রিন -->
+    <div id="list-view" class="view-section active">
+        <div class="list-title">সকল দুআ ও সূরার তালিকা:</div>
+        <ul class="dua-list" id="dua-list-container">
+            <div class="loading-placeholder">তালিকা লোড হচ্ছে...</div>
+        </ul>
+    </div>
+
+    <!-- ২. ডিটেইল ভিউ স্ক্রিন -->
+    <div id="detail-view" class="view-section">
+        <button class="back-btn" onclick="showListView()">⬅ তালিকা ফিরে যান</button>
+        <div id="dua-detail-container"></div>
+    </div>
+
 </div>
 
-<div class="page-wrapper" id="main-content">
-    <div class="loading-placeholder">দুআ সংগ্রহ লোড হচ্ছে...</div>
-</div>
+<!-- ফুটার সেকশন -->
+<footer>
+    <div class="dev-info">
+        <strong>পরিকল্পনা ও উন্নয়নে:</strong> Sd Rubel
+    </div>
+    <div>
+        ঠিকানা: দক্ষিণ শালিকা, মেহেরপুর জেলা | ইমেইল: <a href="mailto:sdnrubel@gmail.com">sdnrubel@gmail.com</a>
+    </div>
+    <div style="margin-top: 15px; font-size: 9.5pt; color: #6e7d77;">
+        &copy; 2026 Taqwa.top. সর্বস্বত্ব সংরক্ষিত।
+    </div>
+</footer>
 
 <script>
-(function() {
+let globalDuaData = []; // ডাটা গ্লোবালি রাখার জন্য
 
-    const container = document.getElementById('main-content');
+function toBengaliNumber(num) {
+    if (num === undefined || num === null) return '';
+    const en = '0123456789';
+    const bn = '০১২৩৪৫৬৭৮৯';
+    return num.toString().replace(/[0-9]/g, d => bn[en.indexOf(d)]);
+}
 
-    function toBengaliNumber(num) {
-        if (num === undefined || num === null) return '';
-        const en = '0123456789';
-        const bn = '০১২৩৪৫৬৭৮৯';
-        return num.toString().replace(/[0-9]/g, d => bn[en.indexOf(d)]);
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.toString().replace(/[&<>"]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        if (m === '"') return '&quot;';
+        return m;
+    });
+}
+
+// লিস্ট স্ক্রিনে যাওয়ার ফাংশন
+function showListView() {
+    document.getElementById('detail-view').classList.remove('active');
+    document.getElementById('list-view').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ডিটেইল বা একক তথ্য স্ক্রিনে যাওয়ার ফাংশন
+function showDetailView(duaIdInArray) {
+    const dua = globalDuaData[duaIdInArray];
+    if (!dua) return;
+
+    const detailContainer = document.getElementById('dua-detail-container');
+    detailContainer.innerHTML = '';
+
+    let wordChipsHtml = '';
+    if (Array.isArray(dua.word_by_word) && dua.word_by_word.length > 0) {
+        wordChipsHtml = `
+            <div class="word-chips-container">
+                ${dua.word_by_word.map(w => `
+                    <div class="word-chip">
+                        <div class="chip-arabic">${escapeHtml(w.arabic || '—')}</div>
+                        ${w.pronunciation ? `<div class="chip-pronounce">${escapeHtml(w.pronunciation)}</div>` : ''}
+                        ${w.meaning ? `<div class="chip-meaning">${escapeHtml(w.meaning)}</div>` : ''}
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } else {
+        wordChipsHtml = `
+            <div class="word-chips-container">
+                <div class="no-word-msg">এই দুআটির শব্দভিত্তিক বিশ্লেষণ উপলব্ধ নেই।</div>
+            </div>
+        `;
     }
 
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.toString().replace(/[&<>"]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            if (m === '"') return '&quot;';
-            return m;
-        });
-    }
+    const duaIdDisplay = dua.dua_id ? toBengaliNumber(dua.dua_id) + '. ' : '';
+
+    detailContainer.innerHTML = `
+        <div class="dua-card">
+            <div class="dua-card-header">
+                <div class="dua-card-title">${escapeHtml(duaIdDisplay + (dua.dua_name || 'দোয়া'))}</div>
+                <div class="dua-item-source">${escapeHtml(dua.source || 'উৎস')}</div>
+            </div>
+
+            <div class="arabic-text">
+                ${escapeHtml(dua.arabic_full || '')}
+            </div>
+
+            <div class="text-content">
+                <div class="pronunciation-line">
+                    <span class="label">উচ্চারণ:</span> ${escapeHtml(dua.pronunciation || '—')}
+                </div>
+                <div class="meaning-line">
+                    <span class="label">অর্থ বাংলা:</span> ${escapeHtml(dua.bangla_translation || 'অনুবাদ নেই')}
+                </div>
+            </div>
+
+            ${wordChipsHtml}
+
+            <div class="merit">
+                <b>ফজিলত ও আমল:</b> ${escapeHtml(dua.merit || 'ফজিলত উল্লেখ নেই')}
+            </div>
+        </div>
+    `;
+
+    document.getElementById('list-view').classList.remove('active');
+    document.getElementById('detail-view').classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// উইন্ডো লোড হওয়ার পর data.json থেকে ডেটা আনা
+document.addEventListener("DOMContentLoaded", function() {
+    const listContainer = document.getElementById('dua-list-container');
 
     fetch('data.json')
         .then(res => {
@@ -344,125 +460,40 @@ body {
             return res.json();
         })
         .then(data => {
-
-            container.innerHTML = '';
+            globalDuaData = data;
+            listContainer.innerHTML = '';
 
             if (!data || !data.length) {
-                container.innerHTML = '<div style="padding:20px;text-align:center;">ডাটা নেই। data.json ফাইল চেক করুন।</div>';
+                listContainer.innerHTML = '<div style="padding:20px; text-align:center; background:white; border-radius:12px;">কোনো ডেটা পাওয়া যায়নি।</div>';
                 return;
             }
 
-            data.forEach(dua => {
-
-                let wordChipsHtml = '';
-
-                if (Array.isArray(dua.word_by_word) && dua.word_by_word.length > 0) {
-
-                    wordChipsHtml = `
-                        <div class="word-chips-container">
-                            ${dua.word_by_word.map(w => `
-                                <div class="word-chip">
-                                    <div class="chip-arabic">${escapeHtml(w.arabic || '—')}</div>
-
-                                    ${w.pronunciation ? `
-                                        <div class="chip-pronounce">
-                                            ${escapeHtml(w.pronunciation)}
-                                        </div>
-                                    ` : ''}
-
-                                    ${w.meaning ? `
-                                        <div class="chip-meaning">
-                                            ${escapeHtml(w.meaning)}
-                                        </div>
-                                    ` : ''}
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
-
-                } else {
-
-                    wordChipsHtml = `
-                        <div class="word-chips-container">
-                            <div class="no-word-msg">
-                                শব্দভিত্তিক বিশ্লেষণ নেই
-                            </div>
-                        </div>
-                    `;
-                }
-
-                const duaId = dua.dua_id
-                    ? toBengaliNumber(dua.dua_id) + '. '
-                    : '';
-
-                const block = document.createElement('div');
-                block.className = 'dua-block';
-
-                block.innerHTML = `
-                    <div class="dua-header">
-                        <div class="dua-title">
-                            ${escapeHtml(duaId + (dua.dua_name || 'দোয়া'))}
-                        </div>
-
-                        <div class="source-line">
-                            ${escapeHtml(dua.source || 'উৎস')}
-                        </div>
-                    </div>
-
-                    <div class="arabic-text">
-                        ${escapeHtml(dua.arabic_full || '')}
-                    </div>
-
-                    <div class="text-content">
-
-                        <div class="pronunciation-line">
-                            <span class="label">উচ্চারণ:</span>
-                            ${escapeHtml(dua.pronunciation || '—')}
-                        </div>
-
-                        <div class="meaning-line">
-                            <span class="label">অর্থ বাংলা:</span>
-                            ${escapeHtml(dua.bangla_translation || 'অনুবাদ নেই')}
-                        </div>
-
-                    </div>
-
-                    ${wordChipsHtml}
-
-                    <div class="merit">
-                        <b>ফজিলত:</b>
-                        ${escapeHtml(dua.merit || 'ফজিলত উল্লেখ নেই')}
-                    </div>
+            // লুপ চালিয়ে শুধুমাত্র নামের তালিকা তৈরি
+            data.forEach((dua, index) => {
+                const duaIdDisplay = dua.dua_id ? toBengaliNumber(dua.dua_id) + '. ' : '';
+                
+                const li = document.createElement('li');
+                li.className = 'dua-item';
+                li.setAttribute('onclick', `showDetailView(${index})`);
+                
+                li.innerHTML = `
+                    <div class="dua-item-name">${escapeHtml(duaIdDisplay + (dua.dua_name || 'দোয়া'))}</div>
+                    <div class="dua-item-source">${escapeHtml(dua.source || 'উৎস')}</div>
                 `;
-
-                container.appendChild(block);
+                
+                listContainer.appendChild(li);
             });
-
         })
         .catch(error => {
-
             console.error(error);
-
-            container.innerHTML = `
-                <div style="
-                    padding:24px;
-                    text-align:center;
-                    background:white;
-                ">
-                    <h3 style="color:#aa5e2b;">
-                        data.json লোড করতে ব্যর্থ
-                    </h3>
-
-                    <p style="margin-top:8px;">
-                        একই ফোল্ডারে
-                        <strong>data.json</strong>
-                        ফাইল রাখুন।
-                    </p>
+            listContainer.innerHTML = `
+                <div style="padding:20px; text-align:center; background:white; border-radius:12px;">
+                    <h3 style="color:#aa5e2b;">তালিকা লোড করতে ব্যর্থ</h3>
+                    <p style="margin-top:5px; color:#666;">আপনার data.json ফাইলটি ঠিক আছে কি না নিশ্চিত করুন।</p>
                 </div>
             `;
         });
-
-})();
+});
 </script>
 
 </body>
