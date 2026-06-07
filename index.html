@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taqwa.top | ডিজিটাল দুআ ও জিকির ভাণ্ডার</title>
+
+<title id="site-title">Taqwa.top | ডিজিটাল দুআ ও জিকির ভাণ্ডার</title>
+<meta id="meta-desc" name="description" content="Taqwa.top - সহীহ দুআ, জিকির এবং সূরাসমূহের শব্দভিত্তিক অর্থ ও ফজিলত বিশ্লেষণ। প্রতিদিনের প্রয়োজনীয় মাসনুন দুআ ও আমল।">
+<meta id="meta-keywords" name="keywords" content="দুআ, সূরা, জিকির, শব্দভিত্তিক অর্থ, ফজিলত, মাসনুন দুআ, ইসলামিক আমল, Taqwa.top, তাকওয়া">
+<link id="canonical-url" rel="canonical" href="https://taqwa.top/">
+
+<meta id="og-title" property="og:title" content="Taqwa.top | ডিজিটাল দুআ ও জিকির ভাণ্ডার">
+<meta id="og-desc" property="og:description" content="सहীহ দুআ, জিকির এবং সূরাসমূহের শব্দভিত্তিক অর্থ ও ফজিলত বিশ্লেষণ।">
+<meta id="og-type" property="og:type" content="website">
+<meta id="og-url" property="og:url" content="https://taqwa.top/">
+<meta property="og:site_name" content="Taqwa.top">
 
 <style>
 /* ফন্ট ইমপোর্ট */
@@ -69,7 +79,7 @@ header p {
     flex: 1;
 }
 
-/* ভিউ কন্ট্রোল (লিস্ট ও ডিটেইল হাইড/শো করার জন্য) */
+/* ভিউ কন্ট্রোল */
 .view-section {
     display: none;
 }
@@ -320,16 +330,13 @@ footer a:hover {
 
 <body>
 
-<!-- হেডার সেকশন -->
 <header>
     <h1>Taqwa.top</h1>
     <p>সহীহ দুআ ও শব্দভিত্তিক অর্থ বিশ্লেষণ</p>
 </header>
 
-<!-- মূল কন্টেন্ট এলাকা -->
 <div class="main-container">
     
-    <!-- ১. লিস্ট ভিউ স্ক্রিন -->
     <div id="list-view" class="view-section active">
         <div class="list-title">সকল দুআ ও সূরার তালিকা:</div>
         <ul class="dua-list" id="dua-list-container">
@@ -337,15 +344,13 @@ footer a:hover {
         </ul>
     </div>
 
-    <!-- ২. ডিটেইল ভিউ স্ক্রিন -->
     <div id="detail-view" class="view-section">
-        <button class="back-btn" onclick="showListView()">⬅ তালিকা ফিরে যান</button>
+        <button class="back-btn" onclick="history.back()">⬅ তালিকায় ফিরে যান</button>
         <div id="dua-detail-container"></div>
     </div>
 
 </div>
 
-<!-- ফুটার সেকশন -->
 <footer>
     <div class="dev-info">
         <strong>পরিকল্পনা ও উন্নয়নে:</strong> Sd Rubel
@@ -360,6 +365,7 @@ footer a:hover {
 
 <script>
 let globalDuaData = []; // ডাটা গ্লোবালি রাখার জন্য
+const baseUrl = "https://taqwa.top/"; // আপনার ওয়েবসাইটের মূল ইউআরএল
 
 function toBengaliNumber(num) {
     if (num === undefined || num === null) return '';
@@ -379,15 +385,58 @@ function escapeHtml(str) {
     });
 }
 
-// লিস্ট স্ক্রিনে যাওয়ার ফাংশন
+// ডিফল্ট গ্লোবাল এসইও রিসেট করার ফাংশন (লিস্ট পেজে ফেরার সময়)
+function resetGlobalSEO() {
+    document.title = "Taqwa.top | ডিজিটাল দুআ ও জিকির ভাণ্ডার";
+    document.getElementById('meta-desc').setAttribute("content", "Taqwa.top - সহীহ দুআ, জিকির এবং সূরাসমূহের শব্দভিত্তিক অর্থ ও ফজিলত বিশ্লেষণ। প্রতিদিনের প্রয়োজনীয় মাসনুন দুআ ও আমল।");
+    document.getElementById('meta-keywords').setAttribute("content", "দুআ, সূরা, জিকির, শব্দভিত্তিক অর্থ, ফজিলত, মাসনুন দুআ, ইসলামিক আমল, Taqwa.top");
+    document.getElementById('canonical-url').setAttribute("href", baseUrl);
+    
+    // OG রিসেট
+    document.getElementById('og-title').setAttribute("content", "Taqwa.top | ডিজিটাল দুআ ও জিকির ভাণ্ডার");
+    document.getElementById('og-desc').setAttribute("content", "সহীহ দুআ, জিকির এবং সূরাসমূহের শব্দভিত্তিক অর্থ ও ফজিলত বিশ্লেষণ।");
+    document.getElementById('og-url').setAttribute("content", baseUrl);
+}
+
+// প্রতিটা দুআর জন্য ডাইনামিক এসইও সেট করার ফাংশন
+function updateDynamicSEO(dua, index) {
+    const name = dua.dua_name || 'দোয়া';
+    const source = dua.source || 'সহীহ হাদীস';
+    
+    // ১. ডাইনামিক টাইটেল জেনারেট (উদা: আয়াতুল কুরসি এর অর্থ ও ফজিলত | Taqwa.top)
+    const dynamicTitle = `${name} এর উচ্চারণ, অর্থ ও ফজিলত | উৎস: ${source} | Taqwa.top`;
+    document.title = dynamicTitle;
+
+    // ২. ডাইনামিক ডেসক্রিপশন (বাংলা অনুবাদ বা ফজিলতের প্রথম ১৫০ অক্ষর দিয়ে অটো ডেসক্রিপশন)
+    let rawDesc = dua.bangla_translation || dua.merit || "";
+    let cleanDesc = rawDesc.replace(/"/g, '').substring(0, 150);
+    const dynamicDesc = `${name} এর আরবি, বাংলা উচ্চারণ, অনুবাদ এবং শব্দভিত্তিক বিশ্লেষণ। ফজিলত ও আমল: ${cleanDesc}...`;
+    document.getElementById('meta-desc').setAttribute("content", dynamicDesc);
+
+    // ৩. ডাইনামিক কিওয়ার্ডস
+    const dynamicKeywords = `${name}, ${name} এর ফজিলত, ${name} এর অর্থ, ${name} উচ্চারণ, ${source}, দুআ, Taqwa.top`;
+    document.getElementById('meta-keywords').setAttribute("content", dynamicKeywords);
+
+    // ৪. ডাইনামিক ক্যানোনিকাল ও ওজি ইউআরএল (সার্চ ইঞ্জিনের চেনার সুবিধার্থে ভার্চুয়াল আইডি প্যাথ)
+    const virtualUrl = `${baseUrl}?dua=${index + 1}`;
+    document.getElementById('canonical-url').setAttribute("href", virtualUrl);
+    
+    // সোশ্যাল মিডিয়া ওজি ট্যাগস আপডেট
+    document.getElementById('og-title').setAttribute("content", dynamicTitle);
+    document.getElementById('og-desc').setAttribute("content", dynamicDesc);
+    document.getElementById('og-url').setAttribute("content", virtualUrl);
+}
+
+// লিস্ট স্ক্রিনে যাওয়ার মূল ফাংশন
 function showListView() {
     document.getElementById('detail-view').classList.remove('active');
     document.getElementById('list-view').classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    resetGlobalSEO(); // লিস্টে ফিরলে এসইও ডিফল্ট অবস্থায় যাবে
 }
 
 // ডিটেইল বা একক তথ্য স্ক্রিনে যাওয়ার ফাংশন
-function showDetailView(duaIdInArray) {
+function showDetailView(duaIdInArray, isPopState = false) {
     const dua = globalDuaData[duaIdInArray];
     if (!dua) return;
 
@@ -448,11 +497,32 @@ function showDetailView(duaIdInArray) {
     document.getElementById('list-view').classList.remove('active');
     document.getElementById('detail-view').classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // ১. মেটা ট্যাগ ও এসইও অটো-আপডেট
+    updateDynamicSEO(dua, duaIdInArray);
+
+    // ২. ব্যাক বাটনের জন্য নতুন একটি ভার্চুয়াল স্টেট পুশ করা
+    if (!isPopState) {
+        history.pushState({ page: 'detail', id: duaIdInArray }, '', `?dua=${duaIdInArray + 1}`);
+    }
 }
+
+// ব্রাউজার বা মোবাইলের ব্যাক বাটন ডিটেক্ট করার লিসেনার
+window.addEventListener('popstate', function(event) {
+    if (event.state && event.state.page === 'detail') {
+        showDetailView(event.state.id, true);
+    } else {
+        showListView();
+        // ইউআরএল থেকে কুয়েরি প্যারামিটার ক্লিন করে মেইন ডোমেইনে আনা
+        history.replaceState({ page: 'list' }, '', window.location.pathname);
+    }
+});
 
 // উইন্ডো লোড হওয়ার পর data.json থেকে ডেটা আনা
 document.addEventListener("DOMContentLoaded", function() {
     const listContainer = document.getElementById('dua-list-container');
+
+    history.replaceState({ page: 'list' }, '', window.location.search ? window.location.href : window.location.pathname);
 
     fetch('data.json')
         .then(res => {
@@ -468,7 +538,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 return;
             }
 
-            // লুপ চালিয়ে শুধুমাত্র নামের তালিকা তৈরি
             data.forEach((dua, index) => {
                 const duaIdDisplay = dua.dua_id ? toBengaliNumber(dua.dua_id) + '. ' : '';
                 
@@ -483,6 +552,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 listContainer.appendChild(li);
             });
+
+            // এডভান্সড এসইও রাউটিং: যদি কেউ সরাসরি লিংকে (যেমন: taqwa.top?dua=3) প্রবেশ করে, তবে সরাসরি সেই দুআ ওপেন হবে
+            const urlParams = new URLSearchParams(window.location.search);
+            const duaParam = urlParams.get('dua');
+            if (duaParam) {
+                const targetIndex = parseInt(duaParam) - 1;
+                if (targetIndex >= 0 && targetIndex < globalDuaData.length) {
+                    showDetailView(targetIndex, true);
+                }
+            }
         })
         .catch(error => {
             console.error(error);
